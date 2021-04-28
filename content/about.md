@@ -13,3 +13,4 @@ I like:
 - Algorithms (though I'm not good at them)
 - The number 2
 - Dogs and frogs
+- Idk
