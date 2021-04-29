@@ -158,7 +158,7 @@ disableHugoGeneratorInject = false
 
 [languages]
   [languages.en]
-    subtitle  = "Gary Sun's website"
+    # subtitle  = "Gary Sun's website"
     weight    = 1
     copyright = ' '
 
