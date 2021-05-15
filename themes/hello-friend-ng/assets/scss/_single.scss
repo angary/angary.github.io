@@ -220,3 +220,23 @@
     margin-right: 8px;
   }
 }
+
+@media screen {
+  // single page part
+  .sidebar-toc {
+    ul ul {
+      font-size: 0.875rem;
+      padding-left: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    position: sticky;
+    top: 1rem;
+
+    #TableOfContents {
+      max-height: 80vh;
+      overflow: auto;
+      scrollbar-width: thin;
+    }
+  }
+}
