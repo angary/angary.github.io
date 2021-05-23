@@ -233,6 +233,6 @@ disableHugoGeneratorInject = false
     style = "monokai"
     tabWidth = 4
   [markup.tableOfContents]
-    endLevel = 3
-    ordered = true
+    endLevel = 2
+    ordered = false
     startLevel = 1
