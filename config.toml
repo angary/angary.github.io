@@ -61,7 +61,7 @@ disableHugoGeneratorInject = false
 
   # Home subtitle of the index page.
   #
-  homeSubtitle = "Some dude in Sydney, Australia"
+  homeSubtitle = "hello"
 
   # Set a background for the homepage
   # backgroundImage = "assets/images/background.jpg"
@@ -113,8 +113,8 @@ disableHugoGeneratorInject = false
     theme = "#1b1c1d"
 
   [params.logo]
-    logoMark     = ">"
-    logoText     = "$ cd /home/"
+    logoMark     = " "
+    logoText     = "angary"
     logoHomeLink = "/"
     # Set true to remove the logo cursor entirely.
     logoCursorDisabled = true
@@ -131,8 +131,8 @@ disableHugoGeneratorInject = false
   # A better internet.
   # Uncomment this to enable Commento.
   #
-  # [params.commento]
-  #   url = ""
+  [params.commento]
+    url = ""
 
   # Uncomment this if you want a portrait on your start page
   #
