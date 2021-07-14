@@ -21,6 +21,9 @@ rm -rf public/*
 echo "Generating site"
 hugo
 
+echo "Adding CNAME"
+cat CNAME >> public/CNAME
+
 echo "Updating gh-pages branch"
 cd public
 git add --all
