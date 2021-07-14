@@ -12,6 +12,6 @@ Discord bot for aggregating and presenting Dota 2 stats
 
 ---
 
-### [assorted-algos](https://github.com/angary/assorted-algos)
+### [assorted-algos](https://github.com/angary/assorted-algorithms)
 A collection of experimental algorithms
 
