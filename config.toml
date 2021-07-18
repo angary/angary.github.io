@@ -217,9 +217,6 @@ disableHugoGeneratorInject = false
     [markup.goldmark.parser]
       autoHeadingID = true
       autoHeadingIDType = "github"
-      [markup.goldmark.parser.attribute]
-        block = false
-        title = true
     [markup.goldmark.renderer]
       hardWraps = false
       unsafe = false
