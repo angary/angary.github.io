@@ -110,7 +110,7 @@ a {
 }
 
 a:hover {
-  color: #00bbff;
+  color: $blue-highlight;
 }
 
 img {
@@ -219,7 +219,7 @@ em, i, strong {
 code {
   font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
   font-display: auto;
-  // font-feature-settings: normal;
+  font-feature-settings: normal;
   border-radius: 5px;
   // Default
   background: $light-background-secondary;
@@ -280,7 +280,7 @@ pre {
 }
 
 blockquote {
-  border-left: 3px solid #3eb0ef;
+  border-left: 3px solid $blue-highlight;
   margin: 40px;
   padding: 10px 20px;
 
