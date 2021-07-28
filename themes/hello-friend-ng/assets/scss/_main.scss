@@ -219,11 +219,8 @@ em, i, strong {
 code {
   font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
   font-display: auto;
-  font-feature-settings: normal;
-  padding: 1px 6px;
-  margin: 0 2px;
+  // font-feature-settings: normal;
   border-radius: 5px;
-  font-size: 0.95rem;
   // Default
   background: $light-background-secondary;
 
@@ -245,7 +242,6 @@ code {
 }
 
 pre {
-  background: #212020;
   padding: 10px 10px 10px 20px;
   border-radius: 8px;
   font-size: 0.95rem;
@@ -257,19 +253,20 @@ pre {
   }
 
   code {
-    background: none !important;
-    margin: 0;
-    padding: 0;
+    // background: none !important;
+    display: block;
+    // margin: 0;
+    padding: 15px;
     font-size: inherit;
     // Default
-    color: #ccc;
+    color: #555;
 
     @media (prefers-color-scheme: dark) {
       color: inherit;
     }
   
     @media (prefers-color-scheme: light) {
-      color: #ccc;
+      color: #555;
     }
   
     [data-theme=dark] & {
@@ -277,7 +274,7 @@ pre {
     }
   
     [data-theme=light] & {
-      color: #ccc;
+      color: #555;
     }
   }
 }
