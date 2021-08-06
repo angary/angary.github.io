@@ -195,27 +195,6 @@ figure {
   }
 }
 
-em, i, strong {
-  // Default
-  color: black;
-
-  @media (prefers-color-scheme: dark) {
-    color: white;
-  }
-
-  @media (prefers-color-scheme: light) {
-    color: black;
-  }
-
-  [data-theme=dark] & {
-    color: white;
-  }
-
-  [data-theme=light] & {
-    color: black;
-  }
-}
-
 code {
   font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
   font-display: auto;

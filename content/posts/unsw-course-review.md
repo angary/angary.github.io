@@ -23,7 +23,7 @@ Before UNSW, I had an interest in engineering (leaning towards Electrical Engine
 ## COMP1511 - Programming Fundamentals
 *C, if … else, while, arrays, pointers, structs, linked lists*
 
-**Overview**
+### Overview
 
 The starter programming course.You’ll have 2 lectures, 1 tut-lab each week (where you have a 1 hr tutorial where you listen to your tutor present topics, and 2 hr lab where you code and can ask for help). The course tends to get a bit more confusing when pointers are introduced. Whilst the skills taught in this course (i.e. if else, and while loops) are easily transferable to other languages, you are mostly taught “programming” which is a tool, but not necessarily the “science” of computer science (more theory), or the “engineering” of software engineering (how to write good quality, useful code that can adapt to new requirements).
 
@@ -48,32 +48,48 @@ There are many fantastic challenge problems in the course - give a shot at those
 - TODO
 
 ## MATH1131 - Mathematics 1A
-*Linear algebra, calculus*
+*Linear algebra (complex numbers, vectors, linear equations, matrices), calculus (limits, continuity, integration, logarithms, exponentials, hyperbolic functions)*
 
-**Overview**
+### Overview
 
-Goes over linear algebra and calculus. From when I did it, you may benefit if you've done 4U math in high school, though not unheard of for students to do very well in this course without 4U (and even pick up MATH1241 next term).
+Goes over linear algebra and calculus. In my opinion, the calculus part started of pretty dry as it was focused a lot on the definition of a limit, etc. I originally was doing 1141, but dropped it after a couple of weeks due to terrible time management and me adapting from high school to uni + work. It's pretty normal to get close to full marks for your pre exam mark and lost most your marks in the final exam.
 
-Recommended resources
+**Will I struggle in this course if I haven't done 3U or 4U?**
+
+You'll have to put in more effort, but it's 100% not impossible to do very well. It's not unheard of for students to not do 4U, but do well in 1131, and then even pick up 1241.
+
+**Should I do this or MATH1241?**
+
+From what I know MATH1241 requires you to do / submit assignments earlier, and go more into mathematical proofs. However, for most people doing CS, I'd argue the extra content in 1241 will not be relevant. So if you want to do more math, feel free to do 1241.
+
+**Recommended resources**
 - Get the online textbook for the course from moodle (I found this more useful than the lectures)
 
 ## ECON1101 - Microeconomics 1
 *Microeconomics idk man*
 
-**Overview**
+### Overview
 
-Quite a fun course, where you're required to complete a mid sem, play a game called Playconomics and a final exam. From what I know, every term, students tend to find a bug with Playconomics resulting in a free 20 marks.
+Quite a fun course, where you're required to complete a mid sem, play a game called Playconomics and a final exam. Alberto's lecturers were great fun, and the first lecture was a bit like a comedy night live (until covid hit and things were online). 
 
-Overall, the course is a good introduction to Economics (though nothing you can't learn from casually watching Youtube videos). I decided to drop commerce after this course since I didn't find the course as engaging and writing long answer responses / essays wasn't my thing.
+Overall, the course is a good introduction to Economics (though nothing you can't learn from casually watching Youtube videos). However, we had to pay $40 for the textbook + Playconomics. I decided to drop commerce after this course since I didn't find the course as engaging and writing long answer responses / essays wasn't my thing.
+
+**Is this course a WAM booster?**
+
+To be fair it was pretty easy when I did it. They created a giant database of questions, some of which would be in the final exam, so that students could revise the content. However, in my exam, there was a lot of vague game theory questions (likely because the exam was online, so students had access to their answers they made before the exam) which were tricky.
+
+**What is Playconomics?**
+
+In the lectures, they mention a revolutionary award winning game, where students who played it got better marks. In reality, it was because the game tended to broken, and a free 20 marks. According to Alberto, every time, some engineering students manage to find an exploit and form a engineering cartel, resulting in some oligarchy of the economy, disrupting the economies of other players. 
 
 **Recommended resources**
-- TODO
+- Read the textbook that they give you
 
 # 20T2
 ## COMP1521 - Computer System Fundamentals
 *Bits & bytes, MIPs (assembly language), file systems, concurrency, virtual memory*
 
-**Overview**
+### Overview
 
 A course where you learn about low level bits & bytes, the MIPs assembly language, and file systems. This was my least favourite 1st year course, as the content was pretty dry. 
 
@@ -81,15 +97,19 @@ Overall, the content from this course wasn't too immediately useful unless you i
 
 The challenges in this course are tougher than that of 1511, and if Andrew Taylor is in charge, prepare for an exam with questions that increase in difficulty exponentially.
 
+**Should I take this course or COMP2521 first?**
+
+Most computer science students probably take both courses in T2 simultaneously, though if you had to choose, take 2521 first as it is a prereq to many comp courses.
+
 **Recommended resources**
 - TODO
 
 ## COMP2521 - Data Structures and Algorithms
 *Big O, BST (Binary Search Trees), balanced BSTs, graphs & graph algos, hashing, heaps*
 
-**Overview**
+### Overview
 
-My favourite 1st year comp course (I would recommend taking this ASAP since a lot of comp courses have this as a pre req). The course begins off with a recap on linked lists, so you may benefit from just having done COMP1511 (though not necessarily).
+My favourite 1st year comp course. The course begins off with a recap on linked lists, so you may benefit from just having done COMP1511 (though not necessarily).
 
 There were two big assignments, the first on binary trees, and the second on graphs (this may vary).
 
@@ -97,10 +117,10 @@ There were two big assignments, the first on binary trees, and the second on gra
 - [Back To Back SWE](https://www.youtube.com/channel/UCmJz2DV1a3yfgrR7GqRtUUA)
 
 
-## COMP1231 - Mathematics 1B
+## MATH1231 - Mathematics 1B
 *Linear algebra, calculus*
 
-**Overview**
+### Overview
 
 More on Linear Algebra and Calculus. Some cool matrices in Linear Algebra, and differential equations in Calculus.
 
@@ -112,7 +132,7 @@ More on Linear Algebra and Calculus. Some cool matrices in Linear Algebra, and d
 ## COMP1531 - Software Engineering Fundamentals
 *Python, Git, Flask, HTTP, testing, agile*
 
-**Overview**
+### Overview
 
 A useful group work course where you learn Python, Flask, and Git - also usually the first course you make something more interesting than a command line app. The groups were a size of 5 (though it's very manageable with 4 people), as such I feel I can recommend pairing up with only 1 friend, and meeting some new people in this course. 
 
@@ -124,7 +144,7 @@ Most people will be able to pick up Python in the first few weeks, and the cours
 ## COMP3311 - Database Systems
 *Database Schemas, SQL PlpgSQL, psycopg, normalisation, relational algebra, concurrency*
 
-**Overview**
+### Overview
 
 In my opinion, the best first year comp elective if you're looking at backend development / data stuff, as it's not super content heavy, and still practical / engaging. You'll work with PostgreSQL (a relational database), and it's Python module.
 
@@ -142,7 +162,7 @@ In order of importance for the topics, I'd say 2 > 3 > 1 > 4 (I lowkey learnt th
 ## MATH1081 - Discrete Mathematics
 *Set theory, number theory, logic, counting techniques, graph theory*
 
-**Overview**
+### Overview
 
 Different to the typical math you're used to. I found the logic / proofs to be useful when writing profs in COMP3821. 
 
@@ -156,7 +176,7 @@ Different to the typical math you're used to. I found the logic / proofs to be u
 ## COMP3231 - Operating Systems
 *Concurrency, file systems, virtual memory*
 
-**Overview**
+### Overview
 
 An alright course in my opinion which covers the last couple topics of 1521, but in way more depth. There are 3 main assignments on different topics, the latter 2 of which are a bit heavier workload.
 1. Concurrency (Individual work)
@@ -173,7 +193,7 @@ The assignments tend to be more figuring out what you have to do than coding. I 
 ## COMP3821 - Extended Algorithms and Programming Techniques
 *Divide & conquer, greedy, dynamic programming, max flow, linear programming, reductions*
 
-**Overview**
+### Overview
 
 There are only lectures (no tuts / labs), and also 0 programming as everything is written in the form of pseudo code or an english description of an algorithm with some proofs. Specifically I had 4 assignments (each containing 5 questions to solve), and 4 group assignments. In T1, I still spent more time on this course than OS (maybe because I found this more interesting). You'll need some math knowledge such as matrices, complex numbers, and some proof writing, but they should all be covered in the 1st year math courses.
 
