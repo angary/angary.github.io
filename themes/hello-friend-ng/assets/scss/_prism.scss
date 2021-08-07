@@ -36,12 +36,12 @@ pre[class*="language-"],
 
 /* Code blocks */
 pre[class*="language-"] {
-	border-radius: 0.5em;
+	// border-radius: 0.5em;
 	// border: .3em solid hsl(0, 0%, 33%); /* #282A2B */
 	// box-shadow: 1px 1px .5em black inset;
-	margin: .5em 0;
-	overflow: auto;
-	padding: 1em;
+	// margin: .5em 0;
+	// overflow: auto;
+	// padding: 1em;
 }
 
 pre[class*="language-"]::-moz-selection {
@@ -72,7 +72,7 @@ code[class*="language-"]::selection, code[class*="language-"] ::selection {
 	border-radius: 0.3em;
 	// border: .13em solid hsl(0, 0%, 33%); /* #545454 */
 	// box-shadow: 1px 1px .3em -.1em black inset;
-	padding: .15em .2em .05em;
+	// padding: .15em .2em .05em;
 	white-space: normal;
 }
 
@@ -107,7 +107,7 @@ code[class*="language-"]::selection, code[class*="language-"] ::selection {
 }
 
 .token.builtin {
-	color: hsl(60, 100%, 50%);
+	// color: hsl(49, 100%, 50%);
 }
 
 
@@ -147,7 +147,7 @@ code[class*="language-"]::selection, code[class*="language-"] ::selection {
 }
 
 pre[data-line] {
-	padding: 1em 0 1em 3em;
+	// padding: 1em 0 1em 3em;
 	position: relative;
 }
 
@@ -171,8 +171,8 @@ pre[data-line] {
 	border-top: 1px dashed hsl(0, 0%, 33%); /* #545454 */
 	left: 0;
 	line-height: inherit;
-	margin-top: 0.75em; /* Same as .prism’s padding-top */
-	padding: inherit 0;
+	// margin-top: 0.75em; /* Same as .prism’s padding-top */
+	// padding: inherit 0;
 	pointer-events: none;
 	position: absolute;
 	right: 0;
@@ -303,18 +303,18 @@ pre[class*="language-"].line-numbers > code {
 
 }
 
-	.line-numbers-rows > span {
-		display: block;
-		counter-increment: linenumber;
-	}
+.line-numbers-rows > span {
+	display: block;
+	counter-increment: linenumber;
+}
 
-		.line-numbers-rows > span:before {
-			content: counter(linenumber);
-			color: #999;
-			display: block;
-			padding-right: 0.8em;
-			text-align: right;
-		}
+.line-numbers-rows > span:before {
+	content: counter(linenumber);
+	color: #999;
+	display: block;
+	padding-right: 0.8em;
+	text-align: right;
+}
 
 div.code-toolbar {
 	position: relative;
@@ -362,9 +362,9 @@ div.code-toolbar > .toolbar button {
 div.code-toolbar > .toolbar a,
 div.code-toolbar > .toolbar button,
 div.code-toolbar > .toolbar span {
-	color: #bbb;
+	// color: #bbb;
 	font-size: 1em;
-	padding: 0 0.5em;
+	// padding: 0 0.5em;
 	// background: #f5f2f0;
 	// background: rgba(224, 224, 224, 0.2);
 	border-radius: .5em;

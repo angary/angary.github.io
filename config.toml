@@ -3,7 +3,7 @@ title   = "Gary Sun"
 languageCode = "en-us"
 theme = "hello-friend-ng"
 
-PygmentsCodeFences = true
+PygmentsCodeFences = false
 PygmentsStyle = "monokai"
 
 paginate  = 10

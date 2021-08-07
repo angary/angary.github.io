@@ -13,7 +13,7 @@ I like algorithms, backend development, and some theoretical computer science. S
 
 In my spare time, I like hikes, Dota 2 (more specifically Lone Druid), dogs, frogs, and pogs.
 
-```
+```hs
 -- Some Haskell code to prove I'm cool and quirky
 
 data Person = Person {firstName :: String, lastName :: String}

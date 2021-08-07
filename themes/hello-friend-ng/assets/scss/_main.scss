@@ -201,6 +201,7 @@ code {
   font-feature-settings: normal;
   border-radius: 5px;
   // Default
+  border: 100px;
   background: $light-background-secondary;
 
   @media (prefers-color-scheme: dark) {
@@ -221,7 +222,7 @@ code {
 }
 
 pre {
-  padding: 10px 10px 10px 20px;
+  // padding: 10px 10px 10px 20px;
   border-radius: 8px;
   font-size: 0.95rem;
   overflow: auto;
@@ -234,7 +235,6 @@ pre {
   code {
     // background: none !important;
     display: block;
-    // margin: 0;
     padding: 15px;
     font-size: inherit;
     // Default
