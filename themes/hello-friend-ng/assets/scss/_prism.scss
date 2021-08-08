@@ -8,7 +8,7 @@ https://prismjs.com/download.html#themes=prism-twilight&languages=markup+css+cli
 
 code[class*="language-"],
 pre[class*="language-"] {
-	color: white;
+	color: inherit;
 	background: none;
 	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 	font-size: 1em;
@@ -91,48 +91,52 @@ code[class*="language-"]::selection, code[class*="language-"] ::selection {
 	opacity: 1;
 }
 
-.token.tag,
-.token.boolean,
-.token.number,
-.token.deleted {
-	color: hsl(300, 100%, 50%); /* #CF6A4C */
-}
+// Syntax highlighting colouring
+////////////////////////////////////////////////////////////////////////////////
 
 .token.keyword,
 .token.property,
 .token.selector,
-.token.constant,
 .token.symbol {
-	color: hsl(200, 100%, 50%); /* #F9EE98 */
+	color: hsl(225, 100%, 60%); 
+}
+
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.deleted {
+	color: hsl(215, 100%, 60%); 
 }
 
 .token.builtin {
-	// color: hsl(49, 100%, 50%);
+	color: hsl(205, 100%, 50%);
 }
-
 
 .token.attr-name,
 .token.attr-value,
 .token.string,
 .token.char,
-.token.operator,
 .token.entity,
 .token.url,
 .language-css .token.string,
 .style .token.string,
 .token.variable,
 .token.inserted {
-	color: hsl(30, 100%, 50%); /* #8F9D6A */
+	color: hsl(195, 100%, 50%); 
 }
 
+.token.operator,
 .token.atrule {
-	color: hsl(218, 22%, 55%); /* #7587A6 */
+	color: hsl(185, 100%, 50%); 
 }
 
 .token.regex,
 .token.important {
-	color: hsl(42, 75%, 65%); /* #E9C062 */
+	color: hsl(175, 100%, 50%); 
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 .token.important,
 .token.bold {
@@ -322,8 +326,8 @@ div.code-toolbar {
 
 div.code-toolbar > .toolbar {
 	position: absolute;
-	top: .3em;
-	right: .2em;
+	top: 1em;
+	right: 1em;
 	transition: opacity 0.3s ease-in-out;
 	opacity: 0;
 }
@@ -362,12 +366,7 @@ div.code-toolbar > .toolbar button {
 div.code-toolbar > .toolbar a,
 div.code-toolbar > .toolbar button,
 div.code-toolbar > .toolbar span {
-	// color: #bbb;
 	font-size: 1em;
-	// padding: 0 0.5em;
-	// background: #f5f2f0;
-	// background: rgba(224, 224, 224, 0.2);
-	border-radius: .5em;
 }
 
 div.code-toolbar > .toolbar a:hover,
