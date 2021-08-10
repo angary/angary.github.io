@@ -93,13 +93,17 @@ In the lectures, they mention a revolutionary award winning game, where students
 
 A course where you learn about low level bits & bytes, the MIPs assembly language, and file systems. This was my least favourite 1st year course, as the content was pretty dry. 
 
-Overall, the content from this course wasn't too immediately useful unless you intend to go more into low level content, i.e. embedded systems / operating systems, so you can hold this course off (which tends to be alright for dual degrees). You'll find the content in this course is a bit of a jump from COMP1511 - the content after file systems was introduced was all a bit of a blur.
+Overall, the content from this course wasn't too immediately useful unless you intend to go more into low level content, i.e. embedded systems / operating systems, so you can hold this course off (which tends to be alright for dual degrees). 
 
-The challenges in this course are tougher than that of 1511, and if Andrew Taylor is in charge, prepare for an exam with questions that increase in difficulty exponentially.
+You'll find the content in this course is a bit of a jump from COMP1511 - the content after file systems was introduced was all a bit of a blur and quite high level. Though if you are interested in those topics, take Operating Systems.
+
+**Is this more difficult than COMP2521?**
+
+I'd say this course is around the same level of difficulty of COMP2521. You may find that this course is more "content" heavy, whilst 2521 is more "theory" heavy. The 1521 challenges are quite tougher than that of 1511, and if Andrew Taylor is in charge, the later questions of the exam will be exponentially harder than the earlier ones.
 
 **Should I take this course or COMP2521 first?**
 
-Most computer science students probably take both courses in T2 simultaneously, though if you had to choose, take 2521 first as it is a prereq to many comp courses.
+Most computer science students probably take both courses in T2 simultaneously, though if you had to choose, take 2521 first as it is a prerequisite to many comp courses.
 
 **Recommended resources**
 - TODO
@@ -109,20 +113,30 @@ Most computer science students probably take both courses in T2 simultaneously, 
 
 ### Overview
 
-My favourite 1st year comp course. The course begins off with a recap on linked lists, so you may benefit from just having done COMP1511 (though not necessarily).
+My favourite 1st year comp course. The course begins off with a recap on linked lists, so you may benefit from just having done COMP1511 (though not necessarily). From there, it's a mix of implementing data structures & algorithms in C and some theory (though nothing too complex / much math involved).
 
-There were two big assignments, the first on binary trees, and the second on graphs (this may vary).
+
+**Why is the content in this course important?**
+
+Whilst the content wouldn't help you build a cool practical application anytime soon, there are two reasons I suggest completing this course.
+
+1. You learn how to quantitatively assess code quality (i.e. how efficient is your code)
+2. The content here is relevant for most software engineering technical interviews
+3. Some of the algorithms, i.e. BFS, DFS can still be useful in software engineering
+
+Aside from that, you'll be more than fine without having to remember the quirks of a red-black tree or 2-3-4 trees.
+
 
 **Recommended resources**
 - [Back To Back SWE](https://www.youtube.com/channel/UCmJz2DV1a3yfgrR7GqRtUUA)
 
 
 ## MATH1231 - Mathematics 1B
-*Linear algebra, calculus*
+*Linear algebra (vector spaces, matrices, linear transformation, eigenvalues & eigenvectors), calculus(differential equations, sequences, series, integration)*
 
 ### Overview
 
-More on Linear Algebra and Calculus. Some cool matrices in Linear Algebra, and differential equations in Calculus.
+More on Linear Algebra and Calculus. I found the matrices content to be quite interesting (which has some applications here and there in computer science). Meanwhile the calculus gets more interesting compared to 11[34]1.
 
 **Recommended resources**
 - Get the online textbook for the course from moodle (I found this more useful than the lectures)
@@ -134,9 +148,14 @@ More on Linear Algebra and Calculus. Some cool matrices in Linear Algebra, and d
 
 ### Overview
 
-A useful group work course where you learn Python, Flask, and Git - also usually the first course you make something more interesting than a command line app. The groups were a size of 5 (though it's very manageable with 4 people), as such I feel I can recommend pairing up with only 1 friend, and meeting some new people in this course. 
+A useful group work course where you learn Python, Flask, and Git - also usually the first course you make something more interesting than a command line app. 
 
-Most people will be able to pick up Python in the first few weeks, and the course is mostly focused on the project, which will teach you TDD
+Most people will be able to pick up Python in the first few weeks, and the course for most students is mostly focused on the project.
+The course tries to cover many different topics (i.e. Object Orientated Programming, software engineering practices like agile, testing, networks) briefly so make sure to properly revise that for the exam, as those concepts are not well covered by the project.
+
+**Should I find good teammates before I start this course?**
+
+When I did it it was 5 people per course, but the project is very doable with 4, and can be done by even less. As a result, I wouldn't classify this as "necessary to find a good teammate" beforehand (unlike COMP2511). I had one friend going into the course, and found new friends through the project.
 
 **Recommended resources**
 - TODO
@@ -154,7 +173,17 @@ Overall the course structure looks a bit like:
 3. Working with SQL in Python
 4. Theory (i.e. relational algebra, concurrency, ACID)
 
-In order of importance for the topics, I'd say 2 > 3 > 1 > 4 (I lowkey learnt the theory content in the middle of my online exam and I suspect most of the cohort was the same).
+There were 3 assignments, and the last two were quite fun, and required a bit of thinking (and I've heard that in 21T1, they required a bit of BFS / DFS). The assignments were as follows.
+
+1. Writing a database schema
+2. Writing queries to extract data from a database (using SQL & PL/pgSQL)
+3. Using python and psycopg to perform queries and extract data from a database
+
+In order of importance for the topics, I'd say 2 > 3 > 1 > 4 (I low-key learnt the theory content in the middle of my online exam and I suspect most of the cohort was the same).
+
+**Should I do this course in first year?**
+
+Yep! I would highly recommend this as an early course elective because it's simple but also useful. The only prerequisite is COMP2521, and I found the content to be a good balance of practical & theory (and it was pretty fun writing efficient queries).
 
 **Recommended resources**
 - TODO
@@ -164,7 +193,11 @@ In order of importance for the topics, I'd say 2 > 3 > 1 > 4 (I lowkey learnt th
 
 ### Overview
 
-Different to the typical math you're used to. I found the logic / proofs to be useful when writing profs in COMP3821. 
+Different to the typical math you're used to. 
+
+**Is discrete math more useful for computer science?**
+The proofs that you complete in this course will be relevant for proofs in courses such as COMP3[18]21. The perms & combs are somewhat relevant for certain algorithms that brute force permutations / combinations. As for the graph theory, 2521 also goes over Dijkstra's but in more depth, doing either course first just helps you a bit in the other when it comes to graph theory.
+
 
 **Recommended resources**
 - TODO
@@ -209,14 +242,44 @@ Being the advanced version of COMP3121, I would only really recommend this cours
 # 21T2
 
 ## COMP2511 - Object-Orientated Design & Programming
-*Java, design patterns*
+*Java, design patterns, code smells*
 
-In progress (lots of coding, but you learn to analyse code from a more qualitative point of view)
+In progress
+
+### Overview 
+
+A course that requires a LOT of coding. Whilst in 2521, you learn to analyse code from a quantitative standpoint (i.e. time/space complexity), 2511 teaches you how to write high quality code from a qualitative standpoint (i.e. how to write non-spaghetti modular code that can change to adapt to requirements easily).
+
+There is an (solo work) assignment and a group work project. The assignment works as a good introduction to Java, whilst the project is quite a large project, which I feel is a necessary evil to teach the benefits of OOP, and software engineering practices.
+
+**When should I do this course?**
+
+In my opinion, I recommend completing this course perhaps as early as possible. Learning Java and design principles is very valuable, for writing higher quality code, and internships that require Java/OOP.
+
+
+**Should I find good teammates before I start this course?**
+
+When I did the course, there were 4 members per group, all of which had to be in the same tut-lab class. Unlike COMP1531, I would recommend finding teammates you can trust before you start the course due to the bigger project (which not only requires much more thinking about the design, but also coding(). It's still "doable" by 2 - 3 people, though highly draining, I had to spend 14+ hrs coding some days and had 2k+ lines of tests.
+
+**Recommend resources**
+- [Refactoring guru](https://refactoring.guru/)
 
 ## COMP3141 - Software System Design and Implementation
 *Haskell, functional programming, induction, PBT, monads, type theory, curry-howard correspondence*
 
 In progress (a bit more on the theoretical side, you need to think a bit about the code you write)
+
+### Overview
+
+Starts off by going through Haskell, which can be tricky and it's definitely not like your typical coding. The course jumps a bit in difficulty in week 7 when you go over "functors, applicatives, and monads", so I would recommend reading up on this topic in flex week. It then goes a bit more into the application of types as static checking, before touching on more theory, i.e. Curry-Howard correspondence in week 10 (which I'm told is similar to COMP3161).
+
+**Is this a software engineering course?**
+
+You don't build a practical app or anything in this course, which you may expect from software engineering, so if you like building things this may not be as fun. Similarly, whilst you have to think quite a bit for the assignments, the code of the is pretty trivia to implement in other languages and the difficulty comes down to the self imposed restriction of using Haskell, and stronger type checking (as a result, the assignment was a lot of trying different permutations of code until it compiled). That being said, you go more into the theory of good code.
+
+**Recommended resources**
+- [Learn You a Haskell for Great Good!](http://learnyouahaskell.com/)
+
 
 ## COMP3331 - Computer Networks and Applications
 *Network application layer, transport layer, network layer, link layer, wireless networks*
