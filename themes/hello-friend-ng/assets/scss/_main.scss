@@ -200,6 +200,7 @@ code {
   font-display: auto;
   font-feature-settings: normal;
   border-radius: 5px;
+  white-space : pre-wrap !important;
   // Default
   border: 100px;
   background: $light-background-secondary;
@@ -225,10 +226,9 @@ pre {
   // padding: 10px 10px 10px 20px;
   border-radius: 8px;
   font-size: 0.95rem;
-  overflow: auto;
 
   @media #{$media-size-phone} {
-    white-space: pre-wrap;
+    white-space: pre-wrap !important;
     word-wrap: break-word;
   }
 
@@ -237,6 +237,7 @@ pre {
     display: block;
     padding: 15px;
     font-size: inherit;
+    overflow: word-wrap;
     // Default
     color: #555;
 

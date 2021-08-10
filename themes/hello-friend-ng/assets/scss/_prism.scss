@@ -31,7 +31,9 @@ pre[class*="language-"] {
 
 pre[class*="language-"],
 :not(pre) > code[class*="language-"] {
-	background: hsl(0, 100%, 50%); /* #141414 */
+
+	// For some reason can't import variables
+	background: #f8f8f8;
 }
 
 /* Code blocks */
@@ -128,12 +130,12 @@ code[class*="language-"]::selection, code[class*="language-"] ::selection {
 
 .token.operator,
 .token.atrule {
-	color: hsl(185, 100%, 50%); 
+	color: hsl(190, 100%, 50%); 
 }
 
 .token.regex,
 .token.important {
-	color: hsl(175, 100%, 50%); 
+	color: hsl(180, 100%, 50%); 
 }
 
 ////////////////////////////////////////////////////////////////////////////////
