@@ -27,5 +27,5 @@ cat CNAME >> public/CNAME
 echo "Updating gh-pages branch"
 cd public
 git add --all
-git commit -m "Publishing to gh-pages (serve.sh)"
-git push
+git commit --amend -m "Publishing to gh-pages (serve.sh)"
+git push --force
