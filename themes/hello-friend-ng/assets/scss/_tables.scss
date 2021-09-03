@@ -2,30 +2,30 @@
   table {
     border-collapse: collapse;
     margin: 25px auto;
-    font-size: 0.9em;
-    min-width: 400px;
+    font-size: 1em;
+    min-width: 100%;
     max-width: 100%;
 
     th,
     td {
       padding: 12px 15px;
       // Default
-      border: 1px solid $light-table-color;
-      
+      border-bottom: 1px solid $light-table-color;
+
       @media (prefers-color-scheme: dark) {
-        border: 1px solid $dark-table-color;
+        border-bottom: 1px solid $dark-table-color;
       }
-    
+
       @media (prefers-color-scheme: light) {
-        border: 1px solid $light-table-color;
+        border-bottom: 1px solid $light-table-color;
       }
-    
-      [data-theme=dark] & {
-        border: 1px solid $dark-table-color;
+
+      [data-theme="dark"] & {
+        border-bottom: 1px solid $dark-table-color;
       }
-    
-      [data-theme=light] & {
-        border: 1px solid $light-table-color;
+
+      [data-theme="light"] & {
+        border-bottom: 1px solid $light-table-color;
       }
     }
 
@@ -33,27 +33,27 @@
       tr {
         text-align: left;
         // Default
-        background-color: $light-table-color;
         color: $light-color;
+        border-bottom: 2px solid $light-table-color;
 
         @media (prefers-color-scheme: dark) {
-          background-color: $dark-table-color;
           color: $dark-color;
+          border-bottom: 2px solid $dark-table-color;
         }
-      
+
         @media (prefers-color-scheme: light) {
-          background-color: $light-table-color;
           color: $light-color;
+          border-bottom: 2px solid $light-table-color;
         }
-      
-        [data-theme=dark] & {
-          background-color: $dark-table-color;
+
+        [data-theme="dark"] & {
           color: $dark-color;
+          border-bottom: 2px solid $dark-table-color;
         }
-      
-        [data-theme=light] & {
-          background-color: $light-table-color;
+
+        [data-theme="light"] & {
           color: $light-color;
+          border-bottom: 2px s olid $light-table-color;
         }
       }
     }
@@ -61,22 +61,22 @@
     tbody {
       tr {
         // Default
-        border: 1px solid $light-table-color;
-        
+        border-bottom: 1px solid $light-table-color;
+
         @media (prefers-color-scheme: dark) {
-          border: 1px solid $dark-table-color;
+          border-bottom: 1px solid $dark-table-color;
         }
-      
+
         @media (prefers-color-scheme: light) {
-          border: 1px solid $light-table-color;
+          border-bottom: 1px solid $light-table-color;
         }
-      
-        [data-theme=dark] & {
-          border: 1px solid $dark-table-color;
+
+        [data-theme="dark"] & {
+          border-bottom: 1px solid $dark-table-color;
         }
-      
-        [data-theme=light] & {
-          border: 1px solid $light-table-color;
+
+        [data-theme="light"] & {
+          border-bottom: 1px s olid $light-table-color;
         }
       }
     }

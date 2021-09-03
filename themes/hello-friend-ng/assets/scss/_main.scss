@@ -113,6 +113,10 @@ a:hover {
   color: $blue-highlight;
 }
 
+p a {
+  text-decoration: underline;
+}
+
 img {
   display: block;
   max-width: 100%;
