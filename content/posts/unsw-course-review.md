@@ -321,11 +321,3 @@ I've heard historically the assignment was pretty easy, however for 21T2, it did
 **Recommended resources**
 
 - [Computer Networking: A Top-down Approach 7th Edition](https://www.ucg.ac.me/skladiste/blog_44233/objava_64433/fajlovi/Computer%20Networking%20_%20A%20Top%20Down%20Approach,%207th,%20converted.pdf)
-
-# 21T3
-
-## COMP4121 - Advanced Algorithms
-
-## COMP4128 - Programming Challenges
-
-## COMP9517 - Computer Vision
