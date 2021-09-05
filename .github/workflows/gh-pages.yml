@@ -3,7 +3,8 @@ name: GitHub Pages
 on:
   push:
     branches:
-      - main # Set a branch name to trigger deployment
+      - main
+      - master
   pull_request:
 
 jobs:
@@ -23,12 +24,15 @@ jobs:
           hugo-version: "latest"
           extended: true
 
+      - name: Clean public dir
+        run: rm -rf public
+
       - name: Build
         run: hugo --minify
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/master' }} # ONly checks for changes to master branch
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
