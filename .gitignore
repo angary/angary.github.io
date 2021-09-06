@@ -1,3 +1,8 @@
 .DS_Store
+.vscode/
+
+# Built website
 public/
+
+# Cached files to speed up generation of website
 resources/
