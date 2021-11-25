@@ -46,7 +46,7 @@ That being said a special shout out goes to Floyd-Warshall for it's simplicity -
 ```py
 # Implementation of the Floyd-Warshall algorithm in Python
 
-def floyd_warshall(graph: List[List[int]]):
+def floyd_warshall(graph: list[list[int]]):
     n = len(graph)
     for k in range(n):
         for j in range(n):
@@ -59,7 +59,7 @@ It shares a structure very similar to Matrix Multiplication (MM) if the two give
 ```py
 # Implementation of matrix multiplication for square matrices
 
-def matrix_mul(A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
+def matrix_mul(A: list[list[int]], B: list[list[int]]) -> list[list[int]]:
     n = len(A)
     C = [[0] * n for _ in range(n)]
     for i in range(n):
@@ -178,7 +178,7 @@ Due to the simplicity of this problem, this can be implemented through an algori
 ```py
 # Implementation of a function to "square" a boolean matrix
 
-def boolean_matrix_squaring(graph: List[List[bool]]):
+def boolean_matrix_squaring(graph: list[list[bool]]):
     n = len(graph)
     for k in range(n):
         for j in range(n):

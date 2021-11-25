@@ -1,10 +1,15 @@
 +++
-title = "Projects"
+title = "projects"
 date = "2021-07-14"
 aliases = []
 [ author ]
   name = "Gary Sun"
 +++
+
+---
+
+### [simulated-annealing-tsp](https://github.com/angary/simulated-annealing-tsp)
+A visualisation of simulated annealing for the travelling salesman problem
 
 ---
 
