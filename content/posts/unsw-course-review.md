@@ -358,6 +358,8 @@ That being said, you go more into the theory of good code.
 
 _Network application layer, transport layer, network layer, link layer, wireless networks_
 
+### Overview 
+
 This course heavily follows the textbook "Computer Networking: A Top-down Approach" for 10 week (for the most part).
 This may be a personal bias, but the course does have a lot of dry content, and since the content is the same as the textbook, I only did this as it was as prerequisite for COMP9243 (Distributed Systems).
 The content mostly requires ROTE learning, and the labs were pretty straightforward (though sometimes boring, they would consist of running commands in the terminal / reading wireshark data, and the later labs reminded me more of high school science lab reports).
@@ -377,6 +379,8 @@ You can choose between C, Python, and Java to implement the assignment (I would 
 
 _Modern Algorithms, Statistics, Linear Algebra_
 
+### Overview
+
 Probably my favourite course so far for the following reasons
 1. You have to do a major project which is due at the end of term.
    There's no real constraints aside from the fact that it has to include some algorithm somewhere, and you have to have learnt something from it.
@@ -395,7 +399,9 @@ Hence you can more or less learn the content without doing this course.
 
 **How difficult is the course?**
 
-Comparing the course with COMP3[81]21, there's two big differences:
+### Overview
+
+Comparing the course with COMP3[18]21, there's two big differences:
 1. The math tends to have more of a focus on statistics and linear algebra.
 2. The questions in the final exam aren't designed to trick you.
 
@@ -410,3 +416,22 @@ The course can be content heavy though the content is very interesting.
 That being said, you're comfortable with math, many topics will be quite easy to grasp.
 Since, the course is 50% major project, 50% final exam, you could hypothetically do the major project whenever (as it doesn't have to rely on course content), and then only pay attention to the course at the very end.
 That being said, you do learn quite a lot of techniques from the content, which can maybe help you with your major project.
+
+## COMP9517 - Computer Vision
+
+_Image processing, Feature Representation, Pattern Recognition, Image Segmentation, Motion Tracking, Deep Learning_
+
+A course that goes through different algorithms and techniques used in the field of Computer Vision.
+Overall the course is a bit more "researchy" compared to other CSE courses, and is more back heavy in workload once the group project begins.
+
+In terms of assessable content, there are labs, a solo assignment, a big group project, and a final exam.
+The group project involves applying Computer Vision techniques, then making a video about techniques used, with a discussion on its results + improvements
+For the exam, we were given a 10 page research paper, and required to do a 2 page literature review, (discuss the methods used, and discuss if they were suitable or not, along with issues or potential improvements).
+
+**Should I know machine learning beforehand?**
+
+It helps if you know Convolutional Neural Networks (CNNs), as this comes up in the later half of the course.
+Many modern computer vision problems use CNNs as they may provide better results than traditional methods, however, there isn't sufficient time in the course to properly "teach" you, and so it may require self study.
+CNNs can also be used in the assignment and may give better results, but the assignment is marked on how well you understood your techniques and how you evaluated their success and selected an appropriate method.
+The knowledge also helps with literature review in the final exam, however, it's not guaranteed as the paper will involve techniques related to CNNs.
+
