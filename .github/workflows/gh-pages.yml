@@ -32,7 +32,7 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/master' }} # ONly checks for changes to master branch
+        if: ${{ github.ref == 'refs/heads/master' }} # Only checks for changes to master branch
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public

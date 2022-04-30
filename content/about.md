@@ -9,9 +9,10 @@ aliases = []
 
 Hi, I'm Gary Sun and I'm studying Computer Science at the University of New South Wales. 
 
-I like algorithms, backend development, and some theoretical computer science. Some languages I like to program in are Haskell, Python, and Java.
+I like algorithms, backend development, and some theoretical computer science.
+Some languages I like to program in are Haskell, Python, and Java.
 
-In my spare time, I like hikes, Dota 2 (more specifically Lone Druid), dogs, frogs, and pogs.
+In my spare time, I like hikes, exploring places, Dota 2 (more specifically Lone Druid), art, dogs, frogs, and pogs.
 
 ```hs
 -- Some Haskell code to prove I'm cool and quirky

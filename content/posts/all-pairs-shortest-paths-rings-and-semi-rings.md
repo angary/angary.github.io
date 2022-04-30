@@ -13,11 +13,13 @@ toc = false
 
 ## Introduction
 
-The Single Source Shortest Paths (SSSP) problem is to find the shortest distance from one node to every other node in a graph. The All Pairs Shortest Paths (APSP) problem, is to determine for every node in the graph, the shortest distance to every other node in a graph. APSP typically has applications in routing algorithms, i.e. finding the shortest path from one location to another.
+The Single Source Shortest Paths (SSSP) problem is to find the shortest distance from one node to every other node in a graph. The All Pairs Shortest Paths (APSP) problem, is to determine for every node in the graph, the shortest distance to every other node in a graph.
+APSP typically has applications in routing algorithms, i.e. finding the shortest path from one location to another.
 
 ## Usual algorithms
 
-Depending on the type of graph, for both SSSP and APSP there are different algorithms to solve the relevant problems. The tables below provide the fastest well known algorithm to solve SSSP and APSP
+Depending on the type of graph, for both SSSP and APSP there are different algorithms to solve the relevant problems.
+The tables below provide the fastest well known algorithm to solve SSSP and APSP
 
 ### Single Source Shortest Path
 
@@ -30,7 +32,8 @@ Depending on the type of graph, for both SSSP and APSP there are different algor
 
 ### All Pairs Shortest Path
 
-Ignoring DAGs, the first two algorithms for APSP are merely SSSP algorithms run from every vertex of the graph, whilst there are different algorithms for general graphs depending on the number of edges. It is also important to note that as the number of edges increases to $O(V^2)$ in a graph, Johnson's algorithm approaches $O(V^2 \text{lg} V + V^3)$, making it slower than Floyd-Warshall.
+Ignoring DAGs, the first two algorithms for APSP are merely SSSP algorithms run from every vertex of the graph, whilst there are different algorithms for general graphs depending on the number of edges.
+It is also important to note that as the number of edges increases to $O(V^2)$ in a graph, Johnson's algorithm approaches $O(V^2 \text{lg} V + V^3)$, making it slower than Floyd-Warshall.
 
 | Graph Type                | Algorithm                 | Runtime                   |
 | ------------------------- | ------------------------- | ------------------------- |
@@ -76,7 +79,8 @@ With the exception of creating result matrix and storing the calculations there,
 
 ## Strassen's Algorithm
 
-That being said there exists a sub $O(V^3)$ time for calculating the MM of two matrices, known as Strassen's algorithm. It is important to note that naive MM runs in $O(V^3)$, whilst matrix addition / subtraction runs in $O(V^2)$, and so Strassen's algorithm aims to reuse computations and lower runtime by using less multiplications, but more addition / subtraction.
+That being said there exists a sub $O(V^3)$ time for calculating the MM of two matrices, known as Strassen's algorithm.
+It is important to note that naive MM runs in $O(V^3)$, whilst matrix addition / subtraction runs in $O(V^2)$, and so Strassen's algorithm aims to reuse computations and lower runtime by using less multiplications, but more addition / subtraction.
 
 ### Explanation
 
@@ -143,7 +147,8 @@ Where
 | Recurrence Relation | $T(n) = 8T \left( \frac{n}{2} \right) + O(n^2)$ | $T(n) = 7T \left( \frac{n}{2} \right) + O(n^2)$ |
 | Time Complexity     | $O(n^3)$                                        | $O(n^{\text{lg}7}) \approx O(n^{2.807})$        |
 
-Not bad! We have managed to reduce the runtime to $O(n^{2.807})$, and there are algorithms that can achieve even lower asymptotic runtime (i.e. the Vassilevska Williams has a runtime of $O(n^{2.373}$), though their hidden constant times make them impractical. Now would it be possible to apply this to Floyd-Warshall?
+Not bad! We have managed to reduce the runtime to $O(n^{2.807})$, and there are algorithms that can achieve even lower asymptotic runtime (i.e. the Vassilevska Williams has a runtime of $O(n^{2.373}$), though their hidden constant times make them impractical.
+Now would it be possible to apply this to Floyd-Warshall?
 
 Note: $n = V$, as $V$ is the number of vertices, which is the number of rows and columns in an adjacency matrix.
 
@@ -250,7 +255,8 @@ which can be calculated to be $O(n^{2.803})$, the same runtime as the MM algorit
 
 ### Repeated DFS
 
-That being said, it is possible to apply DFS on every vertex of the graph to find the TC. However a single DFS of a graph has a runtime of $O(V + E)$ (which can be $O(V)$ for sparse graphs and $O(V^2)$ for dense graphs), and so the total runtime would be $O(V^2)$ for sparse graphs and $O(V^3)$ for dense graphs.
+That being said, it is possible to apply DFS on every vertex of the graph to find the TC.
+However a single DFS of a graph has a runtime of $O(V + E)$ (which can be $O(V)$ for sparse graphs and $O(V^2)$ for dense graphs), and so the total runtime would be $O(V^2)$ for sparse graphs and $O(V^3)$ for dense graphs.
 
 As a result the suitable algos for finding the Transitive Closure of a graph is listed below.
 

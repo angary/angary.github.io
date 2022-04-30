@@ -153,10 +153,6 @@ disableHugoGeneratorInject = false
     url  = "https://github.com/angary"
 
   [[params.social]]
-    name = "discord"
-    url  = "https://discordapp.com/users/224149640960933890/"
-
-  [[params.social]]
     name = "linkedin"
     url  = "https://www.linkedin.com/in/gary-sun"
 
