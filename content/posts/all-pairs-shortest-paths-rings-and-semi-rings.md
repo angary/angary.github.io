@@ -7,6 +7,7 @@ date = "2021-09-02"
 categories = []
 series = ["algos"]
 toc = false
+mathjax = true
 [ author ]
   name = "Gary Sun"
 +++
