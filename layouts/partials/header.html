@@ -17,15 +17,16 @@
                 <span class="theme-toggle not-selectable">{{ partial "theme-toggle-icon.html" . }}</span>
             {{- end}}
         </span>
-        {{ partial "tikzjax.html" . }}
     </span>
+
+    <!-- Latex rendering -->
     {{- if .Params.mathjax }}
         <script type="text/javascript" async
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
         MathJax.Hub.Config({
         tex2jax: {
         inlineMath: [['$','$'], ['\\(','\\)']],
-        displayMath: [['$$','$$']],
+        displayMath: [['$$','$$'], ['\\[','\\]']],
         processEscapes: true,
         processEnvironments: true,
         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
@@ -33,31 +34,34 @@
             extensions: ["AMSmath.js", "AMSsymbols.js"] }
         }
         });
-        MathJax.Hub.Queue(function() {
-        // Fix <code> tags after MathJax finishes running. This is a
-        // hack to overcome a shortcoming of Markdown. Discussion at
-        // https://github.com/mojombo/jekyll/issues/199
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i = 0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
+        MathJax.Hub.Queue(() => {
+            // Fix <code> tags after MathJax finishes running. This is a
+            // hack to overcome a shortcoming of Markdown. Discussion at
+            // https://github.com/mojombo/jekyll/issues/199
+            const all = MathJax.Hub.getAllJax();
+            for (const jax of all) {
+                jax.SourceElement().parentNode.className += ' has-jax';
+            }
         });
 
         MathJax.Hub.Config({
-        // Autonumbering by mathjax
-        TeX: { equationNumbers: { autoNumber: "AMS" } }
-        });
+            // Autonumbering by mathjax
+            TeX: {
+                equationNumbers: {
+                    autoNumber: "AMS" }
+                }
+            }
+        );
         </script>
     {{ end }}
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HY9N19BZYQ"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-HY9N19BZYQ');
+        window.dataLayer = window.dataLayer || [];
+        let gtag = () => dataLayer.push(arguments);
+        gtag('js', new Date());
+        gtag('config', 'G-HY9N19BZYQ');
     </script>
 
 </header>
-
