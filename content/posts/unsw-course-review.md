@@ -3,7 +3,7 @@ title = "UNSW Course Review"
 description = "Review on courses I've taken at UNSW"
 type = ["posts","post"]
 tags = []
-date = "2021-11-27"
+date = "2022-05-17"
 categories = []
 series = ["UNSW"]
 toc = true
@@ -256,8 +256,6 @@ As for the graph theory, 2521 also goes over Dijkstra's but in more depth, doing
 
 - TODO
 
----
-
 # 21T1
 
 ## COMP3231 - Operating Systems
@@ -358,7 +356,7 @@ That being said, you go more into the theory of good code.
 
 _Network application layer, transport layer, network layer, link layer, wireless networks_
 
-### Overview 
+### Overview
 
 This course heavily follows the textbook "Computer Networking: A Top-down Approach" for 10 week (for the most part).
 This may be a personal bias, but the course does have a lot of dry content, and since the content is the same as the textbook, I only did this as it was as prerequisite for COMP9243 (Distributed Systems).
@@ -382,6 +380,7 @@ _Modern Algorithms, Statistics, Linear Algebra_
 ### Overview
 
 Probably my favourite course so far for the following reasons
+
 1. You have to do a major project which is due at the end of term.
    There's no real constraints aside from the fact that it has to include some algorithm somewhere, and you have to have learnt something from it.
 2. This course definitely goes over more practical algorithms and very interesting algorithms.
@@ -396,12 +395,10 @@ Overall, I highly recommend this to anyone interested in algorithms.
 The only only "downside" is that the content is viewable from the course website even if you don't do the course, and there isn't really any labs or tuts.
 Hence you can more or less learn the content without doing this course.
 
-
 **How difficult is the course?**
 
-### Overview
-
 Comparing the course with COMP3[18]21, there's two big differences:
+
 1. The math tends to have more of a focus on statistics and linear algebra.
 2. The questions in the final exam aren't designed to trick you.
 
@@ -421,6 +418,8 @@ That being said, you do learn quite a lot of techniques from the content, which 
 
 _Image processing, Feature Representation, Pattern Recognition, Image Segmentation, Motion Tracking, Deep Learning_
 
+### Overview
+
 A course that goes through different algorithms and techniques used in the field of Computer Vision.
 Overall the course is a bit more "researchy" compared to other CSE courses, and is more back heavy in workload once the group project begins.
 
@@ -435,3 +434,42 @@ Many modern computer vision problems use CNNs as they may provide better results
 CNNs can also be used in the assignment and may give better results, but the assignment is marked on how well you understood your techniques and how you evaluated their success and selected an appropriate method.
 The knowledge also helps with literature review in the final exam, however, it's not guaranteed as the paper will involve techniques related to CNNs.
 
+# 22T1
+
+## COMP9315 - Database Management System Implementation
+
+_Storage, Selection, Joins, Query Processing, Optimisation, ACID Transactions_
+
+### Overview
+
+This course goes over the low level implementation of a database (PostgreSQL in particular), and you code up some (not all) parts of a database management system.
+Overall, it's a fantastic course and will feel like OS (also goes through storage, and concurrency), but more algos focused.
+There are two assignments, the first of which was related to implementing a new type in PGSQL (mix of C and SQL), and the second of which was to implement Multi-Attribute Linear Hashing in C.
+
+If you liked the algorithms part of OS, you'll likely also enjoy this course.
+Both these courses also go through concurrency 
+
+**Recommended resources**
+
+- [Use the index luke](https://use-the-index-luke.com/) (Interesting for learning about the impact of indexing on query performance)
+
+
+## COMP9417 - Machine Learning and Data Mining
+
+_Regression, Classification, Tree Learning, Kernel Methods, Ensemble Learning, Neural Learning, Unsupervised Learning, Learning Theory_
+
+### Overview
+
+A course that goes through different algorithms / methods in machine learning.
+Overall, this course was a decent workload, with weekly problem sets (combination of math and coding), 2 homework sets (combination of math and coding in a report), and a group project.
+The group project is done in groups of 4, and applying machine learning techniques to some problem, and writing a report on your techniques used.
+However, the grading is mostly done on your report (AKA how well written it is) rather than the performance of your model.
+
+**Should I do a math course beforehand?**
+
+It'll certainly help with the labs, overall, however may be fine without doing any other math course aside from the cores.
+Below are a list of topics and the math that they involve, though you definitely won't need to understand the math super indepth.
+
+**Recommended resources**
+
+- [StatQuest - Machine Learning](https://www.youtube.com/watch?v=Gv9_4yMHFhI&list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF) (Youtube playlist that goes over the math fundamentals and theory in ML)
