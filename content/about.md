@@ -6,13 +6,10 @@ aliases = []
   name = "Gary Sun"
 +++
 
-
-Hi, I'm Gary Sun and I'm studying Computer Science at the University of New South Wales. 
+Hi, I'm Gary Sun and I'm studying Computer Science at the University of New South Wales.
 
 I like algorithms, backend development, and some theoretical computer science.
-Some languages I like to program in are Haskell, Python, and Java.
-
-In my spare time, I like hikes, exploring places, Dota 2 (more specifically Lone Druid), art, dogs, frogs, and pogs.
+Some languages I like to program in are TypeScript, Python, Rust, Haskell, and Java.
 
 ```hs
 -- Some Haskell code to prove I'm cool and quirky

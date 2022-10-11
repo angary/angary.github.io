@@ -447,12 +447,11 @@ Overall, it's a fantastic course and will feel like OS (also goes through storag
 There are two assignments, the first of which was related to implementing a new type in PGSQL (mix of C and SQL), and the second of which was to implement Multi-Attribute Linear Hashing in C.
 
 If you liked the algorithms part of OS, you'll likely also enjoy this course.
-Both these courses also go through concurrency 
+Both these courses also go through concurrency.
 
 **Recommended resources**
 
 - [Use the index luke](https://use-the-index-luke.com/) (Interesting for learning about the impact of indexing on query performance)
-
 
 ## COMP9417 - Machine Learning and Data Mining
 
@@ -473,3 +472,65 @@ Below are a list of topics and the math that they involve, though you definitely
 **Recommended resources**
 
 - [StatQuest - Machine Learning](https://www.youtube.com/watch?v=Gv9_4yMHFhI&list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF) (Youtube playlist that goes over the math fundamentals and theory in ML)
+
+# 22T2
+
+## ARTS1630 - Introductory Japanese A
+
+_hiragana, katakana, (basic kanji), conversational Japanese_
+
+The content of this course follows along the Genki textbook up to chapter 6.
+
+Whilst most COMP courses you can learn online for free, in my opinion there's a lot of value in language courses as you get to interact with others who are also learning the language which isn't an experience you get solo learning.
+
+Having close to 0 knowledge of Japanese beforehand I felt the pacing was good, with tests on dictation (listening to Japanese and writing the Japanese, and reading Japanese), mock interations, and a moodle exam (i.e. reading comprehension in Japanese + written essay on a topic), all of which helped a lot.
+
+**Should I learn Japanese or another language?**
+
+It's a good language to learn if you are already "interested in Japanese culture", however if you want to quickly learn a language you can use, it's probably best to stick to a language closer to English (i.e. it is much easier to remember Germanic / Romance language vocabularies as they are similar to English).
+However, its differences makes it a very interesting language to learn for the sake of learning a language (i.e. you learn very "formulaically" the grammar structure which is different to English, which makes you "think" differently, and there's interesting stories to some of the kanji characters).
+
+**Recommended resources**
+
+- [Tofugu - Learn Hiragana](https://www.tofugu.com/japanese/learn-hiragana/)
+- [Tofugu - Learn Katakana](https://www.tofugu.com/japanese/learn-katakana/)
+
+// TODO
+
+## COMP6741 - Algorithms for Intractable Problems
+
+_NP-completeness, Kernalisation, Paramterised Intractability, Branching Algorithms, Treewidth, Randomised Algorithms, Iterative Compression, Exponential time hypothesis, Heuristics and Local Search_
+
+Hard course (for me), runs every 2 years, cohort of 15 very smart people when I did it. Beware.
+
+I would've taken notes for this course but there was a lot of content, and a lot of "thinking" that goes on.
+
+// TODO
+
+## COMP9444 - Neural Networks and Deep Learning
+
+_Perceptrons, NN theory, CNNs, LSTMs, NLP, Deep Reinforcement Learning, Hopfield Network & Boltzmann Machine, Autoencoders, Generative Adversarial Networks_
+
+Most practical and fun AI course because you can take in inputs like images, video, natural language and do whatever whacky thing you want to do.
+Not very math heavy.
+Major group project where you make whatever using a NN and a final exam which was pretty easy.
+
+**Recommended resources**
+
+- [Deep Learning Book (MIT)](https://www.deeplearningbook.org/)
+
+// TODO
+
+# 22T3
+
+## COMP3900 - Computer Science Project
+
+Do not ask me about my project.
+
+## COMP4920 - Professional Issues and Ethics in Information Technology
+
+Coming when I feel like it
+
+## COMP6991 - Solving Modern Programming Problems with Rust
+
+Coming when I feel like it
