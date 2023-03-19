@@ -50,10 +50,6 @@ There are many fantastic challenge problems in the course - give a shot at those
 The final exam, and to a small degree the assignments have an exponential difficulty, so even those with experience may struggle with some of the problems.
 I thoroughly enjoyed the challenges, and found them to motivate me to study CS more, though it may not be everyone’s cup of tea, or that practical/useful.
 
-**Recommend resources**
-
-- TODO
-
 ## MATH1131 - Mathematics 1A
 
 _Linear algebra (complex numbers, vectors, linear equations, matrices), calculus (limits, continuity, integration, logarithms, exponentials, hyperbolic functions)_
@@ -132,10 +128,6 @@ The 1521 challenges are quite tougher than that of 1511, and if Andrew Taylor is
 
 Most computer science students probably take both courses in T2 simultaneously, though if you had to choose, take 2521 first as it is a prerequisite to many comp courses.
 
-**Recommended resources**
-
-- TODO
-
 ## COMP2521 - Data Structures and Algorithms
 
 _Big O, BST (Binary Search Trees), balanced BSTs, graphs & graph algos, hashing, heaps_
@@ -202,9 +194,6 @@ If you are keen to get ahead, there isn't much needed but here are some ideas.
   - Whilst you are at it I would recommend learning how to use virtual environments. A good explanation of how / why you should use them can be found [here](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/26/python-virtual-env/).
 - Learn features of python such as dictionaries, and how to write "pythonic" code (i.e. short code that takes advantage of python's features)
 
-  **Recommended resources**
-
-- TODO
 
 ## COMP3311 - Database Systems
 
@@ -235,10 +224,6 @@ In order of importance for the topics, I'd say 2 > 3 > 1 > 4 (I low-key learnt t
 Yep! I would highly recommend this as an early course elective because it's simple but also useful.
 The only prerequisite is COMP2521, and I found the content to be a good balance of practical & theory (and it was pretty fun writing efficient queries).
 
-**Recommended resources**
-
-- TODO
-
 ## MATH1081 - Discrete Mathematics
 
 _Set theory, number theory, logic, counting techniques, graph theory_
@@ -251,10 +236,6 @@ Different to the typical math you're used to.
 The proofs that you complete in this course will be relevant for proofs in courses such as COMP3[18]21.
 The perms & combs are somewhat relevant for certain algorithms that brute force permutations / combinations.
 As for the graph theory, 2521 also goes over Dijkstra's but in more depth, doing either course first just helps you a bit in the other when it comes to graph theory.
-
-**Recommended resources**
-
-- TODO
 
 # 21T1
 
@@ -495,8 +476,6 @@ However, its differences makes it a very interesting language to learn for the s
 - [Tofugu - Learn Hiragana](https://www.tofugu.com/japanese/learn-hiragana/)
 - [Tofugu - Learn Katakana](https://www.tofugu.com/japanese/learn-katakana/)
 
-// TODO
-
 ## COMP6741 - Algorithms for Intractable Problems
 
 _NP-completeness, Kernalisation, Paramterised Intractability, Branching Algorithms, Treewidth, Randomised Algorithms, Iterative Compression, Exponential time hypothesis, Heuristics and Local Search_
@@ -505,32 +484,55 @@ Hard course (for me), runs every 2 years, cohort of 15 very smart people when I 
 
 I would've taken notes for this course but there was a lot of content, and a lot of "thinking" that goes on.
 
-// TODO
-
 ## COMP9444 - Neural Networks and Deep Learning
 
 _Perceptrons, NN theory, CNNs, LSTMs, NLP, Deep Reinforcement Learning, Hopfield Network & Boltzmann Machine, Autoencoders, Generative Adversarial Networks_
 
 Most practical and fun AI course because you can take in inputs like images, video, natural language and do whatever whacky thing you want to do.
-Not very math heavy.
+Not super math heavy, as you mostly learn about different Neural Network architectures, and you use Pytorch to implement them.
 Major group project where you make whatever using a NN and a final exam which was pretty easy.
+
+Note that as a higher level course, the course admining can be a bit dodgy at times, and it is usually up to you to self teach.
+If you feel like you are comfortable enough self teaching the content, then there may be no need to take the coursee, as the course doesn't feature anything that you can't teach yourself online with, and there was very little to no feedback in the entire course.
 
 **Recommended resources**
 
 - [Deep Learning Book (MIT)](https://www.deeplearningbook.org/)
 
-// TODO
 
 # 22T3
 
 ## COMP3900 - Computer Science Project
 
-Do not ask me about my project.
+_Agile, Project Management Techniques, Ethics_
+
+A necesary course for your degree.
+You build web app (note it has to be a web app that can run on CSE machines) in a group of 5.
+The project you build can either be based off a list of ideas they give you or you can propose a new idea.
+
+My recommendation would be to pick a project that everyone feels interestd in working on, and set a level of complexity everyone is comfortable on in your proposal (i.e. do not say you will propose feaure 'X' for the sake of an impressive proposal), as you get marked more on completing everything in your proposal than you do on overall technical complexity.
+Hence, you choose to some degree how much workload you want to put into this course.
+
+There are also lectures, but you only get assessed on your project proposal / project / project report, hence for the most part the lecture content can be ignored (it also tends to be quite wishy washy / already covered in previous courses, i.e. Git).
 
 ## COMP4920 - Professional Issues and Ethics in Information Technology
 
-Coming when I feel like it
+_Utilitarianism, Dentological Ethics, Virtue Ethics, AI Ethics, Meta Ethics_
+
+Quite a philosophical course that takes a high level look at ethics in Computer Science.
+As a result the content feels too detached and is non reflective of typical ethical decisions that you make as a software engineer for it to be practical.
+However, the assessments - 50% essay assignment and 50% group work presentation does require you to fall back on essay writing skills and presentation skills which tbh was the main things I learnt from this course.
 
 ## COMP6991 - Solving Modern Programming Problems with Rust
 
-Coming when I feel like it
+_Types, Error Handling, Borrowing, Lifetimes, Docs & Testing, Polymorphism, Functions, Meta-Programming, Concurrency, Parallelism, Unsafes_
+
+Quite a well run course (compared to other high level courses), that goes through different features  of the Rust language (i.e. types, borrowing, lifetimes) and how they solve existing issues.
+The course admining was quite good, resulting in helpful labs, workshops and forum responses, resulting in a good community when taking the course.
+
+It's not necessarily a Rust course, but the discussion of programming patterns are driven by the features of Rust.
+Consequently, you learn content i.e. memory management related to COMP1521, or design in COMP251, which is tailored to safe systems programming.
+
+
+**Recommended Resources**
+- [The Rust Programming Language](https://doc.rust-lang.org/book/)
