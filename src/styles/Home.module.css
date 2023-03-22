@@ -1,0 +1,25 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+
+.title {
+  font-size: 30px;
+}
+
+.chinese {
+  font-family: 'Noto Serif TC';
+  font-size: 24px;
+}
+
+.body {
+  color: grey;
+}
+
+.posts {
+  color: white;
+}
