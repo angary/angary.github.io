@@ -1,17 +1,15 @@
 ---
-title: "UNSW Course Review"
+title: "Unsw Course Review"
 description: "Review on courses I've taken at UNSW"
 date: "2022-05-17"
 ---
 
-# Context
 
 I've been asked pretty often about what courses to take at UNSW, and guides on how to do well so hopefully this page will help.
 
 Before UNSW, I had an interest in engineering (leaning towards Electrical Engineering), though I also wanted to do a double degree with Commerce since I found economics interesting.
 So I picked a double degree in Computer Science / Commerce as the degree was 4 years rather than the 5.6 years of Engineering / Commerce, despite having 0 programming experience (though I dropped Commerce after taking 1 Commerce course).
 
----
 
 # 20T1
 
@@ -26,18 +24,18 @@ You’ll have 2 lectures, 1 tut-lab each week (where you have a 1 hr tutorial wh
 The course tends to get a bit more confusing when pointers are introduced.
 Whilst the skills taught in this course (i.e. if else, and while loops) are easily transferable to other languages, you are mostly taught “programming” which is a tool, but not necessarily the “science” of computer science (more theory), or the “engineering” of software engineering (how to write good quality, useful code that can adapt to new requirements).
 
-**Do I need to know programming beforehand?**
+#### Do I need to know programming beforehand?
 
 I had next to 0 programming coming into the course, and the course is designed such that someone with no experience can learn everything so, it’s very possible to HD the course without prior experience.
 
-**Why do we learn C?**
+#### Why do we learn C?
 
 Admittedly, C is not the most practical language (you can easily build an app or website using it), despite this, in my opinion there’s good reason to learn it first.
 
 - It’s a low level language (compared to most others you will use), meaning you interact more with the underlying machine - so you learn a bit about computer memory
 - Other beginner friendly languages (i.e. Python/JavaScript) has many abstractions/inbuilt functions, whereas in C you have to code it yourself, which forces you to think about how things work.
 
-**What if I've done programming before?**
+#### What if I've done programming before?
 
 There are many fantastic challenge problems in the course - give a shot at those.
 The final exam, and to a small degree the assignments have an exponential difficulty, so even those with experience may struggle with some of the problems.
@@ -53,18 +51,18 @@ Goes over linear algebra and calculus.
 In my opinion, the calculus part started of pretty dry as it was focused a lot on the definition of a limit, etc. I originally was doing 1141, but dropped it after a couple of weeks due to terrible time management and me adapting from high school to uni + work.
 It's pretty normal to get close to full marks for your pre exam mark and lost most your marks in the final exam.
 
-**Will I struggle in this course if I haven't done 3U or 4U?**
+#### Will I struggle in this course if I haven't done 3U or 4U?
 
 You'll have to put in more effort, but it's 100% not impossible to do very well.
 It's not unheard of for students to not do 4U, but do well in 1131, and then even pick up 1241.
 
-**Should I do this or MATH1241?**
+#### Should I do this or MATH1241?
 
 From what I know MATH1241 requires you to do / submit assignments earlier, and go more into mathematical proofs.
 However, for most people doing CS, I'd argue the extra content in 1241 will not be relevant.
 So if you want to do more math, feel free to do 1241.
 
-**Recommended resources**
+#### Recommended resources
 
 - Get the online textbook for the course from moodle (I found this more useful than the lectures)
 
@@ -81,18 +79,18 @@ Overall, the course is a good introduction to Economics (though nothing you can'
 However, we had to pay $40 for the textbook + Playconomics.
 I decided to drop commerce after this course since I didn't find the course as engaging and writing long answer responses / essays wasn't my thing.
 
-**Is this course a WAM booster?**
+#### Is this course a WAM booster?
 
 To be fair it was pretty easy when I did it.
 They created a giant database of questions, some of which would be in the final exam, so that students could revise the content.
 However, in my exam, there was a lot of vague game theory questions (likely because the exam was online, so students had access to their answers they made before the exam) which were tricky.
 
-**What is Playconomics?**
+#### What is Playconomics?
 
 In the lectures, they mention a revolutionary award winning game, where students who played it got better marks. In reality, it was because the game tended to broken, and a free 20 marks.
 According to Alberto, every time, some engineering students manage to find an exploit and form a engineering cartel, resulting in some oligarchy of the economy, disrupting the economies of other players.
 
-**Recommended resources**
+#### Recommended resources
 
 - Read the textbook that they give you
 
@@ -111,13 +109,13 @@ Overall, the content from this course wasn't too immediately useful unless you i
 You'll find the content in this course is a bit of a jump from COMP1511 - the content after file systems was introduced was all a bit of a blur and quite high level.
 Though if you are interested in those topics, take Operating Systems.
 
-**Is this more difficult than COMP2521?**
+#### Is this more difficult than COMP2521?
 
 I'd say this course is around the same level of difficulty of COMP2521.
 You may find that this course is more "content" heavy, whilst 2521 is more "theory" heavy.
 The 1521 challenges are quite tougher than that of 1511, and if Andrew Taylor is in charge, the later questions of the exam will be exponentially harder than the earlier ones.
 
-**Should I take this course or COMP2521 first?**
+#### Should I take this course or COMP2521 first?
 
 Most computer science students probably take both courses in T2 simultaneously, though if you had to choose, take 2521 first as it is a prerequisite to many comp courses.
 
@@ -131,7 +129,7 @@ My favourite 1st year comp course.
 The course begins off with a recap on linked lists, so you may benefit from just having done COMP1511 (though not necessarily).
 From there, it's a mix of implementing data structures & algorithms in C and some theory (though nothing too complex / much math involved).
 
-**Why is the content in this course important?**
+#### Why is the content in this course important?
 
 Whilst the content wouldn't help you build a cool practical application anytime soon, there are two reasons I suggest completing this course.
 
@@ -141,7 +139,7 @@ Whilst the content wouldn't help you build a cool practical application anytime 
 
 Aside from that, you'll be more than fine without having to remember the quirks of a red-black tree or 2-3-4 trees.
 
-**Recommended resources**
+#### Recommended resources
 
 - [Back To Back SWE](https://www.youtube.com/channel/UCmJz2DV1a3yfgrR7GqRtUUA)
 
@@ -155,7 +153,7 @@ More on Linear Algebra and Calculus.
 I found the matrices content to be quite interesting (which has some applications here and there in computer science).
 Meanwhile the calculus gets more interesting compared to 11[34]1.
 
-**Recommended resources**
+#### Recommended resources
 
 - Get the online textbook for the course from moodle (I found this more useful than the lectures)
 
@@ -172,13 +170,13 @@ A useful group work course where you learn Python, Flask, and Git - also usually
 Most people will be able to pick up Python in the first few weeks, and the course for most students is mostly focused on the project.
 The course tries to cover many different topics (i.e. Object Orientated Programming, software engineering practices like agile, testing, networks) briefly so make sure to properly revise that for the exam, as those concepts are not well covered by the project.
 
-**Should I find good teammates before I start this course?**
+#### Should I find good teammates before I start this course?
 
 When I did it it was 5 people per course, but the project is very doable with 4, and can be done by even less.
 As a result, I wouldn't classify this as "necessary to find a good teammate" beforehand (unlike COMP2511).
 I had one friend going into the course, and found new friends through the project.
 
-**What should I do to prepare for this course?**
+#### What should I do to prepare for this course?
 
 If you are keen to get ahead, there isn't much needed but here are some ideas.
 
@@ -212,7 +210,7 @@ There were 3 assignments, and the last two were quite fun, and required a bit of
 
 In order of importance for the topics, I'd say 2 > 3 > 1 > 4 (I low-key learnt the theory content in the middle of my online exam and I suspect most of the cohort was the same).
 
-**Should I do this course in first year?**
+#### Should I do this course in first year?
 
 Yep! I would highly recommend this as an early course elective because it's simple but also useful.
 The only prerequisite is COMP2521, and I found the content to be a good balance of practical & theory (and it was pretty fun writing efficient queries).
@@ -225,7 +223,8 @@ _Set theory, number theory, logic, counting techniques, graph theory_
 
 Different to the typical math you're used to.
 
-**Is discrete math more useful for computer science?**
+#### Is discrete math more useful for computer science?
+
 The proofs that you complete in this course will be relevant for proofs in courses such as COMP3[18]21.
 The perms & combs are somewhat relevant for certain algorithms that brute force permutations / combinations.
 As for the graph theory, 2521 also goes over Dijkstra's but in more depth, doing either course first just helps you a bit in the other when it comes to graph theory.
@@ -249,7 +248,7 @@ Overall I found the first topic to be the most interesting and useful (learning 
 The assignments tend to be more figuring out what you have to do than coding.
 I ended up doing all assignments solo and found the workload to be alright.
 
-**Recommended resources**
+#### Recommended resources
 
 - [Virtual memory lectures](https://www.youtube.com/watch?v=qcBIvnQt0Bw&list=PLiwt1iVUib9s2Uo5BeYmwkDFUh70fJPxX)
 
@@ -264,14 +263,14 @@ Specifically I had 4 assignments (each containing 5 questions to solve), and 4 g
 In T1, I still spent more time on this course than OS (maybe because I found this more interesting).
 You'll need some math knowledge such as matrices, complex numbers, and some proof writing, but they should all be covered in the 1st year math courses.
 
-**Should I take this or the non extended version?**
+#### Should I take this or the non extended version?
 
 Being the advanced version of COMP3121, I would only really recommend this course if you are willing to self study algorithms a bit more, and keen on learning reductions in a more formal way.
 Some people may decide to take this course since it is in T1 (whereas COMP3121 is T2 & T3) and may teach algorithms required for intern / grad technical interviews.
 From experience, this wasn't the case too much and the only time I 'applied' knowledge in this course was with some trading companies' technical interviews.
 If I had to choose again I would still take COMP3821 > COMP3121, despite losing marks in the reduction topics.
 
-**Recommended resources**
+#### Recommended resources
 
 - Not a resource, but please go over all the tutorial problems before the assignments.
 - [MIT lectures on algorithms](https://www.youtube.com/watch?v=HtSuA80QTyo&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb)
@@ -291,18 +290,18 @@ Whilst in 2521, you learn to analyse code from a quantitative standpoint (i.e. t
 There is an (solo work) assignment and a group work project.
 The assignment works as a good introduction to Java, whilst the project is quite a large project, which I feel is a necessary evil to teach the benefits of OOP, and software engineering practices.
 
-**When should I do this course?**
+#### When should I do this course?
 
 In my opinion, I recommend completing this course perhaps as early as possible.
 Learning Java and design principles is very valuable, for writing higher quality code, and internships that require Java/OOP.
 
-**Should I find good teammates before I start this course?**
+#### Should I find good teammates before I start this course?
 
 When I did the course, there were 4 members per group, all of which had to be in the same tut-lab class.
 Unlike COMP1531, I would recommend finding teammates you can trust before you start the course due to the bigger project (which not only requires much more thinking about the design, but also coding().
 It's still "doable" by 2 - 3 people, though highly draining, I had to spend 14+ hrs coding some days and had 2k+ lines of tests.
 
-**Recommend resources**
+#### Recommended resources
 
 - [Refactoring guru](https://refactoring.guru/)
 
@@ -316,13 +315,13 @@ Starts off by going through Haskell, which can be tricky and it's definitely not
 The course jumps a bit in difficulty in week 7 when you go over "functors, applicatives, and monads", so I would recommend reading up on this topic in flex week.
 It then goes a bit more into the application of types as static checking, before touching on more theory, i.e. Curry-Howard correspondence in week 10 (which I'm told is similar to COMP3161).
 
-**Is this a software engineering course?**
+#### Is this a software engineering course?
 
 You don't build a practical app or anything in this course, which you may expect from software engineering, so if you like building things this may not be as fun.
 Similarly, whilst you have to think quite a bit for the assignments, the code of the is pretty trivia to implement in other languages and the difficulty comes down to the self imposed restriction of using Haskell, and stronger type checking (as a result, the assignment was a lot of trying different permutations of code until it compiled).
 That being said, you go more into the theory of good code.
 
-**Recommended resources**
+#### Recommended resources
 
 - [Learn You a Haskell for Great Good!](http://learnyouahaskell.com/)
 
@@ -336,12 +335,12 @@ This course heavily follows the textbook "Computer Networking: A Top-down Approa
 This may be a personal bias, but the course does have a lot of dry content, and since the content is the same as the textbook, I only did this as it was as prerequisite for COMP9243 (Distributed Systems).
 The content mostly requires ROTE learning, and the labs were pretty straightforward (though sometimes boring, they would consist of running commands in the terminal / reading wireshark data, and the later labs reminded me more of high school science lab reports).
 
-**How is the assignment?**
+#### How is the assignment?
 
 I've heard historically the assignment was pretty easy, however for 21T2, it did require some thinking about data structures and multi-threading.
 You can choose between C, Python, and Java to implement the assignment (I would recommend Python for the sake of getting it done easily / quickly, and also because there's more tutor support for the language if you ever do need to go to help sessions).
 
-**Recommended resources**
+#### Recommended resources
 
 - [Computer Networking: A Top-down Approach 7th Edition](https://www.ucg.ac.me/skladiste/blog_44233/objava_64433/fajlovi/Computer%20Networking%20_%20A%20Top%20Down%20Approach,%207th,%20converted.pdf)
 
@@ -369,7 +368,7 @@ Overall, I highly recommend this to anyone interested in algorithms.
 The only only "downside" is that the content is viewable from the course website even if you don't do the course, and there isn't really any labs or tuts.
 Hence you can more or less learn the content without doing this course.
 
-**How difficult is the course?**
+#### How difficult is the course?
 
 Comparing the course with COMP3[18]21, there's two big differences:
 
@@ -381,7 +380,7 @@ That being said, the way that the content is assessed is pretty chill.
 For example, you won't be tested on coming up with some DP algorithm to solve a combinatorial problem.
 It'll be moreso like what happens if I tweak an algorithm by doing X, or what is the probability of X happening for these inputs.
 
-**What is the workload like?**
+#### What is the workload like?
 
 The course can be content heavy though the content is very interesting.
 That being said, you're comfortable with math, many topics will be quite easy to grasp.
@@ -401,7 +400,7 @@ In terms of assessable content, there are labs, a solo assignment, a big group p
 The group project involves applying Computer Vision techniques, then making a video about techniques used, with a discussion on its results + improvements
 For the exam, we were given a 10 page research paper, and required to do a 2 page literature review, (discuss the methods used, and discuss if they were suitable or not, along with issues or potential improvements).
 
-**Should I know machine learning beforehand?**
+#### Should I know machine learning beforehand?
 
 It helps if you know Convolutional Neural Networks (CNNs), as this comes up in the later half of the course.
 Many modern computer vision problems use CNNs as they may provide better results than traditional methods, however, there isn't sufficient time in the course to properly "teach" you, and so it may require self study.
@@ -423,7 +422,7 @@ There are two assignments, the first of which was related to implementing a new 
 If you liked the algorithms part of OS, you'll likely also enjoy this course.
 Both these courses also go through concurrency.
 
-**Recommended resources**
+#### Recommended resources
 
 - [Use the index luke](https://use-the-index-luke.com/) (Interesting for learning about the impact of indexing on query performance)
 
@@ -438,12 +437,13 @@ Overall, this course was a decent workload, with weekly problem sets (combinatio
 The group project is done in groups of 4, and applying machine learning techniques to some problem, and writing a report on your techniques used.
 However, the grading is mostly done on your report (AKA how well written it is) rather than the performance of your model.
 
-**Should I do a math course beforehand?**
+#### Should I do a math course beforehand?
 
 It'll certainly help with the labs, overall, however may be fine without doing any other math course aside from the cores.
 Below are a list of topics and the math that they involve, though you definitely won't need to understand the math super indepth.
 
-**Recommended resources**
+#### Recommended resources
+
 
 - [StatQuest - Machine Learning](https://www.youtube.com/watch?v=Gv9_4yMHFhI&list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF) (Youtube playlist that goes over the math fundamentals and theory in ML)
 
@@ -459,12 +459,12 @@ Whilst most COMP courses you can learn online for free, in my opinion there's a 
 
 Having close to 0 knowledge of Japanese beforehand I felt the pacing was good, with tests on dictation (listening to Japanese and writing the Japanese, and reading Japanese), mock interations, and a moodle exam (i.e. reading comprehension in Japanese + written essay on a topic), all of which helped a lot.
 
-**Should I learn Japanese or another language?**
+#### Should I learn Japanese or another language?
 
 It's a good language to learn if you are already "interested in Japanese culture", however if you want to quickly learn a language you can use, it's probably best to stick to a language closer to English (i.e. it is much easier to remember Germanic / Romance language vocabularies as they are similar to English).
 However, its differences makes it a very interesting language to learn for the sake of learning a language (i.e. you learn very "formulaically" the grammar structure which is different to English, which makes you "think" differently, and there's interesting stories to some of the kanji characters).
 
-**Recommended resources**
+#### Recommended resources
 
 - [Tofugu - Learn Hiragana](https://www.tofugu.com/japanese/learn-hiragana/)
 - [Tofugu - Learn Katakana](https://www.tofugu.com/japanese/learn-katakana/)
@@ -488,7 +488,7 @@ Major group project where you make whatever using a NN and a final exam which wa
 Note that as a higher level course, the course admining can be a bit dodgy at times, and it is usually up to you to self teach.
 If you feel like you are comfortable enough self teaching the content, then there may be no need to take the coursee, as the course doesn't feature anything that you can't teach yourself online with, and there was very little to no feedback in the entire course.
 
-**Recommended resources**
+#### Recommended resources
 
 - [Deep Learning Book (MIT)](https://www.deeplearningbook.org/)
 
@@ -527,5 +527,6 @@ It's not necessarily a Rust course, but the discussion of programming patterns a
 Consequently, you learn content i.e. memory management related to COMP1521, or design in COMP251, which is tailored to safe systems programming.
 
 
-**Recommended Resources**
+#### Recommended Resources
+
 - [The Rust Programming Language](https://doc.rust-lang.org/book/)

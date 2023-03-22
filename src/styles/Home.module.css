@@ -7,19 +7,13 @@
 }
 
 
-.title {
-  font-size: 30px;
-}
-
-.chinese {
-  font-family: 'Noto Serif TC';
-  font-size: 24px;
-}
-
 .body {
   color: grey;
 }
 
 .posts {
-  color: white;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
