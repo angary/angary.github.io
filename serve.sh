@@ -21,7 +21,7 @@ echo "Removing existing files"
 rm -rf $BUILD_DIR/*
 
 echo "Generating site"
-hugo
+yarn export
 
 echo "Adding CNAME"
 cat CNAME >> $BUILD_DIR/CNAME
@@ -29,5 +29,5 @@ cat CNAME >> $BUILD_DIR/CNAME
 echo "Updating gh-pages branch"
 cd $BUILD_DIR
 git add --all
-git commit --amend -m "Publishing to gh-pages (serve.sh)"
-git push --force
+git commit -m "Publishing to gh-pages (serve.sh)"
+git push
