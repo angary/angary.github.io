@@ -9,5 +9,5 @@ yarn dev
 To publish and upload
 
 ```
-sh serve.sh
+sh deploy.sh
 ```
