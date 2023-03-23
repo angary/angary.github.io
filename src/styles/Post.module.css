@@ -1,0 +1,17 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.article {
+  margin-bottom: 80px;
+  width: clamp(600px, 50%, 800px);
+}
+
+.description {
+  text-align: center;
+  color: grey;
+  font-style: italic;
+}

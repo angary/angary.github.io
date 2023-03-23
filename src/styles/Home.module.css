@@ -1,0 +1,19 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+
+.body {
+  color: grey;
+}
+
+.posts {
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

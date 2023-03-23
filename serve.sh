@@ -1,5 +1,7 @@
 #!/bin/sh
 
+BUILD_DIR="out"
+
 if [[ $(git status -s) ]]
 then
     echo "The working directory is dirty. Please commit any pending changes."
@@ -7,25 +9,25 @@ then
 fi
 
 echo "Deleting old publication"
-rm -rf public
-mkdir public
+rm -rf $BUILD_DIR
+mkdir $BUILD_DIR
 git worktree prune
-rm -rf .git/worktrees/public/
+rm -rf .git/worktrees/$BUILD_DIR/
 
-echo "Checking out gh-pages branch into public"
-git worktree add -B gh-pages public gh-pages
+echo "Checking out gh-pages branch into $BUILD_DIR"
+git worktree add -B gh-pages $BUILD_DIR gh-pages
 
 echo "Removing existing files"
-rm -rf public/*
+rm -rf $BUILD_DIR/*
 
 echo "Generating site"
 hugo
 
 echo "Adding CNAME"
-cat CNAME >> public/CNAME
+cat CNAME >> $BUILD_DIR/CNAME
 
 echo "Updating gh-pages branch"
-cd public
+cd $BUILD_DIR
 git add --all
 git commit --amend -m "Publishing to gh-pages (serve.sh)"
 git push --force
