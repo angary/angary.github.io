@@ -1,11 +1,12 @@
-import { POSTS_DIR } from "@/constants";
-import styles from '@/styles/Post.module.css';
+import { POSTS_DIR } from "../constants";
+import styles from '../styles/Post.module.css';
 import fs from "fs";
 import matter from "gray-matter";
 import { marked } from "marked";
 import Head from "next/head";
 import Script from "next/script";
 import path from "path";
+import React from "react";
 
 const Post = ({ contents, data }) => {
 
