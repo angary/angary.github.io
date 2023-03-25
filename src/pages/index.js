@@ -27,12 +27,8 @@ export default function Home({ posts }) {
           Gary Sun // <span className="chinese">孫健</span>
         </div>
         <div className={styles.body}>
-          <button>
-            <a href="https://github.com/angary/">github</a>
-          </button>
-          <button>
-            <a href="https://www.linkedin.com/in/gary-sun/">linkedin</a>
-          </button>
+          <a href="https://github.com/angary/">github</a>
+          <a href="https://www.linkedin.com/in/gary-sun/">linkedin</a>
           <button onClick={(() => {
             const posts = document.getElementById("posts");
             posts.style.visibility = posts.style.visibility === "visible" ? "hidden" : "visible";

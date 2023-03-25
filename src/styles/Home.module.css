@@ -6,9 +6,12 @@
   min-height: 100vh;
 }
 
-
 .body {
-  color: grey;
+  color: inherit;
+}
+
+.body>* {
+  padding: 0px 3px;
 }
 
 .posts {

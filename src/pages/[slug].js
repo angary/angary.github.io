@@ -30,7 +30,7 @@ const Post = ({ contents, data }) => {
       <title>{data.title}</title>
     </Head>
     <div className={styles.body}>
-      <header className="title">
+      <header className={styles.header}>
         <a className="title" href=".">
           Gary Sun // <span className="chinese">孫健</span>
         </a>
