@@ -1,10 +1,13 @@
-import { POSTS_DIR } from '../constants'
-import styles from '../styles/Home.module.css'
 import fs from "fs"
 import matter from "gray-matter"
+import { Noto_Serif_TC } from 'next/font/google'
 import Head from 'next/head'
 import path from "path"
 import React from 'react'
+import { POSTS_DIR } from '../constants'
+import styles from '../styles/Home.module.css'
+
+const notoSerifTC = Noto_Serif_TC({ weight: '400', subsets: [] });
 
 export default function Home({ posts }) {
   return (
@@ -17,7 +20,7 @@ export default function Home({ posts }) {
       </Head>
       <main className={styles.main}>
         <div className="title">
-          Gary Sun // <span className="chinese">孫健</span>
+          Gary Sun // <span className={["cn", notoSerifTC.className].join(" ")}>孫健</span>
         </div>
         <div className={styles.body}>
           <a href="https://github.com/angary/">github</a>

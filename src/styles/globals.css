@@ -36,6 +36,7 @@ body {
   color: var(--secondary-foreground);
   display: flex;
   justify-content: center;
+  font-family: 'Times New Roman', serif;
 }
 
 button {
@@ -157,7 +158,6 @@ img {
   color: var(--secondary-foreground);
 }
 
-.chinese {
-  font-size: 28px;
-  font-family: 'Noto Serif TC';
+.cn {
+  font-size: 1.8rem;
 }

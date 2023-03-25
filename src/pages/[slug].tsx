@@ -1,12 +1,15 @@
-import { POSTS_DIR } from "../constants";
-import styles from '../styles/Post.module.css';
 import fs from "fs";
 import matter from "gray-matter";
 import { marked } from "marked";
+import { Noto_Serif_TC } from 'next/font/google';
 import Head from "next/head";
 import Script from "next/script";
 import path from "path";
 import React from "react";
+import { POSTS_DIR } from "../constants";
+import styles from '../styles/Post.module.css';
+
+const notoSerifTC = Noto_Serif_TC({ weight: '400', subsets: [] });
 
 const Post = ({ contents, data }) => {
 
@@ -33,7 +36,7 @@ const Post = ({ contents, data }) => {
     <div className={styles.body}>
       <header className={styles.header}>
         <a className="title" href=".">
-          Gary Sun // <span className="chinese">孫健</span>
+          Gary Sun // <span className={["cn", notoSerifTC.className].join(" ")}>孫健</span>
         </a>
       </header>
       <div className={styles.article}>
