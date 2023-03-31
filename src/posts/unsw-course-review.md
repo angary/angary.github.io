@@ -1,7 +1,8 @@
 ---
-title: "Unsw Course Review"
+title: "UNSW Course Review"
 description: "Review on courses I've taken at UNSW"
 date: "2022-05-17"
+mathjax: false
 ---
 
 
@@ -457,7 +458,7 @@ The content of this course follows along the Genki textbook up to chapter 6.
 
 Whilst most COMP courses you can learn online for free, in my opinion there's a lot of value in language courses as you get to interact with others who are also learning the language which isn't an experience you get solo learning.
 
-Having close to 0 knowledge of Japanese beforehand I felt the pacing was good, with tests on dictation (listening to Japanese and writing the Japanese, and reading Japanese), mock interations, and a moodle exam (i.e. reading comprehension in Japanese + written essay on a topic), all of which helped a lot.
+Having close to 0 knowledge of Japanese beforehand I felt the pacing was good, with tests on dictation (listening to Japanese and writing the Japanese, and reading Japanese), mock interactions, and a moodle exam (i.e. reading comprehension in Japanese + written essay on a topic), all of which helped a lot.
 
 #### Should I learn Japanese or another language?
 
@@ -486,7 +487,7 @@ Not super math heavy, as you mostly learn about different Neural Network archite
 Major group project where you make whatever using a NN and a final exam which was pretty easy.
 
 Note that as a higher level course, the course admining can be a bit dodgy at times, and it is usually up to you to self teach.
-If you feel like you are comfortable enough self teaching the content, then there may be no need to take the coursee, as the course doesn't feature anything that you can't teach yourself online with, and there was very little to no feedback in the entire course.
+If you feel like you are comfortable enough self teaching the content, then there may be no need to take the course, as the course doesn't feature anything that you can't teach yourself online with, and there was very little to no feedback in the entire course.
 
 #### Recommended resources
 
@@ -503,7 +504,7 @@ A necesary course for your degree.
 You build web app (note it has to be a web app that can run on CSE machines) in a group of 5.
 The project you build can either be based off a list of ideas they give you or you can propose a new idea.
 
-My recommendation would be to pick a project that everyone feels interestd in working on, and set a level of complexity everyone is comfortable on in your proposal (i.e. do not say you will propose feaure 'X' for the sake of an impressive proposal), as you get marked more on completing everything in your proposal than you do on overall technical complexity.
+My recommendation would be to pick a project that everyone feels interested in working on, and set a level of complexity everyone is comfortable on in your proposal (i.e. do not say you will propose feature 'X' for the sake of an impressive proposal), as you get marked more on completing everything in your proposal than you do on overall technical complexity.
 Hence, you choose to some degree how much workload you want to put into this course.
 
 There are also lectures, but you only get assessed on your project proposal / project / project report, hence for the most part the lecture content can be ignored (it also tends to be quite wishy washy / already covered in previous courses, i.e. Git).

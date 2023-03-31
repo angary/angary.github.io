@@ -2,6 +2,7 @@
 title: "All Pairs Shortest Paths, Rings and Semi Rings"
 description: "An application of algebraic structure to a common computer science problem"
 date: "2021-09-02"
+mathjax: true
 ---
 
 ## Introduction

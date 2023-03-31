@@ -1,47 +1,29 @@
 import fs from "fs";
 import matter from "gray-matter";
 import { marked } from "marked";
-import { Noto_Serif_TC } from 'next/font/google';
 import Head from "next/head";
 import Script from "next/script";
 import path from "path";
 import React from "react";
-import { POSTS_DIR } from "../constants";
+import { CN_FONT, POSTS_DIR } from "../constants";
 import styles from '../styles/Post.module.css';
+import MathJax from "../mathjax";
 
-const notoSerifTC = Noto_Serif_TC({ weight: '400', subsets: [] });
-
-const Post = ({ contents, data }) => {
-
-  const mathJaxConfig = `MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$', '$']],
-      processEscapes: true
-    }
-  });`
+export default function Post({ contents, metadata }) {
   return <>
-    <Script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" />
-    <Script
-      type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" async
-    />
-    <Script
-      id="MathJax-config"
-      type="text/x-mathjax-config"
-      dangerouslySetInnerHTML={{ __html: mathJaxConfig }}
-    />
+    {metadata.mathjax && (<MathJax />)}
     <Head>
-      <title>{data.title}</title>
+      <title>{metadata.title}</title>
     </Head>
     <div className={styles.body}>
       <header className={styles.header}>
         <a className="title" href=".">
-          Gary Sun // <span className={["cn", notoSerifTC.className].join(" ")}>孫健</span>
+          Gary Sun // <span className={["cn", CN_FONT.className].join(" ")}>孫健</span>
         </a>
       </header>
       <div className={styles.article}>
-        <h1>{data.title}</h1>
-        <p className={styles.description}>{data.description}</p>
+        <h1>{metadata.title}</h1>
+        <p className={styles.description}>{metadata.description}</p>
         <hr />
         <div dangerouslySetInnerHTML={{ __html: contents }} />
       </div>
@@ -64,13 +46,11 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params: { slug } }) => {
   const file = fs.readFileSync(path.join(POSTS_DIR, slug + ".md"));
   const data = matter(file.toString());
-  const html = marked(data.content)
+  const html = marked(data.content);
   return {
     props: {
       contents: html,
-      data: data.data
+      metadata: data.data
     }
   }
 }
-
-export default Post;

@@ -5,7 +5,7 @@
   --dark-grey: rgb(61, 61, 61);
   --medium-grey: rgb(122, 122, 122);
   --light-grey: rgb(183, 183, 183);
-  --transition-duration: 0.2s;
+  --transition-duration: 0.1s;
 
   --background: var(--white);
   --primary-foreground: var(--black);
