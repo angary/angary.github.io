@@ -2,23 +2,25 @@ import fs from "fs";
 import matter from "gray-matter";
 import { marked } from "marked";
 import Head from "next/head";
-import Script from "next/script";
 import path from "path";
-import React from "react";
 import { CN_FONT, POSTS_DIR } from "../constants";
-import styles from '../styles/Post.module.css';
 import MathJax from "../mathjax";
+import styles from '../styles/Post.module.css';
 
 export default function Post({ contents, metadata }) {
   return <>
     {metadata.mathjax && (<MathJax />)}
     <Head>
       <title>{metadata.title}</title>
+      <link
+        rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>"
+      />
     </Head>
     <div className={styles.body}>
       <header className={styles.header}>
         <a className="title" href=".">
-          Gary Sun // <span className={["cn", CN_FONT.className].join(" ")}>孫健</span>
+          Gary Sun // <span className={`cn ${CN_FONT.className}`}>孫健</span>
         </a>
       </header>
       <div className={styles.article}>
@@ -35,22 +37,18 @@ export const getStaticPaths = async () => {
   const files = fs.readdirSync(POSTS_DIR);
   return {
     paths: files.map(name => ({
-      params: {
-        slug: name.replace(".md", "")
-      }
+      params: { slug: name.replace(".md", "") }
     })),
     fallback: false
   }
 }
 
 export const getStaticProps = async ({ params: { slug } }) => {
-  const file = fs.readFileSync(path.join(POSTS_DIR, slug + ".md"));
-  const data = matter(file.toString());
-  const html = marked(data.content);
+  const { content, data } = matter.read(path.join(POSTS_DIR, slug + ".md"));
   return {
     props: {
-      contents: html,
-      metadata: data.data
+      contents: marked(content),
+      metadata: data
     }
   }
 }

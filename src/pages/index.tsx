@@ -10,28 +10,27 @@ export default function Home({ posts }) {
         <title>Gary Sun</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="icon"
+          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>"
+        />
       </Head>
       <main className={styles.main}>
         <div className="title">
-          Gary Sun // <span className={["cn", CN_FONT.className].join(" ")}>孫健</span>
+          Gary Sun // <span className={`cn ${CN_FONT.className}`}>孫健</span>
         </div>
         <div className={styles.body}>
           <a href="https://github.com/angary/">github</a>
           <a href="https://www.linkedin.com/in/gary-sun/">linkedin</a>
           <button onClick={(() => {
-            const posts = document.getElementById("posts")!;
-            posts.style.visibility = posts.style.visibility === "visible" ? "hidden" : "visible";
+            const p = document.getElementById("posts")!;
+            p.style.visibility = p.style.visibility === "visible" ? "hidden" : "visible";
           })}>
             posts
           </button>
         </div>
         <div id="posts" className={styles.posts}>
-          {posts.map(post => (
-            <a id={post.path} key={post.path} href={post.path}>
-              {post.path}
-            </a>
-          ))}
+          {posts.map(({ path }) => (<a id={path} key={path} href={path}>{path}</a>))}
         </div>
       </main>
     </>
