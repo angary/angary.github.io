@@ -1,0 +1,81 @@
+/* Handle code block theme (Highlight.js) */
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1.5rem;
+}
+
+code.hljs {
+  padding: 1em 1em;
+}
+
+:root {
+  --hljs-white: rgb(245, 245, 245);
+  --hljs-black: rgb(25, 25, 25);
+
+  --hljs-background: var(--hljs-white);
+  --hljs-color: var(--hljs-black);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --hljs-background: var(--hljs-black);
+    --hljs-color: var(--hljs-white);
+  }
+}
+
+.hljs {
+  background: var(--hljs-background);
+  color: var(--hljs-color);
+}
+
+.hljs-comment {
+  color: #738191;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-title,
+.hljs-section,
+.hljs-doctag,
+.hljs-name,
+.hljs-strong {
+  font-weight: bold;
+  color: #0077B6;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-section,
+.hljs-literal,
+.hljs-addition,
+.hljs-tag,
+.hljs-quote,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #0096C7;
+}
+
+.hljs-meta,
+.hljs-subst,
+.hljs-symbol,
+.hljs-regexp,
+.hljs-attribute,
+.hljs-deletion,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-type,
+.hljs-bullet {
+  color: #00B4D8;
+}
+
+.hljs-built_in {
+  color: #48CAEA;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}

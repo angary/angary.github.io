@@ -6,10 +6,13 @@ import path from "path";
 import { CN_FONT, POSTS_DIR } from "../constants";
 import MathJax from "../mathjax";
 import styles from '../styles/Post.module.css';
+import Script from "next/script";
 
 export default function Post({ contents, metadata }) {
   return <>
     {metadata.mathjax && (<MathJax />)}
+    <Script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js" strategy="beforeInteractive" />
+    <Script id="hljs-start">hljs.highlightAll();</Script>
     <Head>
       <title>{metadata.title}</title>
       <link

@@ -1,3 +1,5 @@
+@import "hljs.css";
+
 :root {
   color-scheme: light dark;
   --black: rgb(18, 18, 18);
@@ -125,11 +127,8 @@ hr {
 }
 
 pre {
-  margin: 40px 0;
-  padding: 20px 0;
+  margin: 1.5rem 0;
   overflow-x: auto;
-  border-top: 1px solid var(--secondary-foreground);
-  border-bottom: 1px solid var(--secondary-foreground);
 }
 
 img {
