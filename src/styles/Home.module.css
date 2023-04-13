@@ -8,6 +8,8 @@
 
 .body {
   color: inherit;
+  position: relative;
+  display: inline-block;
 }
 
 .body>* {
@@ -15,10 +17,14 @@
 }
 
 .posts {
-  visibility: hidden;
-  display: flex;
+  display: none;
+  position: absolute;
   flex-direction: column;
   align-items: center;
-  padding-top: 10px;
-  transition: visbility 0s;
+  margin-top: 200px;
+  z-index: 1;
+}
+
+.posts>li {
+  list-style-type: none;
 }

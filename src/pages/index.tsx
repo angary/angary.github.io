@@ -3,6 +3,8 @@ import Head from 'next/head'
 import { CN_FONT, POSTS_DIR } from '../constants'
 import styles from '../styles/Home.module.css'
 
+const POSTS = "posts";
+
 export default function Home({ posts }) {
   return (
     <>
@@ -23,15 +25,19 @@ export default function Home({ posts }) {
           <a href="https://github.com/angary/">github</a>
           <a href="https://www.linkedin.com/in/gary-sun/">linkedin</a>
           <button onClick={(() => {
-            const p = document.getElementById("posts")!;
-            p.style.visibility = p.style.visibility === "visible" ? "hidden" : "visible";
+            const p = document.getElementById(POSTS)!;
+            p.style.display = p.style.display === "none" ? "block" : "none";
           })}>
             posts
           </button>
         </div>
-        <div id="posts" className={styles.posts}>
-          {posts.map(({ path }) => (<a id={path} key={path} href={path}>{path}</a>))}
-        </div>
+        <ul id={POSTS} className={styles.posts}>
+          {posts.map(({ path }) => (
+            <li id={path} key={path}>
+              <a id={path} key={path} href={path}>{path}</a>
+            </li>
+          ))}
+        </ul>
       </main>
     </>
   )
