@@ -7,23 +7,25 @@
   z-index: 1;
   margin-top: 30px;
   padding-bottom: 30px;
+  opacity: 90%;
+  max-width: min(90vw, 400px);
+  font-size: medium;
 }
 
 .post {
   display: flex;
   flex-direction: row;
-  padding: 10px 0px;
-  opacity: 80%;
+  padding: 0.5rem 0rem;
 }
 
 .date {
-  width: 140px;
+  width: 25%;
   text-align: right;
-  padding-right: 20px;
+  padding-right: 0.5rem;
 }
 
 .content {
-  width: 300px;
+  width: 75%;
   text-align: left;
   overflow: wrap;
   display: flex;

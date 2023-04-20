@@ -3,21 +3,40 @@ import matter from "gray-matter";
 import { useTheme } from "next-themes";
 import Head from 'next/head';
 import path from "path";
-import PostBlock from "../components/PostBlock";
+import Posts from "../components/Posts";
 import { CN_FONT, POSTS_DIR } from '../constants';
 import { Post } from "../global";
 import styles from '../styles/Home.module.css';
+import About from "../components/About";
+import { useEffect } from "react";
 
 type Props = {
   posts: Post[];
 }
 
+const POSTS = "posts";
+const ABOUT = "about";
+
 export default function Home({ posts }: Props) {
   const { theme, setTheme } = useTheme();
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
+
+  let a: HTMLElement;
+  let p: HTMLElement;
+
+  useEffect(() => {
+    a = document.getElementById(ABOUT)!;
+    p = document.getElementById(POSTS)!;
+  })
+
+  const toggleAbout = () => {
+    a.style.display = a.style.display === "block" ? "none" : "block";
+    p.style.display = "none";
+  }
+
   const togglePosts = () => {
-    const p = document.getElementById("posts")!;
     p.style.display = p.style.display === "block" ? "none" : "block";
+    a.style.display = "none";
   }
 
   return (
@@ -37,13 +56,15 @@ export default function Home({ posts }: Props) {
         </div>
         <div className={styles.body}>
           <div className={styles.buttons}>
+            <button onClick={toggleAbout}>about</button>
             <a href="https://github.com/angary/">github</a>
             <a href="https://www.linkedin.com/in/gary-sun/">linkedin</a>
             <button onClick={togglePosts}>
               posts
             </button>
           </div>
-          <PostBlock id={"posts"} posts={posts}></PostBlock>
+          <About id={ABOUT} />
+          <Posts id={POSTS} posts={posts} />
         </div>
       </main>
     </>

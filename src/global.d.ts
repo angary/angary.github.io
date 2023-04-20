@@ -5,7 +5,6 @@ export interface PostMetadata {
   mathjax: boolean;
 }
 
-
 export interface Post extends PostMetadata {
   path: string;
 }

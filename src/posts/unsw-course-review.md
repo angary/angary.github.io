@@ -1,7 +1,7 @@
 ---
 title: "UNSW Course Review"
 description: "Review on courses I've taken at UNSW"
-date: "2022-05-17"
+date: "2023-04-20"
 mathjax: false
 ---
 
@@ -474,9 +474,13 @@ However, its differences makes it a very interesting language to learn for the s
 
 _NP-completeness, Kernalisation, Paramterised Intractability, Branching Algorithms, Treewidth, Randomised Algorithms, Iterative Compression, Exponential time hypothesis, Heuristics and Local Search_
 
-Hard course (for me), runs every 2 years, cohort of 15 very smart people when I did it. Beware.
+Hard course (for me) and intense both workload and content wise, runs every 2 years, cohort of 15 very smart people when I did it.
 
-I would've taken notes for this course but there was a lot of content, and a lot of "thinking" that goes on.
+The course focuses heavily on theoretical computer science and discrete / pure math topics - would definitely recommend having some courses or background experience in this field else, the workload can be even more intense than it already is.
+
+I would've taken notes for this course but there was a lot of content, and a lot of logical reasoning that notes can't prepare you for.
+
+If you're genuinely considering taking this course, you're should be smart enough to know the knowledge requirements so I'm not going to mention recommended resources.
 
 ## COMP9444 - Neural Networks and Deep Learning
 

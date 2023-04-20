@@ -11,8 +11,7 @@
 }
 
 .article {
-  padding-bottom: 5em;
-  width: clamp(480px, 60%, 800px);
+  width: clamp(min(90vw, 480px), 60%, 800px);
 }
 
 .description {
@@ -25,4 +24,5 @@
   text-align: center;
   color: var(--foreground);
   opacity: 80%;
+  font-size: 0.8rem;
 }

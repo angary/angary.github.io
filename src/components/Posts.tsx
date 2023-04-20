@@ -1,7 +1,6 @@
 import 'react';
 import { Post } from '../global';
-import styles from "./PostBlock.module.css";
-
+import styles from "./Posts.module.css";
 
 type Props = {
   id: string;
@@ -9,11 +8,14 @@ type Props = {
 }
 
 export default function PostBlock({ id, posts }: Props) {
+
   const sortedPosts = posts
-    .map(({ date, ...x }) => { return { date: new Date(date), ...x } })
+    .map(({ date, ...p }) => { return { date: new Date(date), ...p } })
     .sort((a, b) => b.date.getTime() - a.date.getTime());
+
   return (
     <div id={id} className={styles.posts}>
+      <hr />
       {sortedPosts.map(({ path, date, title, description }) => (
         <a href={path} key={path}>
           <div className={styles.post}>
