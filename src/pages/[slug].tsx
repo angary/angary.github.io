@@ -2,11 +2,12 @@ import fs from "fs";
 import matter from "gray-matter";
 import { marked } from "marked";
 import Head from "next/head";
+import Link from "next/link";
+import Script from "next/script";
 import path from "path";
 import { CN_FONT, POSTS_DIR } from "../constants";
 import MathJax from "../mathjax";
 import styles from '../styles/Post.module.css';
-import Script from "next/script";
 
 export default function Post({ contents, metadata }) {
   return <>
@@ -22,13 +23,16 @@ export default function Post({ contents, metadata }) {
     </Head>
     <div className={styles.body}>
       <header className={styles.header}>
-        <a className="title" href=".">
+        <Link className="title" href=".">
           Gary Sun // <span className={`cn ${CN_FONT.className}`}>孫健</span>
-        </a>
+        </Link>
       </header>
       <div className={styles.article}>
         <h1>{metadata.title}</h1>
         <p className={styles.description}>{metadata.description}</p>
+        <p className={styles.date}>
+          {new Date(metadata.date).toLocaleString('en-gb', { day: 'numeric', month: 'long', year: 'numeric' })}
+        </p>
         <hr />
         <div dangerouslySetInnerHTML={{ __html: contents }} />
       </div>

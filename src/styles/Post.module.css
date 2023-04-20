@@ -20,3 +20,9 @@
   color: var(--foreground);
   font-style: italic;
 }
+
+.date {
+  text-align: center;
+  color: var(--foreground);
+  opacity: 80%;
+}

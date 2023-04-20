@@ -1,0 +1,39 @@
+.posts {
+  display: none;
+  transition: opacity 1s ease-out;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+  margin-top: 30px;
+  padding-bottom: 30px;
+}
+
+.post {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0px;
+  opacity: 80%;
+}
+
+.date {
+  width: 140px;
+  text-align: right;
+  padding-right: 20px;
+}
+
+.content {
+  width: 300px;
+  text-align: left;
+  overflow: wrap;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.description {
+  font-style: italic;
+}

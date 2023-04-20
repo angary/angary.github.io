@@ -2,15 +2,11 @@
 pre code.hljs {
   display: block;
   overflow-x: auto;
-  padding: 1rem;
-}
-
-code.hljs {
-  padding: 1rem 1rem;
+  padding: 1.2rem;
 }
 
 :root {
-  --hljs-white: rgb(245, 245, 245);
+  --hljs-white: rgb(248, 248, 248);
   --hljs-grey: rgb(190, 190, 190);
   --hljs-black: rgb(25, 25, 25);
 

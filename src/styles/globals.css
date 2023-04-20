@@ -9,22 +9,19 @@
   --medium-grey: rgb(120, 120, 120);
   --light-grey: rgb(170, 170, 170);
 
-  --light-red: rgb(230, 0, 0);
-  --dark-red: rgb(200, 30, 30);
-
   --transition-duration: 0.3s;
 
   --background: var(--white);
   --primary-foreground: var(--black);
   --secondary-foreground: var(--dark-grey);
-  --accent-color: var(--light-red);
+  --accent-color: var(--medium-grey);
 }
 
 [data-theme='dark'] {
   --background: var(--black);
   --primary-foreground: var(--white);
   --secondary-foreground: var(--light-grey);
-  --accent-color: var(--dark-red);
+  --accent-color: var(--medium-grey);
 }
 
 * {
@@ -43,6 +40,7 @@ body {
   justify-content: center;
   font-family: 'Times New Roman', serif;
   line-height: 1.2rem;
+  overflow-y: scroll;
 }
 
 button {
@@ -136,11 +134,11 @@ h4 {
 }
 
 hr {
-  margin: 1.5rem 0rem;
+  margin: 1rem 0rem;
 }
 
 pre {
-  margin: 1.5rem 0;
+  margin: 1rem 0;
   overflow-x: auto;
 }
 
@@ -159,7 +157,7 @@ img {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--hover-color);
+  background-color: var(--accent-color);
   border-radius: 18px;
   border: 6px solid transparent;
   background-clip: content-box;

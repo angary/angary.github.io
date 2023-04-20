@@ -1,14 +1,24 @@
-import fs from "fs"
-import Head from 'next/head'
-import { CN_FONT, POSTS_DIR } from '../constants'
-import styles from '../styles/Home.module.css'
+import fs from "fs";
+import matter from "gray-matter";
 import { useTheme } from "next-themes";
+import Head from 'next/head';
+import path from "path";
+import PostBlock from "../components/PostBlock";
+import { CN_FONT, POSTS_DIR } from '../constants';
+import { Post } from "../global";
+import styles from '../styles/Home.module.css';
 
-const POSTS = "posts";
+type Props = {
+  posts: Post[];
+}
 
-export default function Home({ posts }) {
+export default function Home({ posts }: Props) {
   const { theme, setTheme } = useTheme();
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
+  const togglePosts = () => {
+    const p = document.getElementById("posts")!;
+    p.style.display = p.style.display === "block" ? "none" : "block";
+  }
 
   return (
     <>
@@ -26,28 +36,24 @@ export default function Home({ posts }) {
           Gary Sun // <span className={`cn ${CN_FONT.className}`}>孫健</span>
         </div>
         <div className={styles.body}>
-          <a href="https://github.com/angary/">github</a>
-          <a href="https://www.linkedin.com/in/gary-sun/">linkedin</a>
-          <button onClick={(() => {
-            const p = document.getElementById(POSTS)!;
-            p.style.display = p.style.display === "block" ? "none" : "block";
-          })}>
-            posts
-          </button>
+          <div className={styles.buttons}>
+            <a href="https://github.com/angary/">github</a>
+            <a href="https://www.linkedin.com/in/gary-sun/">linkedin</a>
+            <button onClick={togglePosts}>
+              posts
+            </button>
+          </div>
+          <PostBlock id={"posts"} posts={posts}></PostBlock>
         </div>
-        <ul id={POSTS} className={styles.posts}>
-          {posts.map(({ path }) => (
-            <li id={path} key={path}>
-              <a href={path}>{path}</a>
-            </li>
-          ))}
-        </ul>
       </main>
     </>
   )
 }
 
 export const getStaticProps = async () => {
-  const posts = fs.readdirSync(POSTS_DIR).map(name => ({ path: name.replace(".md", "") }));
+  const posts = fs.readdirSync(POSTS_DIR).map(name => {
+    const { data } = matter.read(path.join(POSTS_DIR, name));
+    return { path: name.replace(".md", ""), ...data }
+  });
   return { props: { posts } }
 }
