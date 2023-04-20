@@ -2,10 +2,14 @@ import fs from "fs"
 import Head from 'next/head'
 import { CN_FONT, POSTS_DIR } from '../constants'
 import styles from '../styles/Home.module.css'
+import { useTheme } from "next-themes";
 
 const POSTS = "posts";
 
 export default function Home({ posts }) {
+  const { theme, setTheme } = useTheme();
+  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
+
   return (
     <>
       <Head>
@@ -18,7 +22,7 @@ export default function Home({ posts }) {
         />
       </Head>
       <main className={styles.main}>
-        <div className="title">
+        <div className="title" onClick={toggleTheme}>
           Gary Sun // <span className={`cn ${CN_FONT.className}`}>孫健</span>
         </div>
         <div className={styles.body}>
@@ -26,7 +30,7 @@ export default function Home({ posts }) {
           <a href="https://www.linkedin.com/in/gary-sun/">linkedin</a>
           <button onClick={(() => {
             const p = document.getElementById(POSTS)!;
-            p.style.display = p.style.display === "none" ? "block" : "none";
+            p.style.display = p.style.display === "block" ? "none" : "block";
           })}>
             posts
           </button>
@@ -34,7 +38,7 @@ export default function Home({ posts }) {
         <ul id={POSTS} className={styles.posts}>
           {posts.map(({ path }) => (
             <li id={path} key={path}>
-              <a id={path} key={path} href={path}>{path}</a>
+              <a href={path}>{path}</a>
             </li>
           ))}
         </ul>
