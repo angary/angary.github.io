@@ -8,35 +8,25 @@ import { CN_FONT, POSTS_DIR } from '../constants';
 import { Post } from "../global";
 import styles from '../styles/Home.module.css';
 import About from "../components/About";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   posts: Post[];
 }
 
-const POSTS = "posts";
-const ABOUT = "about";
-
 export default function Home({ posts }: Props) {
   const { theme, setTheme } = useTheme();
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
-
-  let a: HTMLElement;
-  let p: HTMLElement;
-
-  useEffect(() => {
-    a = document.getElementById(ABOUT)!;
-    p = document.getElementById(POSTS)!;
-  })
-
+  const [showAbout, setShowAbout] = useState(false);
+  const [showPosts, setShowPosts] = useState(false);
   const toggleAbout = () => {
-    a.style.display = a.style.display === "block" ? "none" : "block";
-    p.style.display = "none";
+    setShowAbout(!showAbout);
+    setShowPosts(false);
   }
 
   const togglePosts = () => {
-    p.style.display = p.style.display === "block" ? "none" : "block";
-    a.style.display = "none";
+    setShowPosts(!showPosts);
+    setShowAbout(false);
   }
 
   return (
@@ -51,20 +41,18 @@ export default function Home({ posts }: Props) {
         />
       </Head>
       <main className={styles.main}>
-        <div className="title" onClick={toggleTheme}>
+        <button className="title" onClick={toggleTheme}>
           Gary Sun // <span className={`cn ${CN_FONT.className}`}>孫健</span>
-        </div>
+        </button>
         <div className={styles.body}>
           <div className={styles.buttons}>
             <button onClick={toggleAbout}>about</button>
             <a href="https://github.com/angary/">github</a>
             <a href="https://www.linkedin.com/in/gary-sun/">linkedin</a>
-            <button onClick={togglePosts}>
-              posts
-            </button>
+            <button onClick={togglePosts}>posts</button>
           </div>
-          <About id={ABOUT} />
-          <Posts id={POSTS} posts={posts} />
+          {showAbout && <About id={"about"} />}
+          {showPosts && <Posts id={"posts"} posts={posts} />}
         </div>
       </main>
     </>

@@ -1,5 +1,5 @@
 .about {
-  display: none;
+  display: block;
   position: absolute;
   opacity: 90%;
   margin: 30px 0px;

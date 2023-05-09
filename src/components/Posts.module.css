@@ -1,6 +1,5 @@
 .posts {
-  display: none;
-  transition: opacity 1s ease-out;
+  display: block;
   position: absolute;
   flex-direction: column;
   align-items: center;

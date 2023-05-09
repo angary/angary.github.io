@@ -12,6 +12,7 @@
 
 .article {
   width: clamp(min(90vw, 480px), 60%, 800px);
+  padding-bottom: 4rem;
 }
 
 .description {
