@@ -3,14 +3,13 @@ title: "UNSW Course Review"
 description: "Review on courses I've taken at UNSW"
 date: "2023-04-20"
 mathjax: false
+hljs: false
 ---
-
 
 I've been asked pretty often about what courses to take at UNSW, and guides on how to do well so hopefully this page will help.
 
 Before UNSW, I had an interest in engineering (leaning towards Electrical Engineering), though I also wanted to do a double degree with Commerce since I found economics interesting.
 So I picked a double degree in Computer Science / Commerce as the degree was 4 years rather than the 5.6 years of Engineering / Commerce, despite having 0 programming experience (though I dropped Commerce after taking 1 Commerce course).
-
 
 # 20T1
 
@@ -185,7 +184,6 @@ If you are keen to get ahead, there isn't much needed but here are some ideas.
   - If you are on a unix based OS, you don't need to do much, else if you are on windows, I recommend setting up WSL.
   - Whilst you are at it I would recommend learning how to use virtual environments. A good explanation of how / why you should use them can be found [here](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/26/python-virtual-env/).
 - Learn features of python such as dictionaries, and how to write "pythonic" code (i.e. short code that takes advantage of python's features)
-
 
 ## COMP3311 - Database Systems
 
@@ -445,7 +443,6 @@ Below are a list of topics and the math that they involve, though you definitely
 
 #### Recommended resources
 
-
 - [StatQuest - Machine Learning](https://www.youtube.com/watch?v=Gv9_4yMHFhI&list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF) (Youtube playlist that goes over the math fundamentals and theory in ML)
 
 # 22T2
@@ -497,7 +494,6 @@ If you feel like you are comfortable enough self teaching the content, then ther
 
 - [Deep Learning Book (MIT)](https://www.deeplearningbook.org/)
 
-
 # 22T3
 
 ## COMP3900 - Computer Science Project
@@ -525,12 +521,11 @@ However, the assessments - 50% essay assignment and 50% group work presentation 
 
 _Types, Error Handling, Borrowing, Lifetimes, Docs & Testing, Polymorphism, Functions, Meta-Programming, Concurrency, Parallelism, Unsafes_
 
-Quite a well run course (compared to other high level courses), that goes through different features  of the Rust language (i.e. types, borrowing, lifetimes) and how they solve existing issues.
+Quite a well run course (compared to other high level courses), that goes through different features of the Rust language (i.e. types, borrowing, lifetimes) and how they solve existing issues.
 The course admining was quite good, resulting in helpful labs, workshops and forum responses, resulting in a good community when taking the course.
 
 It's not necessarily a Rust course, but the discussion of programming patterns are driven by the features of Rust.
 Consequently, you learn content i.e. memory management related to COMP1521, or design in COMP251, which is tailored to safe systems programming.
-
 
 #### Recommended Resources
 

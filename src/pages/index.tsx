@@ -1,33 +1,33 @@
 import fs from "fs";
 import matter from "gray-matter";
 import { useTheme } from "next-themes";
-import Head from 'next/head';
+import Head from "next/head";
 import path from "path";
-import Posts from "../components/Posts";
-import { CN_FONT, POSTS_DIR } from '../constants';
-import { Post } from "../global";
-import styles from '../styles/Home.module.css';
+import { useState } from "react";
 import About from "../components/About";
-import { useEffect, useState } from "react";
+import Posts from "../components/Posts";
+import { CN_FONT, POSTS_DIR } from "../constants";
+import { Post } from "../global";
+import styles from "../styles/Home.module.css";
 
 type Props = {
   posts: Post[];
-}
+};
 
 export default function Home({ posts }: Props) {
   const { theme, setTheme } = useTheme();
-  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
+  const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
   const [showAbout, setShowAbout] = useState(false);
   const [showPosts, setShowPosts] = useState(false);
   const toggleAbout = () => {
     setShowAbout(!showAbout);
     setShowPosts(false);
-  }
+  };
 
   const togglePosts = () => {
     setShowPosts(!showPosts);
     setShowAbout(false);
-  }
+  };
 
   return (
     <>
@@ -35,10 +35,6 @@ export default function Home({ posts }: Props) {
         <title>Gary Sun</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link
-          rel="icon"
-          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>"
-        />
       </Head>
       <main className={styles.main}>
         <button className="title" onClick={toggleTheme}>
@@ -56,13 +52,13 @@ export default function Home({ posts }: Props) {
         </div>
       </main>
     </>
-  )
+  );
 }
 
 export const getStaticProps = async () => {
-  const posts = fs.readdirSync(POSTS_DIR).map(name => {
+  const posts = fs.readdirSync(POSTS_DIR).map((name) => {
     const { data } = matter.read(path.join(POSTS_DIR, name));
-    return { path: name.replace(".md", ""), ...data }
+    return { path: name.replace(".md", ""), ...data };
   });
-  return { props: { posts } }
-}
+  return { props: { posts } };
+};
