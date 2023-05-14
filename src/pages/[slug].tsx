@@ -61,7 +61,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-  let { content, data } = matter.read(path.join(POSTS_DIR, slug + ".md"));
+  const { content, data } = matter.read(path.join(POSTS_DIR, slug + ".md"));
   return {
     props: {
       contents: marked(content),
