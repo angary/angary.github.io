@@ -7,7 +7,8 @@
   margin-top: 30px;
   padding-bottom: 30px;
   opacity: 90%;
-  max-width: min(90vw, 400px);
+  max-width: min(90vw, 450px);
+  min-width: min(90vw, 450px);
   font-size: medium;
 }
 
@@ -18,13 +19,13 @@
 }
 
 .date {
-  width: 25%;
+  width: 22%;
   text-align: right;
   padding-right: 0.5rem;
 }
 
 .content {
-  width: 75%;
+  width: 78%;
   text-align: left;
   overflow: wrap;
   display: flex;
@@ -37,4 +38,11 @@
 
 .description {
   font-style: italic;
+}
+
+.pagination {
+  text-align: center;
+}
+.pagination>button{
+  width: 16px;
 }
