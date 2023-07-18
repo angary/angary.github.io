@@ -4,10 +4,10 @@ import matter from "gray-matter";
 import hljs from "highlight.js/lib/common";
 import { marked } from "marked";
 import Head from "next/head";
-import Link from "next/link";
 import path from "path";
 import { useEffect } from "react";
-import { CN_FONT, POSTS_DIR } from "../constants";
+import Header from "../components/Header";
+import { POSTS_DIR } from "../constants";
 import styles from "../styles/Post.module.css";
 
 export default function Post({ contents, metadata }) {
@@ -27,12 +27,8 @@ export default function Post({ contents, metadata }) {
         <title>{metadata.title}</title>
       </Head>
       <div className={styles.body}>
-        <header className={styles.header}>
-          <Link className="title" href=".">
-            Gary Sun // <span className={`cn ${CN_FONT.className}`}>孫健</span>
-          </Link>
-        </header>
         <div className={styles.article}>
+          <Header />
           <h1>{metadata.title}</h1>
           <p className={styles.description}>{metadata.description}</p>
           <p className={styles.date}>
