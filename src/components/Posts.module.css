@@ -18,10 +18,18 @@
   padding: 0.5rem 0rem;
 }
 
+.post:hover .date,
+.post:hover .title,
+.post:hover .description {
+  color: var(--secondary-accent-color);
+}
+
 .date {
   width: 22%;
   text-align: right;
   padding-right: 0.5rem;
+  color: var(--secondary-foreground);
+  transition: color var(--transition-duration);
 }
 
 .content {
@@ -34,10 +42,15 @@
 
 .title {
   font-weight: bold;
+  color: var(--secondary-foreground);
+  transition: color var(--transition-duration);
+  font-variant: small-caps;
 }
 
 .description {
   font-style: italic;
+  color: var(--tertiary-foreground);
+  transition: color var(--transition-duration);
 }
 
 .pagination {

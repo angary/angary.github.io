@@ -3,31 +3,33 @@
 :root {
   color-scheme: light dark;
 
-  --black: rgb(18, 18, 18);
-  --white: rgb(255, 255, 255);
-  --dark-grey: rgb(60, 60, 60);
-  --medium-grey: rgb(140, 140, 140);
-  --light-grey: rgb(180, 180, 180);
+  --background: #F8F5F2;
+  --primary-foreground: #000000;
+  --secondary-foreground: #333333;
+  --tertiary-foreground: #5A5A5A;
+  --accent-color: #007BFF;
+  --secondary-accent-color: #66B2FF;
 
-  --transition-duration: 0.3s;
-
-  --background: var(--white);
-  --primary-foreground: var(--black);
-  --secondary-foreground: var(--dark-grey);
-  --accent-color: var(--medium-grey);
+  --transition-duration: 0.25s;
 }
 
 [data-theme="dark"] {
-  --background: var(--black);
-  --primary-foreground: var(--white);
-  --secondary-foreground: var(--light-grey);
-  --accent-color: var(--medium-grey);
+  --background: #1F1F1F;
+  --primary-foreground: #ffffff;
+  --secondary-foreground: #C0C0C0;
+  --tertiary-foreground: #8F8F8F;
+  --accent-color: #63B3ED;
+  --secondary-accent-color: #9AC8F5;
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+html {
+  overflow-y: scroll;
 }
 
 html,
@@ -38,7 +40,6 @@ body {
   color: var(--secondary-foreground);
   font-family: "Times New Roman", serif;
   line-height: 1.3rem;
-  overflow: overlay;
 }
 
 button {
