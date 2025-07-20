@@ -6,12 +6,12 @@ pre code.hljs {
 }
 
 .hljs {
-  background: var(--background);
+  background: var(--secondary-background);
   color: var(--primary-foreground);
 }
 
 .hljs-comment {
-  color: var(--primary-foreground);
+  color: var(--tertiary-foreground);
   font-style: italic;
 }
 

@@ -1,9 +1,7 @@
 .about {
   display: block;
   position: absolute;
-  opacity: 90%;
   margin: 30px 0px;
-  font-size: medium;
   max-width: min(90vw, 400px);
   text-align: center;
 }

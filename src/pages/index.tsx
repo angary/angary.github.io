@@ -43,9 +43,10 @@ export default function Home({ posts }: Props) {
         <div className={styles.body}>
           <div className={styles.buttons}>
             <button onClick={toggleAbout}>about</button>
-            <a href="https://github.com/angary/">github</a>
-            <a href="https://www.linkedin.com/in/gary-sun/">linkedin</a>
-            <button onClick={togglePosts}>posts</button>
+            {"//"}
+            <button><a href="https://github.com/angary/">projects</a> </button>
+            {"//"}
+            <button onClick={togglePosts}>writings</button>
           </div>
           {showAbout && <About id={"about"} />}
           {showPosts && <Posts id={"posts"} posts={posts} />}

@@ -19,5 +19,6 @@
 }
 
 .buttons>* {
-  padding: 0px 4px;
+  padding: 0px 8px;
+  font-size: large;
 }

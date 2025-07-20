@@ -6,16 +6,14 @@
   z-index: 1;
   margin-top: 30px;
   padding-bottom: 30px;
-  opacity: 90%;
   max-width: min(90vw, 450px);
   min-width: min(90vw, 450px);
-  font-size: medium;
 }
 
 .post {
   display: flex;
   flex-direction: row;
-  padding: 0.5rem 0rem;
+  padding: 0.6rem 0rem;
 }
 
 .post:hover .date,
@@ -25,15 +23,17 @@
 }
 
 .date {
-  width: 22%;
+  width: 25%;
   text-align: right;
-  padding-right: 0.5rem;
-  color: var(--secondary-foreground);
+  padding-right: 1rem;
+  color: var(--tertiary-foreground);
   transition: color var(--transition-duration);
+  font-size: medium;
+  font-variant: small-caps;
 }
 
 .content {
-  width: 78%;
+  width: 75%;
   text-align: left;
   overflow: wrap;
   display: flex;
@@ -41,21 +41,14 @@
 }
 
 .title {
-  font-weight: bold;
-  color: var(--secondary-foreground);
+  color: var(--primary-foreground);
   transition: color var(--transition-duration);
   font-variant: small-caps;
 }
 
 .description {
-  font-style: italic;
   color: var(--tertiary-foreground);
   transition: color var(--transition-duration);
-}
-
-.pagination {
-  text-align: center;
-}
-.pagination>button{
-  width: 16px;
+  font-size: medium;
+  font-style: italic;
 }
