@@ -16,7 +16,7 @@
 [data-theme="dark"] {
   --background: #1F1F1F;
   --primary-foreground: #ffffff;
-  --secondary-foreground: #C0C0C0;
+  --secondary-foreground: #C3C3C3;
   --tertiary-foreground: #8F8F8F;
   --accent-color: #63B3ED;
   --secondary-accent-color: #9AC8F5;
@@ -134,6 +134,9 @@ h4 {
 
 hr {
   margin: 0.6rem 0rem;
+  height: 1px;
+  background-color: var(--secondary-foreground);
+  border: none;
 }
 
 pre {
@@ -162,14 +165,13 @@ mjx-math {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--accent-color);
   border-radius: 18px;
   border: 6px solid transparent;
   background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--secondary-foreground);
+  background-color: var(--tertiary-foreground);
 }
 
 .title {

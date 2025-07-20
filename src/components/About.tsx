@@ -4,9 +4,9 @@ export default function About({ id }) {
   return (
     <div id={id} className={styles.about}>
       <hr />
-      Backend software engineer from Sydney, Australia
+      Software engineer from Sydney, Australia
       <br />
-      Computer Science graduate from UNSW
+      Find me at <a href="https://github.com/angary/">Github</a> and <a href="https://www.linkedin.com/in/gary-sun/">Linkedin</a> 
     </div>
   )
 }
