@@ -29,7 +29,6 @@
   color: var(--tertiary-foreground);
   transition: color var(--transition-duration);
   font-size: medium;
-  font-variant: small-caps;
 }
 
 .content {
