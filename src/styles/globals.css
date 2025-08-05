@@ -83,7 +83,7 @@ td {
   padding: 12px 15px;
 }
 
-thead > tr {
+thead>tr {
   text-align: left;
   border-bottom: 1px solid var(--secondary-foreground);
 }
@@ -154,10 +154,19 @@ img {
   width: 80%;
 }
 
+blockquote {
+  color: var(--tertiary-foreground);
+  border-left: 3px solid var(--tertiary-foreground);
+  margin: 1rem 0rem;
+  padding: 0rem 1rem;
+  opacity: 60%;
+}
+
 mjx-math {
   overflow-x: auto;
   overflow-y: hidden;
   max-width: 100%;
+  vertical-align: middle;
 }
 
 ::-webkit-scrollbar {
