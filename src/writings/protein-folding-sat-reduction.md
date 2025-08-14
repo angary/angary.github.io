@@ -99,7 +99,7 @@ The following rules must then be satisfied:
 1. Every character position $i \in S$ must be assigned to some point $j \in G$.
   $$\left\\{ \bigvee\limits_{j \in G} X_{i, j} \\; \middle| \\; i \in I \right\\}$$
 
-2. No characters position $i \in S$ can be assigned to more than one point $j \in G$.
+2. No character position $i \in S$ can be assigned to more than one point $j \in G$.
   $$\\{\lnot X_{i, j} \lor \lnot X_{i, j'} \mid i \in I, j,j' \in G, j \neq j'\\}$$
 
 3. No point $j \in G$ can have more than one character position $i \in S$ assigned to it.
@@ -259,7 +259,7 @@ The table describes the variables used in the order encoding
 | $\text{at}\_{i,p,d}$    | The $i^{th}$ index in $S$ is located at at least position $p$ in dimension $d$ | $i \in I, p \in P, d \in D$              |
 | $\text{same}\_{i,j,d}$  | Indexes $i, j$ are at the same position in dimension $d$                       | $\langle i, j \rangle A \cup Q, d \in D$ |
 | $\text{adj}\_{i,j,d}$   | Indexes $i,j$ are in adjacent positions in dimension $d$                       | $\langle i, j \rangle A \cup Q, d \in D$ |
-| $\text{contact}\_{i,j}$ | If postiions $i,j \in Q$ contact each other                                    | $\langle i, j \rangle \in Q$             |
+| $\text{contact}\_{i,j}$ | If positions $i,j \in Q$ contact each other                                    | $\langle i, j \rangle \in Q$             |
 
 #### Ensuring Legal Embeddings
 The our conditions for a legal embedding is as follows
@@ -281,7 +281,7 @@ In other words, every character is at least in position 1 in all dimensions.
 
 4. Every adjacent pair of character pair positions $\langle{i, j}\rangle \in A$ must be placed on adjacent points in the grid.
 
-    Now that we have the $\text{at}$ and $\text{adj}$ variabels we can reuse the same fomulas from the Dimension Encoding.
+    Now that we have the $\text{at}$ and $\text{adj}$ variables we can reuse the same formulas from the Dimension Encoding.
 
 #### Identifying Potential Contacts
 

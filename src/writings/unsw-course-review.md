@@ -477,7 +477,7 @@ The course focuses heavily on theoretical computer science and discrete / pure m
 
 I would've taken notes for this course but there was a lot of content, and a lot of logical reasoning that notes can't prepare you for.
 
-If you're genuinely considering taking this course, you're should be smart enough to know the knowledge requirements so I'm not going to mention recommended resources.
+If you're genuinely considering taking this course, you should be smart enough to know the knowledge requirements so I'm not going to mention recommended resources.
 
 ## COMP9444 - Neural Networks and Deep Learning
 
