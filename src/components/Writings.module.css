@@ -1,4 +1,4 @@
-.posts {
+.writings {
   display: block;
   position: absolute;
   flex-direction: column;
@@ -6,33 +6,41 @@
   z-index: 1;
   margin-top: 30px;
   padding-bottom: 30px;
-  max-width: min(90vw, 450px);
-  min-width: min(90vw, 450px);
+  max-width: min(90vw, 1rem);
+  min-width: min(90vw, 600px);
 }
 
-.post {
+.writings h1 {
+  transition: color var(--transition-duration);
+}
+
+.writings h1:hover {
+  color: var(--secondary-accent-color);
+}
+
+.writing {
   display: flex;
   flex-direction: row;
-  padding: 0.6rem 0rem;
+  padding: 0.8rem 0rem;
 }
 
-.post:hover .date,
-.post:hover .title,
-.post:hover .description {
+.writing:hover .date,
+.writing:hover .title,
+.writing:hover .description {
   color: var(--secondary-accent-color);
 }
 
 .date {
-  width: 25%;
+  width: 30%;
   text-align: right;
   padding-right: 1rem;
   color: var(--tertiary-foreground);
   transition: color var(--transition-duration);
-  font-size: medium;
+  font-size: large;
 }
 
 .content {
-  width: 75%;
+  width: 70%;
   text-align: left;
   overflow: wrap;
   display: flex;
@@ -43,11 +51,14 @@
   color: var(--primary-foreground);
   transition: color var(--transition-duration);
   font-variant: small-caps;
+  font-size: 1.2rem;
+  font-weight: 100;
+  padding-bottom: 4px;
 }
 
 .description {
   color: var(--tertiary-foreground);
   transition: color var(--transition-duration);
-  font-size: medium;
+  font-size: large;
   font-style: italic;
 }

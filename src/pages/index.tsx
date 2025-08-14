@@ -3,31 +3,32 @@ import matter from "gray-matter";
 import { useTheme } from "next-themes";
 import Head from "next/head";
 import path from "path";
-import { useState } from "react";
+import { useEffect } from "react";
 import About from "../components/About";
-import Posts from "../components/Posts";
-import { CN_FONT, POSTS_DIR } from "../constants";
-import { Post } from "../global";
+import Writings from "../components/Writings";
+import { CN_FONT, WRITINGS_DIR } from "../constants";
+import { Writing } from "../global";
 import styles from "../styles/Home.module.css";
 
 type Props = {
-  posts: Post[];
+  writings: Writing[];
 };
 
-export default function Home({ posts }: Props) {
+export default function Home({ writings }: Props) {
   const { theme, setTheme } = useTheme();
   const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
-  const [showAbout, setShowAbout] = useState(false);
-  const [showPosts, setShowPosts] = useState(false);
-  const toggleAbout = () => {
-    setShowAbout(!showAbout);
-    setShowPosts(false);
+  
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    window.history.pushState(null, '', `#${id}`);
   };
 
-  const togglePosts = () => {
-    setShowPosts(!showPosts);
-    setShowAbout(false);
-  };
+  useEffect(() => {
+    const hash = window.location.hash.substring(1);
+    if (hash) {
+      setTimeout(() => scrollToSection(hash), 100);
+    }
+  }, []);
 
   return (
     <>
@@ -37,29 +38,35 @@ export default function Home({ posts }: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main className={styles.main}>
-        <button className="title" onClick={toggleTheme}>
-          Gary Sun // <span className={`cn ${CN_FONT.className}`}>孫健</span>
-        </button>
-        <div className={styles.body}>
-          <div className={styles.buttons}>
-            <button onClick={toggleAbout}>about</button>
-            {"//"}
-            <button><a href="https://github.com/angary/">projects</a> </button>
-            {"//"}
-            <button onClick={togglePosts}>writings</button>
+        <section id="hero" className={styles.section}>
+          <button className="title" onClick={toggleTheme}>
+            Gary Sun // <span className={`cn ${CN_FONT.className}`}>孫健</span>
+          </button>
+          <div className={styles.body}>
+            <div className={styles.buttons}>
+              <button onClick={() => scrollToSection('about')}>about</button>
+              {"//"}
+              <button><a href="https://github.com/angary/">projects</a> </button>
+              {"//"}
+              <button onClick={() => scrollToSection('writings')}>writings</button>
+            </div>
           </div>
-          {showAbout && <About id={"about"} />}
-          {showPosts && <Posts id={"posts"} posts={posts} />}
-        </div>
+        </section>
+        <section id="about" className={styles.section}>
+          <About id="about" />
+        </section>
+        <section id="writings" className={styles.section}>
+          <Writings id="writings" writings={writings} />
+        </section>
       </main>
     </>
   );
 }
 
 export const getStaticProps = async () => {
-  const posts = fs.readdirSync(POSTS_DIR).map((name) => {
-    const { data } = matter.read(path.join(POSTS_DIR, name));
+  const writings = fs.readdirSync(WRITINGS_DIR).map((name) => {
+    const { data } = matter.read(path.join(WRITINGS_DIR, name));
     return { path: name.replace(".md", ""), ...data };
   });
-  return { props: { posts } };
+  return { props: { writings } };
 };

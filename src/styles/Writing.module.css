@@ -3,20 +3,25 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 8rem 0rem;
 }
 
 .article {
-  width: clamp(min(90vw, 480px), 60%, 800px);
-  padding-bottom: 4rem;
+  width: clamp(min(90vw, 480px), 60%, 700px);
 }
 
 .description {
   text-align: center;
-  color: var(--foreground);
+  color: var(--tertiary-foreground);
   font-style: italic;
 }
 
 .date {
   text-align: center;
-  color: var(--foreground);
+  color: var(--tertiary-foreground);
+  padding-bottom: 4rem;
+}
+
+.nav {
+  text-align: center;
 }
