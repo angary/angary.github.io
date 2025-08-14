@@ -118,7 +118,7 @@ In comparison, Strassen's algorithm requires 7 multiplications (and 18 additions
 4. $M_4 = (A_{2, 2})(B_{1, 2} - B_{2, 2})$
 5. $M_5 = (A_{1, 1} + A_{1, 2})(B_{2, 2})$
 6. $M_6 = (A_{2, 1} - A_{1, 1})(B_{1, 1} + B_{1, 2})$
-7. $M_7 = (A_{1, 2} - A_{2, 2]})(B_{2, 1} + B_{2, 2})$
+7. $M_7 = (A_{1, 2} - A_{2, 2})(B_{2, 1} + B_{2, 2})$
 
 which can then be added and subtracted with each other to produce the final result
 

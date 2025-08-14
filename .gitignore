@@ -30,3 +30,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# TikZ cache (generated at build time)
+/public/tikz-cache/

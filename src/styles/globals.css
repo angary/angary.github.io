@@ -169,8 +169,62 @@ mjx-math {
   vertical-align: middle;
 }
 
+/* TikZ diagram container styling for pre-compiled diagrams */
+.tikz-diagram {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  width: 100%;
+}
+
+/* TikZ SVG styling for pre-compiled diagrams */
+.tikz-diagram .tikz-svg {
+  max-width: 100%;
+  max-height: 60vh;
+  height: auto;
+  width: auto;
+  display: block;
+}
+
+/* Dark theme TikZ styling for pre-compiled diagrams */
+[data-theme="dark"] .tikz-diagram .tikz-svg {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Light theme TikZ styling for pre-compiled diagrams */
+[data-theme="light"] .tikz-diagram .tikz-svg {
+  filter: none;
+}
+
+/* Legacy TikZ SVG styling - global selectors with high specificity */
+div[style*="display: flex"][style*="width"] {
+  margin: 2rem auto !important;
+  display: block !important;
+  width: 100% !important;
+}
+
+.page {
+  position: relative !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+svg[width*="pt"][height*="pt"] {
+  position: relative !important;
+  transform: scale(1.2) !important;
+  transform-origin: center !important;
+  filter: none;
+  transition: filter var(--transition-duration);
+}
+
+/* Dark theme for legacy TikZ SVGs */
+[data-theme="dark"] svg[width*="pt"][height*="pt"] {
+  filter: invert(1) hue-rotate(180deg);
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 2px;
 }
 
 ::-webkit-scrollbar-track {
@@ -178,7 +232,7 @@ mjx-math {
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 8px;
+  border-radius: 2px;
   background-clip: content-box;
 }
 

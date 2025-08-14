@@ -1,7 +1,0 @@
-.header {
-    padding-top: 1.5em;
-    padding-bottom: 1em;
-    text-align: center;
-    background-color: color-mix(in srgb, var(--background) 10%, transparent);
-    backdrop-filter: blur(4px);
-}

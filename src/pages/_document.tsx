@@ -29,6 +29,7 @@ export default function Document() {
           content="/favicon/browserconfig.xml"
         />
         <meta name="theme-color" content="#ffffff" />
+        {/* TikZJax is loaded conditionally per page when needed */}
       </Head>
       <body>
         <Main />
