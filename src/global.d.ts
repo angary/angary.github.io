@@ -1,10 +1,10 @@
-export interface PostMetadata {
+export interface WritingMetadata {
   title: string;
   description: string;
   date: string;
   mathjax: boolean;
 }
 
-export interface Post extends PostMetadata {
+export interface Writing extends WritingMetadata {
   path: string;
 }

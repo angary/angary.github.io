@@ -4,13 +4,14 @@ import matter from "gray-matter";
 import hljs from "highlight.js/lib/common";
 import { marked } from "marked";
 import Head from "next/head";
+import Link from "next/link";
 import path from "path";
 import { useEffect } from "react";
-import Header from "../components/Header";
-import { POSTS_DIR } from "../constants";
-import styles from "../styles/Post.module.css";
+import Header from "../../components/Header";
+import { WRITINGS_DIR } from "../../constants";
+import styles from "../../styles/Writing.module.css";
 
-export default function Post({ contents, metadata }) {
+export default function Writing({ contents, metadata }) {
   useEffect(() => {
     if (metadata.hljs) {
       hljs.highlightAll();
@@ -28,7 +29,18 @@ export default function Post({ contents, metadata }) {
       </Head>
       <div className={styles.body}>
         <div className={styles.article}>
-          <Header />
+          {/* <Header /> */}
+          <div className={styles.nav}>
+            <h1>
+              <Link href="/" legacyBehavior>
+                <a>Gary Sun</a>
+              </Link>
+              {" // "}
+              <Link href="/#writings" legacyBehavior>
+                <a>Writings</a>
+              </Link>
+            </h1>
+          </div>
           <h1>{metadata.title}</h1>
           <p className={styles.description}>{metadata.description}</p>
           <p className={styles.date}>
@@ -38,7 +50,6 @@ export default function Post({ contents, metadata }) {
               year: "numeric",
             })}
           </p>
-          <hr />
           {htmlContent}
         </div>
       </div>
@@ -47,7 +58,7 @@ export default function Post({ contents, metadata }) {
 }
 
 export const getStaticPaths = async () => {
-  const files = fs.readdirSync(POSTS_DIR);
+  const files = fs.readdirSync(WRITINGS_DIR);
   return {
     paths: files.map((name) => ({
       params: { slug: name.replace(".md", "") },
@@ -57,7 +68,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-  const { content, data } = matter.read(path.join(POSTS_DIR, slug + ".md"));
+  const { content, data } = matter.read(path.join(WRITINGS_DIR, slug + ".md"));
   return {
     props: {
       contents: marked(content),

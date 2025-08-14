@@ -73,7 +73,7 @@ p {
 
 table {
   border-collapse: collapse;
-  margin: 0.5rem auto;
+  margin: 1rem auto;
   font-size: 1em;
   width: 100%;
 }
@@ -170,7 +170,7 @@ mjx-math {
 }
 
 ::-webkit-scrollbar {
-  width: 18px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -178,8 +178,7 @@ mjx-math {
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 18px;
-  border: 6px solid transparent;
+  border-radius: 8px;
   background-clip: content-box;
 }
 

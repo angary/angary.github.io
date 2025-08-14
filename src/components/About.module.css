@@ -5,3 +5,11 @@
   max-width: min(90vw, 400px);
   text-align: center;
 }
+
+.about h1 {
+  transition: color var(--transition-duration);
+}
+
+.about h1:hover {
+  color: var(--secondary-accent-color);
+}
