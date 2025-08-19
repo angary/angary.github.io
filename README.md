@@ -14,7 +14,12 @@ yarn dev
 
 This project supports TikZ diagrams that are compiled to SVG at build time.
 
-Requirements: `pdflatex` and `pdf2svg`
+Requirements: `pdflatex` and `pdf2svg` and afterwards install the following
+
+```
+tlmgr install standalone
+tlmgr install pgfplots
+```
 
 1. **During Build**: The build process scans markdown files for `tikz` code blocks
 2. **LaTeX Compilation**: Each TikZ diagram is compiled using local `pdflatex` 

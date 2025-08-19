@@ -84,7 +84,7 @@ export async function compileTikzToSvg(tikzCode: string): Promise<string> {
 \\usepackage{tikz}
 \\usepackage{pgfplots}
 \\pgfplotsset{compat=1.18}
-\\usetikzlibrary{arrows.meta,positioning,calc}
+\\usetikzlibrary{arrows.meta,positioning,calc,shapes.misc}
 \\begin{document}
 \\begin{tikzpicture}
 ${tikzCode}
@@ -95,10 +95,22 @@ ${tikzCode}
     fs.writeFileSync(texPath, latexDocument);
 
     // Compile LaTeX to PDF
-    execSync(`pdflatex -interaction=batchmode "${baseName}.tex"`, { 
-      cwd: tempDir, 
-      stdio: 'ignore' 
-    });
+    try {
+      execSync(`pdflatex -interaction=batchmode "${baseName}.tex"`, { 
+        cwd: tempDir, 
+      });
+    } catch (error) {
+      const logFile = path.join(tempDir, `${baseName}.log`);
+      if (fs.existsSync(logFile)) {
+        const logContent = fs.readFileSync(logFile, 'utf-8');
+        console.error('pdflatex log:', logContent);
+      }
+      throw error;
+    }
+
+    // Log files in temp directory
+    const files = fs.readdirSync(tempDir);
+    console.log('Files in temp dir:', files);
 
     const pdfPath = path.join(tempDir, `${baseName}.pdf`);
     if (!fs.existsSync(pdfPath)) {
