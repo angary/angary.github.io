@@ -1,3 +1,4 @@
+import type { AppProps } from "next/app";
 import { MathJaxContext } from "better-react-mathjax";
 import { ThemeProvider } from "next-themes";
 import "../styles/globals.css";
@@ -6,7 +7,7 @@ import {
   version as mathJaxVersion,
 } from "../util/MathJax";
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <MathJaxContext version={mathJaxVersion} config={mathJaxConfig}>
       <ThemeProvider>

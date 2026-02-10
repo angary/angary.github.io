@@ -1,3 +1,4 @@
+set -e
 rm -rf out && yarn export && \
 cat CNAME >> out/CNAME && \
 cd out && touch .nojekyll &&
