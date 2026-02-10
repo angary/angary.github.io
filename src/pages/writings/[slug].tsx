@@ -3,15 +3,22 @@ import fs from "fs";
 import matter from "gray-matter";
 import hljs from "highlight.js/lib/common";
 import { marked } from "marked";
+import type { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import path from "path";
 import { useEffect } from "react";
 import { WRITINGS_DIR } from "../../constants";
+import type { WritingMetadata } from "../../global";
 import styles from "../../styles/Writing.module.css";
 import { processTikzInMarkdown } from "../../util/tikzBuildTimeLocal";
 
-export default function Writing({ contents, metadata }) {
+type WritingPageProps = {
+  contents: string;
+  metadata: WritingMetadata;
+};
+
+export default function Writing({ contents, metadata }: WritingPageProps) {
   useEffect(() => {
     if (metadata.hljs) {
       hljs.highlightAll();
@@ -59,7 +66,7 @@ export default function Writing({ contents, metadata }) {
 }
 
 export const getStaticPaths = async () => {
-  const files = fs.readdirSync(WRITINGS_DIR);
+  const files = fs.readdirSync(WRITINGS_DIR).filter((name) => name.endsWith(".md"));
   return {
     paths: files.map((name) => ({
       params: { slug: name.replace(".md", "") },
@@ -68,27 +75,33 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async ({ params: { slug } }) => {
+export const getStaticProps: GetStaticProps<WritingPageProps, { slug: string }> = async ({
+  params,
+}) => {
+  const slug = params?.slug;
+  if (!slug) {
+    return { notFound: true };
+  }
+
   const { content, data } = matter.read(path.join(WRITINGS_DIR, slug + ".md"));
-  
+
   try {
-    // Try to process TikZ diagrams at build time using local LaTeX
     const processedContent = await processTikzInMarkdown(content);
-    
     return {
       props: {
         contents: marked(processedContent),
-        metadata: data,
+        metadata: data as WritingMetadata,
       },
     };
   } catch (error) {
-    console.warn('Local TikZ compilation failed, using regular markdown:', error.message);
-    
-    // Fallback to regular markdown processing without TikZ
+    console.warn(
+      "Local TikZ compilation failed, using regular markdown:",
+      error instanceof Error ? error.message : String(error)
+    );
     return {
       props: {
         contents: marked(content),
-        metadata: data,
+        metadata: data as WritingMetadata,
       },
     };
   }

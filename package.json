@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build && next export",
+    "export": "next build",
     "clean:tikz": "rm -rf public/tikz-cache",
     "build:clean": "npm run clean:tikz && npm run build"
   },
@@ -22,12 +22,10 @@
     "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-headroom": "^3.2.1",
-    "typescript": "^5.0.2"
+    "typescript": "^5.6"
   },
   "devDependencies": {
     "@types/node": "18.15.8",
-    "@types/react": "^18.0.29",
-    "@types/react-headroom": "^3.2.0"
+    "@types/react": "^18.0.29"
   }
 }

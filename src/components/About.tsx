@@ -1,6 +1,10 @@
 import styles from "./About.module.css";
 
-export default function About({ id }) {
+type AboutProps = {
+  id: string;
+};
+
+export default function About({ id }: AboutProps) {
   const handleTitleClick = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
     window.history.pushState(null, '', '#about');

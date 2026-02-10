@@ -131,7 +131,7 @@ h4 {
   margin: 8px 0px;
 }
 
-h4 {
+h5 {
   font-size: 1.2rem;
   margin: 6px 0px;
 }
@@ -249,4 +249,5 @@ svg[width*="pt"][height*="pt"] {
 
 .cn {
   font-size: 2rem;
+  vertical-align: bottom;
 }

@@ -6,7 +6,7 @@ import path from "path";
 import { useEffect } from "react";
 import About from "../components/About";
 import Writings from "../components/Writings";
-import { CN_FONT, WRITINGS_DIR } from "../constants";
+import { WRITINGS_DIR } from "../constants";
 import { Writing } from "../global";
 import styles from "../styles/Home.module.css";
 
@@ -40,13 +40,13 @@ export default function Home({ writings }: Props) {
       <main className={styles.main}>
         <section id="hero" className={styles.section}>
           <button className="title" onClick={toggleTheme}>
-            Gary Sun // <span className={`cn ${CN_FONT.className}`}>孫健</span>
+            Gary Sun // <span className="cn">孫健</span>
           </button>
           <div className={styles.body}>
             <div className={styles.buttons}>
               <button onClick={() => scrollToSection('about')}>about</button>
               {"//"}
-              <button><a href="https://github.com/angary/">projects</a> </button>
+              <a href="https://github.com/angary/" className={styles.navLink}>projects</a>
               {"//"}
               <button onClick={() => scrollToSection('writings')}>writings</button>
             </div>
@@ -64,7 +64,9 @@ export default function Home({ writings }: Props) {
 }
 
 export const getStaticProps = async () => {
-  const writings = fs.readdirSync(WRITINGS_DIR).map((name) => {
+  const writings = fs.readdirSync(WRITINGS_DIR)
+    .filter((name) => name.endsWith(".md"))
+    .map((name) => {
     const { data } = matter.read(path.join(WRITINGS_DIR, name));
     return { path: name.replace(".md", ""), ...data };
   });

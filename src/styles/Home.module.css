@@ -23,7 +23,8 @@
   display: inline-block;
 }
 
-.buttons>* {
+.buttons > *,
+.navLink {
   padding: 0px 8px;
   font-size: large;
 }
