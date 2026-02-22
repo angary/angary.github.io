@@ -1,21 +1,24 @@
 import styles from "./About.module.css";
+import SectionHeading from "./SectionHeading";
 
 type AboutProps = {
-  id: string;
+  sectionId: string;
+  contentId?: string;
 };
 
-export default function About({ id }: AboutProps) {
+export default function About({ sectionId, contentId }: AboutProps) {
   const handleTitleClick = () => {
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-    window.history.pushState(null, '', '#about');
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+    window.history.replaceState(window.history.state, "", `#${sectionId}`);
   };
 
   return (
-    <div id={id} className={styles.about}>
-      <h1 onClick={handleTitleClick} style={{ cursor: 'pointer' }}>About</h1>
+    <div id={contentId ?? sectionId} className={styles.about}>
+      <SectionHeading title="About" onClick={handleTitleClick} className={styles.clickableHeading} />
       Software engineer from Sydney, Australia
       <br />
-      Find me at <a href="https://github.com/angary/">Github</a> and <a href="https://www.linkedin.com/in/gary-sun/">Linkedin</a> 
+      Find me at <a href="https://github.com/angary/">Github</a> and{" "}
+      <a href="https://www.linkedin.com/in/gary-sun/">Linkedin</a>
     </div>
-  )
+  );
 }

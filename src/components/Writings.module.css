@@ -1,6 +1,5 @@
 .writings {
   display: block;
-  position: absolute;
   flex-direction: column;
   align-items: center;
   z-index: 1;
@@ -42,7 +41,7 @@
 .content {
   width: 70%;
   text-align: left;
-  overflow: wrap;
+  overflow-wrap: anywhere;
   display: flex;
   flex-direction: column;
 }
@@ -61,4 +60,8 @@
   transition: color var(--transition-duration);
   font-size: large;
   font-style: italic;
+}
+
+.clickableHeading {
+  cursor: pointer;
 }

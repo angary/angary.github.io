@@ -1,16 +1,24 @@
-import "react";
+import Link from "next/link";
 import { Writing } from "../global";
+import SectionHeading from "./SectionHeading";
 import styles from "./Writings.module.css";
 
 type Props = {
-  id: string;
+  sectionId: string;
+  contentId?: string;
   writings: Writing[];
 };
 
-export default function WritingBlock({ id, writings }: Props) {
+export default function WritingBlock({ sectionId, contentId, writings }: Props) {
   const handleTitleClick = () => {
-    document.getElementById('writings')?.scrollIntoView({ behavior: 'smooth' });
-    window.history.pushState(null, '', '#writings');
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+    window.history.replaceState(window.history.state, "", `#${sectionId}`);
+  };
+
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
   };
 
   const sortedWritings = writings
@@ -25,10 +33,9 @@ export default function WritingBlock({ id, writings }: Props) {
     title: string,
     description: string
   ) => {
-    const dateOptions: Intl.DateTimeFormatOptions = { year: "numeric", month: 'short', day: '2-digit' };
     const dateString = date.toLocaleDateString(undefined, dateOptions);
     return (
-      <a href={`/writings/${path}`} key={path}>
+      <Link href={`/writings/${path}`} key={path}>
         <div className={styles.writing}>
           <div className={styles.date}>
             {dateString}
@@ -38,13 +45,13 @@ export default function WritingBlock({ id, writings }: Props) {
             <div className={styles.description}>{description}</div>
           </div>
         </div>
-      </a>
+      </Link>
     );
   };
 
   return (
-    <div id={id} className={styles.writings}>
-      <h1 onClick={handleTitleClick} style={{ cursor: 'pointer' }}>Writings</h1>
+    <div id={contentId ?? sectionId} className={styles.writings}>
+      <SectionHeading title="Writings" onClick={handleTitleClick} className={styles.clickableHeading} />
       {sortedWritings.map(({ path, date, title, description }) =>
         toDiv(path, date, title, description)
       )}

@@ -5,6 +5,7 @@ date: "2023-04-20"
 mathjax: false
 hljs: false
 ---
+# Preface
 
 I've been asked pretty often about what courses to take at UNSW, and guides on how to do well so hopefully this page will help.
 

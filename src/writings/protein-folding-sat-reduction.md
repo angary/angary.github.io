@@ -6,13 +6,13 @@ mathjax: true
 hljs: true
 ---
 
-## Introduction
+# Introduction
 
 The protein folding problem is the challenge of predicting the three-dimensional structure of a protein from its amino acid sequence.
 
 While AI models like DeepMind's AlphaFold have achieved great success in protein structure prediction, the focus of this research was to analyze the underlying SAT encodings to determine how much their performance could be improved.
 
-### Protein folding in biology
+## Protein folding in biology
 
 Proteins are large molecules composed of a chain of amino acids.
 A protein only becomes functional once this chain "folds" into a specific, complex 3D structure.
@@ -23,11 +23,11 @@ If the protein were to misfold, this pocket would not form correctly, and the my
 
 Given that these chains can be very long, the number of possible folding configurations can be astronomical (up to $10^{300}$), making it computationally challenging to predict the final structure from the amino acid sequence alone.
 
-### A Computational Challenge 
+## A Computational Challenge 
 
 The many possible ways a sequence can fold makes it an interesting computational problem, where our goal is to try and determine what structure a sequence will fold into as fast as possible.
 
-## Protein Folding via the HP model
+# Protein Folding via the HP model
 
 The Hydrophobic-Polar (HP) model is a way of encoding an amino sequence into a boolean sequence.
 
@@ -40,7 +40,7 @@ To find the optimal structure we conduct a linear search, starting at the previo
 The maximum contacts is then the one which produced the largest satisfiable instance.
 Despite being a linear search, this approach worked quite well since satisfiable instances could be solved much faster than unsatisfiable instances
 
-### Legal Embedding
+## Legal Embedding
 
 A legal embedding must follow the following rules:
 
@@ -72,13 +72,13 @@ w =
 $$
 
 
-### Maximising Contacts
+## Maximising Contacts
 
 To then determine the optimal structure, we have to maximise the number of contacts.
 A contact exists between $j$ and $m$ on the grid $G$ if and only if a 1 is assigned to both $j$ and $j'$ of $G$, and the 1s assigned to points $j$ and $j'$ are not adjacent in $S$.
 A linear constraint encoding is then used to determine how many contacts there are.
 
-## A Baseline SAT Encoding
+# A Baseline SAT Encoding
 
 The following SAT reduction is based on the work of Brown, Zuo, and Gusfield [1].
 We represent each point on the 2D grid a number from 1 to $w^2$, or for the 3D grid a number from 1 to $w^3$.
@@ -92,7 +92,7 @@ The table describes the variables used in the original encoding
 | $T_j$      | There is a character 1 at coordinate $j$ of $G$                | $j \in G$                                                |
 | $C_{j,j'}$ | There is a contact between adjacent points $j$ and $j'$ in $G$ | $j, j' \in G, j < j'$, where $j$ and $j'$ are neighbours |
 
-#### Ensuring Legal Embeddings
+### Ensuring Legal Embeddings
 
 To enforce a valid embedding of the sequence onto the grid, we first define a boolean variable $X_{i, j}$, which is `true` if and only if the *i*-th amino acid in the sequence is placed at position *j* on the grid.
 The following rules must then be satisfied:
@@ -111,7 +111,7 @@ This can be expressed as an implication: if amino acid $i$ is at position $j$, t
 
   Note $j$ and $j'$ are neighbours.
 
-#### Identifying Potential Contacts
+### Identifying Potential Contacts
 
 There are two conditions for a potential contact:
 
@@ -129,7 +129,7 @@ $$
 }
 $$ 
 
-#### Counting Potential Contacts
+### Counting Potential Contacts
 
 To determine the number of contacts, we have to count how many of the $C$ variables are set to true.
 To determine the maximum number of contacts, a goal number of contacts $m$ is chosen.
@@ -149,14 +149,14 @@ This encoding also requires $O(|G|)$ new variables, however, empirically has few
 
 The clauses here have been omitted, as different cardinality constraint encodings can be used interchangeably.
 
-## Potential Optimisations
+# Potential Optimisations
 
 During my time at UNSW, my research on this involved testing possible optimisations to the encoding model which could have reduced the total number of variables to solve.
 
 > Note to assist with describing the encodings here I use $(A \rightarrow B)$ which is an implication, i.e. if A is true then B must be true.
 > This can be converted to CNF form as $(\lnot A \lor B)$.
 
-### Dimensionality Encoding
+## Dimensionality Encoding
 
 Rather than having a variable for if a sequence index is on a point in the grid, we have a variable for if it is in a position along an axis in a $d$ dimension, for all dimensions.
 This should reduce the number of variables describing the grid points from scaling $O(w^2)$ for 2D and $O(w^3)$ to $O(w)$ for both 2 and 3D.
@@ -185,7 +185,7 @@ The table describes the variables used in the dimensionality encoding
 | $\text{adj}\_{i,j,d}$   | Indexes $i,j$ are in adjacent positions in dimension $d$              | $\langle i, j \rangle A \cup Q, d \in D$ |
 | $\text{contact}\_{i,j}$ | If postiions $i,j \in Q$ contact each other                           | $\langle i, j \rangle \in Q$             |
 
-#### Ensuring Legal Embeddings
+### Ensuring Legal Embeddings
 
 The four conditions for a legal embedding are as follows:
 
@@ -221,7 +221,7 @@ The four conditions for a legal embedding are as follows:
   $$\\{ \text{adj}\_{i, j, d} \rightarrow \phantom{\lnot} \text{same}\_{i, j, d'} \mid d, d' \in D, d \neq d'\\} $$
   $$\\{ \text{same}\_{i, j, d} \rightarrow \lnot \text{adj}\_{i, j, d'} \mid d, d' \in D, d \neq d'\\} $$
 
-#### Identifying Potential Contacts
+### Identifying Potential Contacts
 
 We have the same clauses as that in the adjacency section, except they exist for any $\langle{i, j}\rangle \in Q$ instead of $\langle{i, j}\rangle \in A$.
 These clauses are required to for potential contact indexes to determine which potential contacts are next to each other.
@@ -234,12 +234,12 @@ Then, the condition for a potential contact are as follows:
   $$ \left\\{ \lnot \text{adj}\_{i, j, d} \bigwedge_{d' \in D, d \neq d'} \lnot \text{adj}\_{i, j, d'} \rightarrow \lnot \text{contact}\_{i, j} \right\\} $$
   $$\\{ \text{adj}\_{i, j, d} \land \lnot \text{same}\_{i, j, d'} \rightarrow \lnot \text{contact}\_{i, j} \mid d' \in D, d \neq d\\} $$
 
-#### Counting Potential Contacts
+### Counting Potential Contacts
 
 Similar to the original encoding, we count if the number of true contact variables is less than or equal to $m$ where $m$ is the required number of contacts.
 The cardinality constraint method is used in [3].
 
-### Order Encoding
+## Order Encoding
 
 This encoding has the same concepts as a the dimensionality reduction, with one change.
 Rather than $\text{at}\_{i, p, d}$ meaning sequence index $i$ is exactly at position $p$ in dimension $d$, it means that it is at least at position $p$ in dimension $d$.
@@ -261,7 +261,7 @@ The table describes the variables used in the order encoding
 | $\text{adj}\_{i,j,d}$   | Indexes $i,j$ are in adjacent positions in dimension $d$                       | $\langle i, j \rangle A \cup Q, d \in D$ |
 | $\text{contact}\_{i,j}$ | If positions $i,j \in Q$ contact each other                                    | $\langle i, j \rangle \in Q$             |
 
-#### Ensuring Legal Embeddings
+### Ensuring Legal Embeddings
 The our conditions for a legal embedding is as follows
 
 1. Every character index $i \in I$ must be assigned to some position $p$ in dimension $d$.
@@ -283,15 +283,15 @@ In other words, every character is at least in position 1 in all dimensions.
 
     Now that we have the $\text{at}$ and $\text{adj}$ variables we can reuse the same formulas from the Dimension Encoding.
 
-#### Identifying Potential Contacts
+### Identifying Potential Contacts
 
 Now that we have the same set of $\text{adj}$ and $\text{same}$ variables as in the Dimension Encoding, we can count contacts through the same method.
 
-#### Counting Potential Contacts
+### Counting Potential Contacts
 
 Similar to the Dimension Encoding, counting potential contacts is accomplished through the same clauses, using the sequential encoding in [3].
 
-## References
+# References
 
 [1] Gusfield D. Brown H, Zuo L. Comparing integer linear programming to sat-solving for hard problems in computational and systems biology. Algorithms for Computational Biology., pages 63–76, 2020.
 

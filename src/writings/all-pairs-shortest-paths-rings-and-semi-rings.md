@@ -6,17 +6,17 @@ mathjax: true
 hljs: true
 ---
 
-## Introduction
+# Introduction
 
 The Single Source Shortest Paths (SSSP) problem is to find the shortest distance from one node to every other node in a graph. The All Pairs Shortest Paths (APSP) problem, is to determine for every node in the graph, the shortest distance to every other node in a graph.
 APSP typically has applications in routing algorithms, i.e. finding the shortest path from one location to another.
 
-## Usual algorithms
+# Usual algorithms
 
 Depending on the type of graph, for both SSSP and APSP there are different algorithms to solve the relevant problems.
 The tables below provide the fastest well known algorithm to solve SSSP and APSP
 
-### Single Source Shortest Path
+## Single Source Shortest Path
 
 | Graph Type                   | Algorithm                       | Runtime                |
 | ---------------------------- | ------------------------------- | ---------------------- |
@@ -25,7 +25,7 @@ The tables below provide the fastest well known algorithm to solve SSSP and APSP
 | General                      | Bellman-Ford                    | $O(VE)$                |
 | Directed Acyclic Graph (DAG) | Topological Sort + Bellman-Ford | $O(V + E)$             |
 
-### All Pairs Shortest Path
+## All Pairs Shortest Path
 
 Ignoring DAGs, the first two algorithms for APSP are merely SSSP algorithms run from every vertex of the graph, whilst there are different algorithms for general graphs depending on the number of edges.
 It is also important to note that as the number of edges increases to $O(V^2)$ in a graph, Johnson's algorithm approaches $O(V^2 \text{lg} V + V^3)$, making it slower than Floyd-Warshall.
@@ -37,7 +37,7 @@ It is also important to note that as the number of edges increases to $O(V^2)$ i
 | General (Dense)           | Floyd-Warshall            | $O(V^3)$                  |
 | General (Sparse)          | Johnson's                 | $O(V^2 \text{lg} V + VE)$ |
 
-## Floyd-Warshall and Matrix Multiplication
+# Floyd-Warshall and Matrix Multiplication
 
 That being said a special shout out goes to Floyd-Warshall for it's simplicity - elegantly composed of a few lines of code.
 
@@ -72,12 +72,12 @@ With the exception of creating result matrix and storing the calculations there,
 1. Instead of taking the cumulative `sum`, Floyd-Warshall takes the cumulative `min`
 2. Instead of applying `*` between two values, Floyd-Warshall applies `+`
 
-## Strassen's Algorithm
+# Strassen's Algorithm
 
 That being said there exists a sub $O(V^3)$ time for calculating the MM of two matrices, known as Strassen's algorithm.
 It is important to note that naive MM runs in $O(V^3)$, whilst matrix addition / subtraction runs in $O(V^2)$, and so Strassen's algorithm aims to reuse computations and lower runtime by using less multiplications, but more addition / subtraction.
 
-### Explanation
+## Explanation
 
 The naive method of MM is as follows
 
@@ -127,7 +127,7 @@ which can then be added and subtracted with each other to produce the final resu
 3. $C_{2, 1} = M_2 + M_4$
 4. $C_{2, 2} = M_1 - M_2 + M_3 + M_6$
 
-### Time Complexity
+## Time Complexity
 
 The final runtime of the aforementioned algorithms can be determined through the master's theorem
 $$T(n) = aT \left( \frac{n}{b} \right) + f(n)$$
@@ -147,7 +147,7 @@ Now would it be possible to apply this to Floyd-Warshall?
 
 Note: $n = V$, as $V$ is the number of vertices, which is the number of rows and columns in an adjacency matrix.
 
-## Rings and Semi-Rings
+# Rings and Semi-Rings
 
 The issue is that fast matrix multiplication can only be applied to any ring.
 
@@ -166,14 +166,14 @@ Looking back at our comparison between Floyd-Warshall and MM, we must therefore 
 
 But what if we could define APSP in the domain of a ring?
 
-## Transitive Closure
+# Transitive Closure
 
 Don't worry, I didn't drag you through all that to learn 0 applications.
 The Transitive Closure for an adjacency matrix $G$ is an adjacency matrix $G'$, where $G'_{i, j} = 1$ if there is a path from $v_i$ to $v_j$ in $G$.
 
 Due to the simplicity of this problem, this can be implemented through an algorithm using boolean operations as shown below.
 
-### Comparison with MM
+## Comparison with MM
 
 ```py
 # Implementation of a function to "square" a boolean matrix
@@ -193,17 +193,17 @@ We can compare this to our MM implementation and note two differences
 
 The issue earlier was that fast MM is only defined for a ring, however TC is also [defined under a ring with boolean operations](http://math.mit.edu/~jerison/103/handouts/rings.pdf), and as a result we can apply Strassen's algorithm to the TC problem.
 
-### Application
+## Application
 
 Now we can attempt to apply Strassen's algorithm to quickly find the TC of a graph.
 
-#### Applying with Strassen's
+### Applying with Strassen's
 
 To find the TC, we can more or less represent `true` with `1`, `false` with `0`, and then apply Strassen's algorithm to multiply the adjacency matrix with itself, always taking `mod 2` of the results in $O(V^{2.807})$.
 
 The result of adjacency matrix multiplication produces the a matrix where $A_{i, j}$ represents if there is a path of length 2 from $v_i$ to $v_j$.
 
-#### Reduction from TC to MM
+### Reduction from TC to MM
 
 Now it is possible to reduce (apply an algorithm to convert from one problem to another) the TC problem to MM by following the following steps.
 
@@ -248,7 +248,7 @@ $$
 
 which can be calculated to be $O(n^{2.803})$, the same runtime as the MM algorithm used! In fact, [TC is reducible to boolean MM](https://www.cs.bgu.ac.il/~dinitz/Course/SS-12/transitiveClosure.pdf).
 
-### Repeated DFS
+## Repeated DFS
 
 That being said, it is possible to apply DFS on every vertex of the graph to find the TC.
 However a single DFS of a graph has a runtime of $O(V + E)$ (which can be $O(V)$ for sparse graphs and $O(V^2)$ for dense graphs), and so the total runtime would be $O(V^2)$ for sparse graphs and $O(V^3)$ for dense graphs.
@@ -260,6 +260,6 @@ As a result the suitable algos for finding the Transitive Closure of a graph is 
 | Algorithm | Strassen's     | Repeated DFS  |
 | Runtime   | $O(V^{2.807})$ | $O(V^2)$      |
 
-## Conclusion
+# Conclusion
 
 In conclusion, we've now learn that we can apply fast MMs to other problems defined in a ring, one of which was allowing us to find the TC of a dense graph quickly by reducing the problem to MM.
