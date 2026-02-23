@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><title>Protein Folding SAT Reduction</title><meta name="next-head-count" content="3"/><link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"/><link rel="manifest" href="/favicon/site.webmanifest"/><link rel="shortcut icon" href="/favicon/favicon.ico"/><meta name="msapplication-TileColor" content="#da532c"/><meta name="msapplication-config" content="/favicon/browserconfig.xml"/><meta name="theme-color" content="#ffffff"/><link rel="preload" href="/_next/static/css/f553854d468f6c8c.css" as="style"/><link rel="stylesheet" href="/_next/static/css/f553854d468f6c8c.css" data-n-g=""/><link rel="preload" href="/_next/static/css/33bcc2031ebe3241.css" as="style"/><link rel="stylesheet" href="/_next/static/css/33bcc2031ebe3241.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-8fa1640cc84ba8fe.js" defer=""></script><script src="/_next/static/chunks/framework-2c79e2a64abdb08b.js" defer=""></script><script src="/_next/static/chunks/main-0ecb9ccfcb6c9b24.js" defer=""></script><script src="/_next/static/chunks/pages/_app-7db202e315b716c1.js" defer=""></script><script src="/_next/static/chunks/996-502a5e68cb1e9d91.js" defer=""></script><script src="/_next/static/chunks/207-81e7acd450235f3f.js" defer=""></script><script src="/_next/static/chunks/pages/writings/%5Bslug%5D-7e316cc9cfef0534.js" defer=""></script><script src="/_next/static/ILkuclJ7g-R-hn-4-ve6L/_buildManifest.js" defer=""></script><script src="/_next/static/ILkuclJ7g-R-hn-4-ve6L/_ssgManifest.js" defer=""></script></head><body><div id="__next"><script>!function(){try{var d=document.documentElement,n='data-theme',s='setAttribute';var e=localStorage.getItem('theme');if('system'===e||(!e&&true)){var t='(prefers-color-scheme: dark)',m=window.matchMedia(t);if(m.media!==t||m.matches){d.style.colorScheme = 'dark';d[s](n,'dark')}else{d.style.colorScheme = 'light';d[s](n,'light')}}else if(e){d[s](n,e|| '')}if(e==='light'||e==='dark')d.style.colorScheme=e}catch(e){}}()</script><div class="Writing_body__d5Mqz"><div class="Writing_layout__X8ptu"><aside class="Writing_toc__C4kbO" aria-label="Table of contents"><h2 class="Writing_tocTitle__8Z0ek">Contents</h2><ul class="Writing_tocList__2Nnoy"><li class="Writing_tocItem__rjAOC"><a href="#introduction" class="Writing_tocLinkActive__0kigr">Introduction</a></li><li class="Writing_tocItem__rjAOC"><a href="#protein-folding-via-the-hp-model" class="Writing_tocLink__ztBHG">Protein Folding via the HP model</a></li><li class="Writing_tocItem__rjAOC"><a href="#a-baseline-sat-encoding" class="Writing_tocLink__ztBHG">A Baseline SAT Encoding</a></li><li class="Writing_tocItem__rjAOC"><a href="#potential-optimisations" class="Writing_tocLink__ztBHG">Potential Optimisations</a></li><li class="Writing_tocItem__rjAOC"><a href="#references" class="Writing_tocLink__ztBHG">References</a></li></ul></aside><aside class="Writing_balanceNav__vSGQh" aria-label="Site navigation"><a class="Writing_siteTitle__O17hB" href="/">Gary Sun // <span class="cn">孫健</span></a><ul class="Writing_siteNavList__zzxAq"><li class="Writing_siteNavItem__TeLqH"><a class="Writing_siteNavLink__EVB8A" href="/#about">About</a></li><li class="Writing_siteNavItem__TeLqH"><a class="Writing_siteNavLink__EVB8A" href="https://github.com/angary/">Projects</a></li><li class="Writing_siteNavItem__TeLqH"><a class="Writing_siteNavLink__EVB8A" href="/#writings">Writings</a></li></ul></aside><div class="Writing_articleHeader__rl9TS"><h1>Protein Folding SAT Reduction</h1><p class="Writing_description__Rk8wD">A look into the HP model in protein folding</p><p class="Writing_date__BYvoK">4 August 2025</p></div><div class="Writing_articleBody__A1uFB"><span style="display:block"><article><h1 id="introduction"><a href="#introduction">Introduction</a></h1>
+
+<p>The protein folding problem is the challenge of predicting the three-dimensional structure of a protein from its amino acid sequence.</p>
+<p>While AI models like DeepMind&#39;s AlphaFold have achieved great success in protein structure prediction, the focus of this research was to analyze the underlying SAT encodings to determine how much their performance could be improved.</p>
+<h2 id="protein-folding-in-biology">Protein folding in biology</h2>
+<p>Proteins are large molecules composed of a chain of amino acids.
+A protein only becomes functional once this chain &quot;folds&quot; into a specific, complex 3D structure.</p>
+<p>A prime example of this is myoglobin, an oxygen-binding protein found in muscle tissue.
+The specific way myoglobin folds creates a small, hydrophobic pocket that is perfectly shaped to hold a heme group, which contains the iron atom that actually binds to oxygen [2].
+If the protein were to misfold, this pocket would not form correctly, and the myoglobin would be unable to perform its crucial function of storing oxygen.</p>
+<p>Given that these chains can be very long, the number of possible folding configurations can be astronomical (up to $10^{300}$), making it computationally challenging to predict the final structure from the amino acid sequence alone.</p>
+<h2 id="a-computational-challenge">A Computational Challenge</h2>
+<p>The many possible ways a sequence can fold makes it an interesting computational problem, where our goal is to try and determine what structure a sequence will fold into as fast as possible.</p>
+<h1 id="protein-folding-via-the-hp-model"><a href="#protein-folding-via-the-hp-model">Protein Folding via the HP model</a></h1>
+
+<p>The Hydrophobic-Polar (HP) model is a way of encoding an amino sequence into a boolean sequence.</p>
+<p>It works by classifying the 20 standard amino acids into either <strong>hydrophobic (H)</strong> (avoids water) or <strong>hydrophilic (P)</strong> (attracted to water).
+Hence by assigning <strong>H</strong> to <code>1</code> or <code>true</code>, and <strong>P</strong> to <code>0</code> or <code>false</code> we can convert the amino sequence to a boolean sequence $S$, where $S_i$ represents if there is a H or a P at position $i$ in the sequence, with 1 encoding a H and 0 encoding a P.</p>
+<p>The maximum configuration is then an embedding which maximises the number of adjacent 1&#39;s on the grid $G$.</p>
+<p>To find the optimal structure we conduct a linear search, starting at the previous instance in which it was satisfiable, and then increasing the goal contacts by 1 each time, and solving, until it is unsatisfiable.
+The maximum contacts is then the one which produced the largest satisfiable instance.
+Despite being a linear search, this approach worked quite well since satisfiable instances could be solved much faster than unsatisfiable instances</p>
+<h2 id="legal-embedding">Legal Embedding</h2>
+<p>A legal embedding must follow the following rules:</p>
+<ol>
+<li>Each character in the sequence gets assigned to some point on the grid.</li>
+<li>No character in the sequence gets assigned to more than one point on the grid.</li>
+<li>Each point of the grid gets assigned at most one character in the sequence.</li>
+<li>Two adjacent characters in the sequence must be placed on two points that are neighbours on the grid in either the horizontal or vertical direction, but not both.</li>
+</ol>
+<p>The points of the grid are enumerated from 1 to $w$ for the 2D version of the problem, where $G = \{ j \mid 1 \leq j \leq w^2\}$ and from 1 to $w^3$ for the 3D version, where $G = \{ j \mid 1 \leq j \leq w^3\}$.</p>
+<p>For the 2D version, $w$ can be calculated as:</p>
+<p>$$
+w =
+\begin{cases}
+1 + \lfloor \frac{n}{4} \rfloor &amp; \text{if } n \geq 12 \\
+n &amp; \text{otherwise}
+\end{cases}
+$$</p>
+<p>For the 3D version, $w$ can be calculated as:</p>
+<p>$$
+w =
+\begin{cases}
+2 + \lfloor \frac{n}{8} \rfloor &amp; \text{if } n \geq 20 \\
+2 + \lfloor \frac{n}{4} \rfloor &amp; \text{otherwise}
+\end{cases}
+$$</p>
+<h2 id="maximising-contacts">Maximising Contacts</h2>
+<p>To then determine the optimal structure, we have to maximise the number of contacts.
+A contact exists between $j$ and $m$ on the grid $G$ if and only if a 1 is assigned to both $j$ and $j&#39;$ of $G$, and the 1s assigned to points $j$ and $j&#39;$ are not adjacent in $S$.
+A linear constraint encoding is then used to determine how many contacts there are.</p>
+<h1 id="a-baseline-sat-encoding"><a href="#a-baseline-sat-encoding">A Baseline SAT Encoding</a></h1>
+
+<p>The following SAT reduction is based on the work of Brown, Zuo, and Gusfield [1].
+We represent each point on the 2D grid a number from 1 to $w^2$, or for the 3D grid a number from 1 to $w^3$.</p>
+<p>We define the $I =\{ i \mid 1 \leq i \leq |S|\}$ as the set of indexes in the sequence $S$, and $I^1 = \{ i \mid i \in I, S_i = 1 \}$ be the set of indexes in $S$, where the character is 1.</p>
+<p>The table describes the variables used in the original encoding</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Exists for all</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$X_{i,j}$</td>
+<td>The $i^{th}$ index in $S$ is located at coordinate $j$ of $G$</td>
+<td>$i \in S, j \in G$</td>
+</tr>
+<tr>
+<td>$T_j$</td>
+<td>There is a character 1 at coordinate $j$ of $G$</td>
+<td>$j \in G$</td>
+</tr>
+<tr>
+<td>$C_{j,j&#39;}$</td>
+<td>There is a contact between adjacent points $j$ and $j&#39;$ in $G$</td>
+<td>$j, j&#39; \in G, j &lt; j&#39;$, where $j$ and $j&#39;$ are neighbours</td>
+</tr>
+</tbody></table>
+<h3 id="ensuring-legal-embeddings">Ensuring Legal Embeddings</h3>
+<p>To enforce a valid embedding of the sequence onto the grid, we first define a boolean variable $X_{i, j}$, which is <code>true</code> if and only if the <em>i</em>-th amino acid in the sequence is placed at position <em>j</em> on the grid.
+The following rules must then be satisfied:</p>
+<ol>
+<li><p>Every character position $i \in S$ must be assigned to some point $j \in G$.
+  $$\left\{ \bigvee\limits_{j \in G} X_{i, j} \; \middle| \; i \in I \right\}$$</p>
+</li>
+<li><p>No character position $i \in S$ can be assigned to more than one point $j \in G$.
+  $$\{\lnot X_{i, j} \lor \lnot X_{i, j&#39;} \mid i \in I, j,j&#39; \in G, j \neq j&#39;\}$$</p>
+</li>
+<li><p>No point $j \in G$ can have more than one character position $i \in S$ assigned to it.
+  $$\{\lnot X_{i, j} \lor \lnot X_{i&#39;, j} \mid i,i&#39; \in I, i \neq i&#39; j \in G\}$$</p>
+</li>
+<li><p>Two adjacent characters in the sequence $i, i + 1 \in S$ must be placed on two horizontally or vertically adjacent points of the grid (but not diagonally).
+This can be expressed as an implication: if amino acid $i$ is at position $j$, then its successor $i+1$ must be at one of the neighboring positions $j&#39; \in G$.
+  $$\left\{ \lnot X_{i, j} \bigvee\limits_{j, j&#39; \in G} X_{i + 1, j&#39;} \; \middle| \; 1 \leq i &lt; |S| \right\}$$</p>
+</li>
+</ol>
+<p>  Note $j$ and $j&#39;$ are neighbours.</p>
+<h3 id="identifying-potential-contacts">Identifying Potential Contacts</h3>
+<p>There are two conditions for a potential contact:</p>
+<ol>
+<li>A potential contact involves point $j \in G$ if and only if a character 1 is assigned to point $j$.
+  The variable $T_j$ is set <code>true</code> if and only if this condition holds.
+  $$\{ \lnot C_{i, j} \lor T_{j} \mid i \in I^1, j \in G \}$$
+  $$\left\{ \lnot T_j \bigvee\limits_{i \in I^1} C_{i,j} \; \middle| \; j \in G \right\}$$</li>
+<li>A potential contact exists between points $j$ and $j&#39;$ on the grid if and only if a 1 is assigned to both pints $j$ and to a neighbouring point $j&#39; \in G$.
+  The variable $C_{j, j&#39;}$ will be set to <code>true</code> if both $T_j$ and $T_{j&#39;}$ are set <code>true</code>.</li>
+</ol>
+<p>$$
+\displaylines{
+(\lnot C_{j, j&#39;} \lor T_j) \land (\lnot C_{j, j&#39;} \lor T_{j&#39;}) \land (C_{j, j&#39;} \lor \lnot T_j \lor \lnot T_{j&#39;}) \\
+\forall \text{ neighbouring positions } j, j&#39; \in G
+}
+$$ </p>
+<h3 id="counting-potential-contacts">Counting Potential Contacts</h3>
+<p>To determine the number of contacts, we have to count how many of the $C$ variables are set to true.
+To determine the maximum number of contacts, a goal number of contacts $m$ is chosen.</p>
+<p>In the encoding in paper [1], they count the number of variables that are not set true and test whether it is less than or equal to $r$, where $r = 2 |G| - m$ in the 2D version and $r = 3 |G| - m$ for the 3D version.</p>
+<p>The clauses for their encoding can then be found in the original paper.
+Overall, this requires $O(|G|)$ new variables.</p>
+<p>However, in my encoding during my research, we count if the number of true $C$ variables is less than or equal to $m$, and encode the cardinality constraints using the sequential encoding in [3], i.e.</p>
+<p>$$ 
+\sum_{j,j&#39; \in G, ; j \neq j&#39;}C_{j,j&#39;} \leq m
+$$ </p>
+<p>This encoding also requires $O(|G|)$ new variables, however, empirically has fewer variables and runs faster compared to the encoding used in [1].</p>
+<p>The clauses here have been omitted, as different cardinality constraint encodings can be used interchangeably.</p>
+<h1 id="potential-optimisations"><a href="#potential-optimisations">Potential Optimisations</a></h1>
+
+<p>During my time at UNSW, my research on this involved testing possible optimisations to the encoding model which could have reduced the total number of variables to solve.</p>
+<blockquote>
+<p>Note to assist with describing the encodings here I use $(A \rightarrow B)$ which is an implication, i.e. if A is true then B must be true.
+This can be converted to CNF form as $(\lnot A \lor B)$.</p>
+</blockquote>
+<h2 id="dimensionality-encoding">Dimensionality Encoding</h2>
+<p>Rather than having a variable for if a sequence index is on a point in the grid, we have a variable for if it is in a position along an axis in a $d$ dimension, for all dimensions.
+This should reduce the number of variables describing the grid points from scaling $O(w^2)$ for 2D and $O(w^3)$ to $O(w)$ for both 2 and 3D.</p>
+<p>We define $D$ to be the set of possible dimensions.
+For example if we have a 2D grid, then $D =\{1, 2\}$ else if we have a 3D grid, $D =\{1, 2, 3\}$.
+We also define $P$ to be the set of possible positions along an axis of the grid, where $P = \{p \mid 1 \leq p \leq w \}$.</p>
+<p>Rather than determining if there is a potential contact by checking if two adjacent points in the grid have a 1 from the sequence, we check if a 1 in the sequence is adjacent to another 1 in the sequence on the grid which is not next to it in the sequence.</p>
+<p>We define $Q$ the set of potential contacts indexes as</p>
+<p>$$Q = \{ \langle{i, j}\rangle \mid 1 \leq i + 2 &lt; j \leq |S|, S_i = S_j = 1, j - i \equiv 1 \pmod 2 \}$$</p>
+<p>where $i$ and $j$ are indexes of the 1s in the sequence that can potentially contact each other.</p>
+<p>To assist with describing the encoding, we define the set of the pairs of adjacent as
+$$A = \{ \langle{i, i + 1}\rangle \mid 1 \leq i &lt; |S| \}$$</p>
+<p>The table describes the variables used in the dimensionality encoding</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Exists for all</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$\text{at}_{i,p,d}$</td>
+<td>The $i^{th}$ index in $S$ is located at position $p$ in dimension $d$</td>
+<td>$i \in I, p \in P, d \in D$</td>
+</tr>
+<tr>
+<td>$\text{same}_{i,j,d}$</td>
+<td>Indexes $i, j$ are at the same position in dimension $d$</td>
+<td>$\langle i, j \rangle A \cup Q, d \in D$</td>
+</tr>
+<tr>
+<td>$\text{adj}_{i,j,d}$</td>
+<td>Indexes $i,j$ are in adjacent positions in dimension $d$</td>
+<td>$\langle i, j \rangle A \cup Q, d \in D$</td>
+</tr>
+<tr>
+<td>$\text{contact}_{i,j}$</td>
+<td>If postiions $i,j \in Q$ contact each other</td>
+<td>$\langle i, j \rangle \in Q$</td>
+</tr>
+</tbody></table>
+<h3 id="ensuring-legal-embeddings-1">Ensuring Legal Embeddings</h3>
+<p>The four conditions for a legal embedding are as follows:</p>
+<ol>
+<li><p>Every character position $i$ must be assigned to some position $p$ in dimension $d$
+  $$\left\{ \bigvee_{p \in P} \text{at}_{i, p, d} \mid i \in I, d \in D \right\}$$</p>
+</li>
+<li><p>No character position $i$ in the sequence can be assigned to more than one position $p$ in dimension $d$.
+  $$\{ \lnot \text{at}_{i, p, d} \land \lnot \text{at}_{i, q, d} \mid i \in I, 1 \leq p &lt; q \leq w, d \in D \}$$</p>
+</li>
+<li><p>No point in the grid can have more than one character position $i$ assigned to it.
+  For any indexes $i$ and $j$ where $i \neq j$, we have the clauses
+  $$
+  \begin{align*}
+ \{ \text{at}_{i, p, d} \land \text{at}_{j, p, d} \rightarrow \phantom{\lnot} \text{same}_{i, j, d} \mid p \in P, d \in D \} \\
+ \{ (\lnot \text{at}_{i, p, d} \land \text{at}_{j, p, d}) \lor (\text{at}_{i, p, d} \land \lnot \text{at}_{j, p, d}) \rightarrow \lnot \text{same}_{i, j, d} \mid p \in P, d \in D \} \\
+  \end{align*}
+  $$
+  $$\left\{ \bigvee_{d \in D} \lnot \text{same}_{i, j, d} \right\}$$</p>
+</li>
+<li><p>Every adjacent pair of character positions $\langle{i, j}\rangle \in A$ must be placed on adjacent positions in the grid (diagonals are not adjacent).
+  The following clauses are used to determine if two adjacent points are one unit apart in dimension $d$.
+  For any $\langle{i, j}\rangle \in A \cup Q$, $d \in D$ we have the clauses
+  $$
+  \begin{align}
+ \{ \text{at}_{i, p, d} \land \text{at}_{j, p + 1, d} \rightarrow \phantom{\lnot} \text{adj}_{i, j, d} \mid 1 \leq p &lt; w\} \\
+ \{ \text{at}_{i, p, d} \land \text{at}_{j, p - 1, d} \rightarrow \phantom{\lnot} \text{adj}_{i, j, d} \mid 1 &lt; p \leq w\} \\
+ \{ \text{at}_{i, p, d} \land \lnot \text{at}_{j, p + 1, d} \land \lnot \text{at}_{j, p - 1, d} \rightarrow \lnot \text{adj}_{i, j, d} \mid 1 &lt; p &lt; w\} \\
+  \end{align}
+  $$
+  Then we enforce that adjacent points must be one unit apart in one dimension and remain the same in the rest.
+  For any $\langle{i, j}\rangle \in A$ we have the clauses
+  $$ \left\{ \bigvee_{d \in D} \phantom{\lnot} \text{adj}_{i, j, d} \right\} $$
+  $$\{ \text{adj}_{i, j, d} \rightarrow \phantom{\lnot} \text{same}_{i, j, d&#39;} \mid d, d&#39; \in D, d \neq d&#39;\} $$
+  $$\{ \text{same}_{i, j, d} \rightarrow \lnot \text{adj}_{i, j, d&#39;} \mid d, d&#39; \in D, d \neq d&#39;\} $$</p>
+</li>
+</ol>
+<h3 id="identifying-potential-contacts-1">Identifying Potential Contacts</h3>
+<p>We have the same clauses as that in the adjacency section, except they exist for any $\langle{i, j}\rangle \in Q$ instead of $\langle{i, j}\rangle \in A$.
+These clauses are required to for potential contact indexes to determine which potential contacts are next to each other.
+Then, the condition for a potential contact are as follows:</p>
+<ol>
+<li>There is a a contact between potential contact indexes $i, j$ if and only if they are in adjacent positions in one dimension and at the same position in other dimensions.
+  For any index $\langle{i, j}\rangle \in Q, d \in D$, we have the clauses
+  $$ \left\{ \phantom{\lnot} \text{adj}_{i, j, d} \bigwedge_{d&#39; \in D, d \neq d&#39;} \text{same}_{i, j, d&#39;} \rightarrow \phantom{\lnot} \text{contact}_{i, j} \right\} $$
+  $$ \left\{ \lnot \text{adj}_{i, j, d} \bigwedge_{d&#39; \in D, d \neq d&#39;} \text{same}_{i, j, d&#39;} \rightarrow \lnot \text{contact}_{i, j} \right\} $$
+  $$ \left\{ \lnot \text{adj}_{i, j, d} \bigwedge_{d&#39; \in D, d \neq d&#39;} \lnot \text{adj}_{i, j, d&#39;} \rightarrow \lnot \text{contact}_{i, j} \right\} $$
+  $$\{ \text{adj}_{i, j, d} \land \lnot \text{same}_{i, j, d&#39;} \rightarrow \lnot \text{contact}_{i, j} \mid d&#39; \in D, d \neq d\} $$</li>
+</ol>
+<h3 id="counting-potential-contacts-1">Counting Potential Contacts</h3>
+<p>Similar to the original encoding, we count if the number of true contact variables is less than or equal to $m$ where $m$ is the required number of contacts.
+The cardinality constraint method is used in [3].</p>
+<h2 id="order-encoding">Order Encoding</h2>
+<p>This encoding has the same concepts as a the dimensionality reduction, with one change.
+Rather than $\text{at}_{i, p, d}$ meaning sequence index $i$ is exactly at position $p$ in dimension $d$, it means that it is at least at position $p$ in dimension $d$.</p>
+<p>The primary advantage of this encoding lies in how it simplifies spatial reasoning.
+Instead of defining adjacency by checking every possible pair of coordinates (e.g. <code>p</code> and <code>p+1</code>), Order Encoding allows us to define it by comparing the cumulative position vectors of two amino acids directly.
+This often leads to more powerful logical propagation for the SAT solver.</p>
+<p>For instance, if a solver determines that an amino acid is <em>not</em> at or after position 5, it can immediately deduce that it cannot be at positions 6, 7, and so on.
+This chain reaction can significantly prune the search space.
+The hypothesis is that this more abstract, relational encoding results in a more compact set of constraints and allows the SAT solver to find a solution more efficiently.</p>
+<p>The table describes the variables used in the order encoding</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Exists for all</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$\text{at}_{i,p,d}$</td>
+<td>The $i^{th}$ index in $S$ is located at at least position $p$ in dimension $d$</td>
+<td>$i \in I, p \in P, d \in D$</td>
+</tr>
+<tr>
+<td>$\text{same}_{i,j,d}$</td>
+<td>Indexes $i, j$ are at the same position in dimension $d$</td>
+<td>$\langle i, j \rangle A \cup Q, d \in D$</td>
+</tr>
+<tr>
+<td>$\text{adj}_{i,j,d}$</td>
+<td>Indexes $i,j$ are in adjacent positions in dimension $d$</td>
+<td>$\langle i, j \rangle A \cup Q, d \in D$</td>
+</tr>
+<tr>
+<td>$\text{contact}_{i,j}$</td>
+<td>If positions $i,j \in Q$ contact each other</td>
+<td>$\langle i, j \rangle \in Q$</td>
+</tr>
+</tbody></table>
+<h3 id="ensuring-legal-embeddings-2">Ensuring Legal Embeddings</h3>
+<p>The our conditions for a legal embedding is as follows</p>
+<ol>
+<li><p>Every character index $i \in I$ must be assigned to some position $p$ in dimension $d$.
+In other words, every character is at least in position 1 in all dimensions.
+  $$\{ \text{at}_{i, 1, d} \mid i \in I, d \in D\} $$</p>
+</li>
+<li><p>No character index $i \in I$ can be assigned to more than one point.
+  $$\{ \text{at}_{i, p, d} \rightarrow \text{at}_{i, p-1, d} \mid i \in I, d \in D, 1 &lt; p \leq w\} $$</p>
+</li>
+<li><p>No point in the grid can have more than one character index assigned to it.
+  In other words, two indexes cannot be on the same point.
+  For all $i, j \in I, i &lt; j$, we have the clauses:
+  $$\{ \lnot \text{at}_{i,p + 1, d} \land \text{at}_{i, p d} \land \text{at}_{j, p + 1, d} \land \text{at}_{j, p, d} \rightarrow \text{same}_{i, j, d} \mid d \in D, p \in P\} $$
+  $$\{ \lnot \text{at}_{i, p, d} \land \text{at}_{j, p, d} \rightarrow \lnot \text{same}_{i, j, d} \mid d \in D, p \in P\} $$
+  $$\{ \text{at}_{i, p, d} \land \lnot \text{at}_{j, p, d} \rightarrow \lnot \text{same}_{i, j, d} \mid d \in D, p \in P\} $$
+  $$ \left\{ \bigvee_{d \in D} \lnot \text{same}_{i, j, d} \right\} $$</p>
+</li>
+<li><p>Every adjacent pair of character pair positions $\langle{i, j}\rangle \in A$ must be placed on adjacent points in the grid.</p>
+<p> Now that we have the $\text{at}$ and $\text{adj}$ variables we can reuse the same formulas from the Dimension Encoding.</p>
+</li>
+</ol>
+<h3 id="identifying-potential-contacts-2">Identifying Potential Contacts</h3>
+<p>Now that we have the same set of $\text{adj}$ and $\text{same}$ variables as in the Dimension Encoding, we can count contacts through the same method.</p>
+<h3 id="counting-potential-contacts-2">Counting Potential Contacts</h3>
+<p>Similar to the Dimension Encoding, counting potential contacts is accomplished through the same clauses, using the sequential encoding in [3].</p>
+<h1 id="references"><a href="#references">References</a></h1>
+
+<p>[1] Gusfield D. Brown H, Zuo L. Comparing integer linear programming to sat-solving for hard problems in computational and systems biology. Algorithms for Computational Biology., pages 63–76, 2020.</p>
+<p>[2] Kendrew, J. C., Bodo, G., Dintzis, H. M., Parrish, R. G., Wyckoff, H., &amp; Phillips, D. C. (1958). A three-dimensional model of the myoglobin molecule obtained by x-ray analysis. Nature, 181(4610), 662–666.</p>
+<p>[3] Carsten Sinz. Towards an optimal cnf encoding of boolean cardinality constraints. In Peter van Beek, editor, Principles and Practice of Constraint Programming - CP 2005, pages 827–831, Berlin, Heidelberg, 2005. Springer Berlin Heidelberg.</p>
+</article></span></div></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"contents":"\u003ch1 id=\"introduction\"\u003e\u003ca href=\"#introduction\"\u003eIntroduction\u003c/a\u003e\u003c/h1\u003e\n\n\u003cp\u003eThe protein folding problem is the challenge of predicting the three-dimensional structure of a protein from its amino acid sequence.\u003c/p\u003e\n\u003cp\u003eWhile AI models like DeepMind\u0026#39;s AlphaFold have achieved great success in protein structure prediction, the focus of this research was to analyze the underlying SAT encodings to determine how much their performance could be improved.\u003c/p\u003e\n\u003ch2 id=\"protein-folding-in-biology\"\u003eProtein folding in biology\u003c/h2\u003e\n\u003cp\u003eProteins are large molecules composed of a chain of amino acids.\nA protein only becomes functional once this chain \u0026quot;folds\u0026quot; into a specific, complex 3D structure.\u003c/p\u003e\n\u003cp\u003eA prime example of this is myoglobin, an oxygen-binding protein found in muscle tissue.\nThe specific way myoglobin folds creates a small, hydrophobic pocket that is perfectly shaped to hold a heme group, which contains the iron atom that actually binds to oxygen [2].\nIf the protein were to misfold, this pocket would not form correctly, and the myoglobin would be unable to perform its crucial function of storing oxygen.\u003c/p\u003e\n\u003cp\u003eGiven that these chains can be very long, the number of possible folding configurations can be astronomical (up to $10^{300}$), making it computationally challenging to predict the final structure from the amino acid sequence alone.\u003c/p\u003e\n\u003ch2 id=\"a-computational-challenge\"\u003eA Computational Challenge\u003c/h2\u003e\n\u003cp\u003eThe many possible ways a sequence can fold makes it an interesting computational problem, where our goal is to try and determine what structure a sequence will fold into as fast as possible.\u003c/p\u003e\n\u003ch1 id=\"protein-folding-via-the-hp-model\"\u003e\u003ca href=\"#protein-folding-via-the-hp-model\"\u003eProtein Folding via the HP model\u003c/a\u003e\u003c/h1\u003e\n\n\u003cp\u003eThe Hydrophobic-Polar (HP) model is a way of encoding an amino sequence into a boolean sequence.\u003c/p\u003e\n\u003cp\u003eIt works by classifying the 20 standard amino acids into either \u003cstrong\u003ehydrophobic (H)\u003c/strong\u003e (avoids water) or \u003cstrong\u003ehydrophilic (P)\u003c/strong\u003e (attracted to water).\nHence by assigning \u003cstrong\u003eH\u003c/strong\u003e to \u003ccode\u003e1\u003c/code\u003e or \u003ccode\u003etrue\u003c/code\u003e, and \u003cstrong\u003eP\u003c/strong\u003e to \u003ccode\u003e0\u003c/code\u003e or \u003ccode\u003efalse\u003c/code\u003e we can convert the amino sequence to a boolean sequence $S$, where $S_i$ represents if there is a H or a P at position $i$ in the sequence, with 1 encoding a H and 0 encoding a P.\u003c/p\u003e\n\u003cp\u003eThe maximum configuration is then an embedding which maximises the number of adjacent 1\u0026#39;s on the grid $G$.\u003c/p\u003e\n\u003cp\u003eTo find the optimal structure we conduct a linear search, starting at the previous instance in which it was satisfiable, and then increasing the goal contacts by 1 each time, and solving, until it is unsatisfiable.\nThe maximum contacts is then the one which produced the largest satisfiable instance.\nDespite being a linear search, this approach worked quite well since satisfiable instances could be solved much faster than unsatisfiable instances\u003c/p\u003e\n\u003ch2 id=\"legal-embedding\"\u003eLegal Embedding\u003c/h2\u003e\n\u003cp\u003eA legal embedding must follow the following rules:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eEach character in the sequence gets assigned to some point on the grid.\u003c/li\u003e\n\u003cli\u003eNo character in the sequence gets assigned to more than one point on the grid.\u003c/li\u003e\n\u003cli\u003eEach point of the grid gets assigned at most one character in the sequence.\u003c/li\u003e\n\u003cli\u003eTwo adjacent characters in the sequence must be placed on two points that are neighbours on the grid in either the horizontal or vertical direction, but not both.\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003eThe points of the grid are enumerated from 1 to $w$ for the 2D version of the problem, where $G = \\{ j \\mid 1 \\leq j \\leq w^2\\}$ and from 1 to $w^3$ for the 3D version, where $G = \\{ j \\mid 1 \\leq j \\leq w^3\\}$.\u003c/p\u003e\n\u003cp\u003eFor the 2D version, $w$ can be calculated as:\u003c/p\u003e\n\u003cp\u003e$$\nw =\n\\begin{cases}\n1 + \\lfloor \\frac{n}{4} \\rfloor \u0026amp; \\text{if } n \\geq 12 \\\\\nn \u0026amp; \\text{otherwise}\n\\end{cases}\n$$\u003c/p\u003e\n\u003cp\u003eFor the 3D version, $w$ can be calculated as:\u003c/p\u003e\n\u003cp\u003e$$\nw =\n\\begin{cases}\n2 + \\lfloor \\frac{n}{8} \\rfloor \u0026amp; \\text{if } n \\geq 20 \\\\\n2 + \\lfloor \\frac{n}{4} \\rfloor \u0026amp; \\text{otherwise}\n\\end{cases}\n$$\u003c/p\u003e\n\u003ch2 id=\"maximising-contacts\"\u003eMaximising Contacts\u003c/h2\u003e\n\u003cp\u003eTo then determine the optimal structure, we have to maximise the number of contacts.\nA contact exists between $j$ and $m$ on the grid $G$ if and only if a 1 is assigned to both $j$ and $j\u0026#39;$ of $G$, and the 1s assigned to points $j$ and $j\u0026#39;$ are not adjacent in $S$.\nA linear constraint encoding is then used to determine how many contacts there are.\u003c/p\u003e\n\u003ch1 id=\"a-baseline-sat-encoding\"\u003e\u003ca href=\"#a-baseline-sat-encoding\"\u003eA Baseline SAT Encoding\u003c/a\u003e\u003c/h1\u003e\n\n\u003cp\u003eThe following SAT reduction is based on the work of Brown, Zuo, and Gusfield [1].\nWe represent each point on the 2D grid a number from 1 to $w^2$, or for the 3D grid a number from 1 to $w^3$.\u003c/p\u003e\n\u003cp\u003eWe define the $I =\\{ i \\mid 1 \\leq i \\leq |S|\\}$ as the set of indexes in the sequence $S$, and $I^1 = \\{ i \\mid i \\in I, S_i = 1 \\}$ be the set of indexes in $S$, where the character is 1.\u003c/p\u003e\n\u003cp\u003eThe table describes the variables used in the original encoding\u003c/p\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003eVariable\u003c/th\u003e\n\u003cth\u003eDescription\u003c/th\u003e\n\u003cth\u003eExists for all\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003e$X_{i,j}$\u003c/td\u003e\n\u003ctd\u003eThe $i^{th}$ index in $S$ is located at coordinate $j$ of $G$\u003c/td\u003e\n\u003ctd\u003e$i \\in S, j \\in G$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e$T_j$\u003c/td\u003e\n\u003ctd\u003eThere is a character 1 at coordinate $j$ of $G$\u003c/td\u003e\n\u003ctd\u003e$j \\in G$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e$C_{j,j\u0026#39;}$\u003c/td\u003e\n\u003ctd\u003eThere is a contact between adjacent points $j$ and $j\u0026#39;$ in $G$\u003c/td\u003e\n\u003ctd\u003e$j, j\u0026#39; \\in G, j \u0026lt; j\u0026#39;$, where $j$ and $j\u0026#39;$ are neighbours\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch3 id=\"ensuring-legal-embeddings\"\u003eEnsuring Legal Embeddings\u003c/h3\u003e\n\u003cp\u003eTo enforce a valid embedding of the sequence onto the grid, we first define a boolean variable $X_{i, j}$, which is \u003ccode\u003etrue\u003c/code\u003e if and only if the \u003cem\u003ei\u003c/em\u003e-th amino acid in the sequence is placed at position \u003cem\u003ej\u003c/em\u003e on the grid.\nThe following rules must then be satisfied:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003cp\u003eEvery character position $i \\in S$ must be assigned to some point $j \\in G$.\n  $$\\left\\{ \\bigvee\\limits_{j \\in G} X_{i, j} \\; \\middle| \\; i \\in I \\right\\}$$\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cp\u003eNo character position $i \\in S$ can be assigned to more than one point $j \\in G$.\n  $$\\{\\lnot X_{i, j} \\lor \\lnot X_{i, j\u0026#39;} \\mid i \\in I, j,j\u0026#39; \\in G, j \\neq j\u0026#39;\\}$$\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cp\u003eNo point $j \\in G$ can have more than one character position $i \\in S$ assigned to it.\n  $$\\{\\lnot X_{i, j} \\lor \\lnot X_{i\u0026#39;, j} \\mid i,i\u0026#39; \\in I, i \\neq i\u0026#39; j \\in G\\}$$\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cp\u003eTwo adjacent characters in the sequence $i, i + 1 \\in S$ must be placed on two horizontally or vertically adjacent points of the grid (but not diagonally).\nThis can be expressed as an implication: if amino acid $i$ is at position $j$, then its successor $i+1$ must be at one of the neighboring positions $j\u0026#39; \\in G$.\n  $$\\left\\{ \\lnot X_{i, j} \\bigvee\\limits_{j, j\u0026#39; \\in G} X_{i + 1, j\u0026#39;} \\; \\middle| \\; 1 \\leq i \u0026lt; |S| \\right\\}$$\u003c/p\u003e\n\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e  Note $j$ and $j\u0026#39;$ are neighbours.\u003c/p\u003e\n\u003ch3 id=\"identifying-potential-contacts\"\u003eIdentifying Potential Contacts\u003c/h3\u003e\n\u003cp\u003eThere are two conditions for a potential contact:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eA potential contact involves point $j \\in G$ if and only if a character 1 is assigned to point $j$.\n  The variable $T_j$ is set \u003ccode\u003etrue\u003c/code\u003e if and only if this condition holds.\n  $$\\{ \\lnot C_{i, j} \\lor T_{j} \\mid i \\in I^1, j \\in G \\}$$\n  $$\\left\\{ \\lnot T_j \\bigvee\\limits_{i \\in I^1} C_{i,j} \\; \\middle| \\; j \\in G \\right\\}$$\u003c/li\u003e\n\u003cli\u003eA potential contact exists between points $j$ and $j\u0026#39;$ on the grid if and only if a 1 is assigned to both pints $j$ and to a neighbouring point $j\u0026#39; \\in G$.\n  The variable $C_{j, j\u0026#39;}$ will be set to \u003ccode\u003etrue\u003c/code\u003e if both $T_j$ and $T_{j\u0026#39;}$ are set \u003ccode\u003etrue\u003c/code\u003e.\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e$$\n\\displaylines{\n(\\lnot C_{j, j\u0026#39;} \\lor T_j) \\land (\\lnot C_{j, j\u0026#39;} \\lor T_{j\u0026#39;}) \\land (C_{j, j\u0026#39;} \\lor \\lnot T_j \\lor \\lnot T_{j\u0026#39;}) \\\\\n\\forall \\text{ neighbouring positions } j, j\u0026#39; \\in G\n}\n$$ \u003c/p\u003e\n\u003ch3 id=\"counting-potential-contacts\"\u003eCounting Potential Contacts\u003c/h3\u003e\n\u003cp\u003eTo determine the number of contacts, we have to count how many of the $C$ variables are set to true.\nTo determine the maximum number of contacts, a goal number of contacts $m$ is chosen.\u003c/p\u003e\n\u003cp\u003eIn the encoding in paper [1], they count the number of variables that are not set true and test whether it is less than or equal to $r$, where $r = 2 |G| - m$ in the 2D version and $r = 3 |G| - m$ for the 3D version.\u003c/p\u003e\n\u003cp\u003eThe clauses for their encoding can then be found in the original paper.\nOverall, this requires $O(|G|)$ new variables.\u003c/p\u003e\n\u003cp\u003eHowever, in my encoding during my research, we count if the number of true $C$ variables is less than or equal to $m$, and encode the cardinality constraints using the sequential encoding in [3], i.e.\u003c/p\u003e\n\u003cp\u003e$$ \n\\sum_{j,j\u0026#39; \\in G, ; j \\neq j\u0026#39;}C_{j,j\u0026#39;} \\leq m\n$$ \u003c/p\u003e\n\u003cp\u003eThis encoding also requires $O(|G|)$ new variables, however, empirically has fewer variables and runs faster compared to the encoding used in [1].\u003c/p\u003e\n\u003cp\u003eThe clauses here have been omitted, as different cardinality constraint encodings can be used interchangeably.\u003c/p\u003e\n\u003ch1 id=\"potential-optimisations\"\u003e\u003ca href=\"#potential-optimisations\"\u003ePotential Optimisations\u003c/a\u003e\u003c/h1\u003e\n\n\u003cp\u003eDuring my time at UNSW, my research on this involved testing possible optimisations to the encoding model which could have reduced the total number of variables to solve.\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003eNote to assist with describing the encodings here I use $(A \\rightarrow B)$ which is an implication, i.e. if A is true then B must be true.\nThis can be converted to CNF form as $(\\lnot A \\lor B)$.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003ch2 id=\"dimensionality-encoding\"\u003eDimensionality Encoding\u003c/h2\u003e\n\u003cp\u003eRather than having a variable for if a sequence index is on a point in the grid, we have a variable for if it is in a position along an axis in a $d$ dimension, for all dimensions.\nThis should reduce the number of variables describing the grid points from scaling $O(w^2)$ for 2D and $O(w^3)$ to $O(w)$ for both 2 and 3D.\u003c/p\u003e\n\u003cp\u003eWe define $D$ to be the set of possible dimensions.\nFor example if we have a 2D grid, then $D =\\{1, 2\\}$ else if we have a 3D grid, $D =\\{1, 2, 3\\}$.\nWe also define $P$ to be the set of possible positions along an axis of the grid, where $P = \\{p \\mid 1 \\leq p \\leq w \\}$.\u003c/p\u003e\n\u003cp\u003eRather than determining if there is a potential contact by checking if two adjacent points in the grid have a 1 from the sequence, we check if a 1 in the sequence is adjacent to another 1 in the sequence on the grid which is not next to it in the sequence.\u003c/p\u003e\n\u003cp\u003eWe define $Q$ the set of potential contacts indexes as\u003c/p\u003e\n\u003cp\u003e$$Q = \\{ \\langle{i, j}\\rangle \\mid 1 \\leq i + 2 \u0026lt; j \\leq |S|, S_i = S_j = 1, j - i \\equiv 1 \\pmod 2 \\}$$\u003c/p\u003e\n\u003cp\u003ewhere $i$ and $j$ are indexes of the 1s in the sequence that can potentially contact each other.\u003c/p\u003e\n\u003cp\u003eTo assist with describing the encoding, we define the set of the pairs of adjacent as\n$$A = \\{ \\langle{i, i + 1}\\rangle \\mid 1 \\leq i \u0026lt; |S| \\}$$\u003c/p\u003e\n\u003cp\u003eThe table describes the variables used in the dimensionality encoding\u003c/p\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003eVariable\u003c/th\u003e\n\u003cth\u003eDescription\u003c/th\u003e\n\u003cth\u003eExists for all\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003e$\\text{at}_{i,p,d}$\u003c/td\u003e\n\u003ctd\u003eThe $i^{th}$ index in $S$ is located at position $p$ in dimension $d$\u003c/td\u003e\n\u003ctd\u003e$i \\in I, p \\in P, d \\in D$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e$\\text{same}_{i,j,d}$\u003c/td\u003e\n\u003ctd\u003eIndexes $i, j$ are at the same position in dimension $d$\u003c/td\u003e\n\u003ctd\u003e$\\langle i, j \\rangle A \\cup Q, d \\in D$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e$\\text{adj}_{i,j,d}$\u003c/td\u003e\n\u003ctd\u003eIndexes $i,j$ are in adjacent positions in dimension $d$\u003c/td\u003e\n\u003ctd\u003e$\\langle i, j \\rangle A \\cup Q, d \\in D$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e$\\text{contact}_{i,j}$\u003c/td\u003e\n\u003ctd\u003eIf postiions $i,j \\in Q$ contact each other\u003c/td\u003e\n\u003ctd\u003e$\\langle i, j \\rangle \\in Q$\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch3 id=\"ensuring-legal-embeddings-1\"\u003eEnsuring Legal Embeddings\u003c/h3\u003e\n\u003cp\u003eThe four conditions for a legal embedding are as follows:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003cp\u003eEvery character position $i$ must be assigned to some position $p$ in dimension $d$\n  $$\\left\\{ \\bigvee_{p \\in P} \\text{at}_{i, p, d} \\mid i \\in I, d \\in D \\right\\}$$\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cp\u003eNo character position $i$ in the sequence can be assigned to more than one position $p$ in dimension $d$.\n  $$\\{ \\lnot \\text{at}_{i, p, d} \\land \\lnot \\text{at}_{i, q, d} \\mid i \\in I, 1 \\leq p \u0026lt; q \\leq w, d \\in D \\}$$\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cp\u003eNo point in the grid can have more than one character position $i$ assigned to it.\n  For any indexes $i$ and $j$ where $i \\neq j$, we have the clauses\n  $$\n  \\begin{align*}\n \\{ \\text{at}_{i, p, d} \\land \\text{at}_{j, p, d} \\rightarrow \\phantom{\\lnot} \\text{same}_{i, j, d} \\mid p \\in P, d \\in D \\} \\\\\n \\{ (\\lnot \\text{at}_{i, p, d} \\land \\text{at}_{j, p, d}) \\lor (\\text{at}_{i, p, d} \\land \\lnot \\text{at}_{j, p, d}) \\rightarrow \\lnot \\text{same}_{i, j, d} \\mid p \\in P, d \\in D \\} \\\\\n  \\end{align*}\n  $$\n  $$\\left\\{ \\bigvee_{d \\in D} \\lnot \\text{same}_{i, j, d} \\right\\}$$\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cp\u003eEvery adjacent pair of character positions $\\langle{i, j}\\rangle \\in A$ must be placed on adjacent positions in the grid (diagonals are not adjacent).\n  The following clauses are used to determine if two adjacent points are one unit apart in dimension $d$.\n  For any $\\langle{i, j}\\rangle \\in A \\cup Q$, $d \\in D$ we have the clauses\n  $$\n  \\begin{align}\n \\{ \\text{at}_{i, p, d} \\land \\text{at}_{j, p + 1, d} \\rightarrow \\phantom{\\lnot} \\text{adj}_{i, j, d} \\mid 1 \\leq p \u0026lt; w\\} \\\\\n \\{ \\text{at}_{i, p, d} \\land \\text{at}_{j, p - 1, d} \\rightarrow \\phantom{\\lnot} \\text{adj}_{i, j, d} \\mid 1 \u0026lt; p \\leq w\\} \\\\\n \\{ \\text{at}_{i, p, d} \\land \\lnot \\text{at}_{j, p + 1, d} \\land \\lnot \\text{at}_{j, p - 1, d} \\rightarrow \\lnot \\text{adj}_{i, j, d} \\mid 1 \u0026lt; p \u0026lt; w\\} \\\\\n  \\end{align}\n  $$\n  Then we enforce that adjacent points must be one unit apart in one dimension and remain the same in the rest.\n  For any $\\langle{i, j}\\rangle \\in A$ we have the clauses\n  $$ \\left\\{ \\bigvee_{d \\in D} \\phantom{\\lnot} \\text{adj}_{i, j, d} \\right\\} $$\n  $$\\{ \\text{adj}_{i, j, d} \\rightarrow \\phantom{\\lnot} \\text{same}_{i, j, d\u0026#39;} \\mid d, d\u0026#39; \\in D, d \\neq d\u0026#39;\\} $$\n  $$\\{ \\text{same}_{i, j, d} \\rightarrow \\lnot \\text{adj}_{i, j, d\u0026#39;} \\mid d, d\u0026#39; \\in D, d \\neq d\u0026#39;\\} $$\u003c/p\u003e\n\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch3 id=\"identifying-potential-contacts-1\"\u003eIdentifying Potential Contacts\u003c/h3\u003e\n\u003cp\u003eWe have the same clauses as that in the adjacency section, except they exist for any $\\langle{i, j}\\rangle \\in Q$ instead of $\\langle{i, j}\\rangle \\in A$.\nThese clauses are required to for potential contact indexes to determine which potential contacts are next to each other.\nThen, the condition for a potential contact are as follows:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eThere is a a contact between potential contact indexes $i, j$ if and only if they are in adjacent positions in one dimension and at the same position in other dimensions.\n  For any index $\\langle{i, j}\\rangle \\in Q, d \\in D$, we have the clauses\n  $$ \\left\\{ \\phantom{\\lnot} \\text{adj}_{i, j, d} \\bigwedge_{d\u0026#39; \\in D, d \\neq d\u0026#39;} \\text{same}_{i, j, d\u0026#39;} \\rightarrow \\phantom{\\lnot} \\text{contact}_{i, j} \\right\\} $$\n  $$ \\left\\{ \\lnot \\text{adj}_{i, j, d} \\bigwedge_{d\u0026#39; \\in D, d \\neq d\u0026#39;} \\text{same}_{i, j, d\u0026#39;} \\rightarrow \\lnot \\text{contact}_{i, j} \\right\\} $$\n  $$ \\left\\{ \\lnot \\text{adj}_{i, j, d} \\bigwedge_{d\u0026#39; \\in D, d \\neq d\u0026#39;} \\lnot \\text{adj}_{i, j, d\u0026#39;} \\rightarrow \\lnot \\text{contact}_{i, j} \\right\\} $$\n  $$\\{ \\text{adj}_{i, j, d} \\land \\lnot \\text{same}_{i, j, d\u0026#39;} \\rightarrow \\lnot \\text{contact}_{i, j} \\mid d\u0026#39; \\in D, d \\neq d\\} $$\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch3 id=\"counting-potential-contacts-1\"\u003eCounting Potential Contacts\u003c/h3\u003e\n\u003cp\u003eSimilar to the original encoding, we count if the number of true contact variables is less than or equal to $m$ where $m$ is the required number of contacts.\nThe cardinality constraint method is used in [3].\u003c/p\u003e\n\u003ch2 id=\"order-encoding\"\u003eOrder Encoding\u003c/h2\u003e\n\u003cp\u003eThis encoding has the same concepts as a the dimensionality reduction, with one change.\nRather than $\\text{at}_{i, p, d}$ meaning sequence index $i$ is exactly at position $p$ in dimension $d$, it means that it is at least at position $p$ in dimension $d$.\u003c/p\u003e\n\u003cp\u003eThe primary advantage of this encoding lies in how it simplifies spatial reasoning.\nInstead of defining adjacency by checking every possible pair of coordinates (e.g. \u003ccode\u003ep\u003c/code\u003e and \u003ccode\u003ep+1\u003c/code\u003e), Order Encoding allows us to define it by comparing the cumulative position vectors of two amino acids directly.\nThis often leads to more powerful logical propagation for the SAT solver.\u003c/p\u003e\n\u003cp\u003eFor instance, if a solver determines that an amino acid is \u003cem\u003enot\u003c/em\u003e at or after position 5, it can immediately deduce that it cannot be at positions 6, 7, and so on.\nThis chain reaction can significantly prune the search space.\nThe hypothesis is that this more abstract, relational encoding results in a more compact set of constraints and allows the SAT solver to find a solution more efficiently.\u003c/p\u003e\n\u003cp\u003eThe table describes the variables used in the order encoding\u003c/p\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003eVariable\u003c/th\u003e\n\u003cth\u003eDescription\u003c/th\u003e\n\u003cth\u003eExists for all\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003e$\\text{at}_{i,p,d}$\u003c/td\u003e\n\u003ctd\u003eThe $i^{th}$ index in $S$ is located at at least position $p$ in dimension $d$\u003c/td\u003e\n\u003ctd\u003e$i \\in I, p \\in P, d \\in D$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e$\\text{same}_{i,j,d}$\u003c/td\u003e\n\u003ctd\u003eIndexes $i, j$ are at the same position in dimension $d$\u003c/td\u003e\n\u003ctd\u003e$\\langle i, j \\rangle A \\cup Q, d \\in D$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e$\\text{adj}_{i,j,d}$\u003c/td\u003e\n\u003ctd\u003eIndexes $i,j$ are in adjacent positions in dimension $d$\u003c/td\u003e\n\u003ctd\u003e$\\langle i, j \\rangle A \\cup Q, d \\in D$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e$\\text{contact}_{i,j}$\u003c/td\u003e\n\u003ctd\u003eIf positions $i,j \\in Q$ contact each other\u003c/td\u003e\n\u003ctd\u003e$\\langle i, j \\rangle \\in Q$\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch3 id=\"ensuring-legal-embeddings-2\"\u003eEnsuring Legal Embeddings\u003c/h3\u003e\n\u003cp\u003eThe our conditions for a legal embedding is as follows\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003cp\u003eEvery character index $i \\in I$ must be assigned to some position $p$ in dimension $d$.\nIn other words, every character is at least in position 1 in all dimensions.\n  $$\\{ \\text{at}_{i, 1, d} \\mid i \\in I, d \\in D\\} $$\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cp\u003eNo character index $i \\in I$ can be assigned to more than one point.\n  $$\\{ \\text{at}_{i, p, d} \\rightarrow \\text{at}_{i, p-1, d} \\mid i \\in I, d \\in D, 1 \u0026lt; p \\leq w\\} $$\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cp\u003eNo point in the grid can have more than one character index assigned to it.\n  In other words, two indexes cannot be on the same point.\n  For all $i, j \\in I, i \u0026lt; j$, we have the clauses:\n  $$\\{ \\lnot \\text{at}_{i,p + 1, d} \\land \\text{at}_{i, p d} \\land \\text{at}_{j, p + 1, d} \\land \\text{at}_{j, p, d} \\rightarrow \\text{same}_{i, j, d} \\mid d \\in D, p \\in P\\} $$\n  $$\\{ \\lnot \\text{at}_{i, p, d} \\land \\text{at}_{j, p, d} \\rightarrow \\lnot \\text{same}_{i, j, d} \\mid d \\in D, p \\in P\\} $$\n  $$\\{ \\text{at}_{i, p, d} \\land \\lnot \\text{at}_{j, p, d} \\rightarrow \\lnot \\text{same}_{i, j, d} \\mid d \\in D, p \\in P\\} $$\n  $$ \\left\\{ \\bigvee_{d \\in D} \\lnot \\text{same}_{i, j, d} \\right\\} $$\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cp\u003eEvery adjacent pair of character pair positions $\\langle{i, j}\\rangle \\in A$ must be placed on adjacent points in the grid.\u003c/p\u003e\n\u003cp\u003e Now that we have the $\\text{at}$ and $\\text{adj}$ variables we can reuse the same formulas from the Dimension Encoding.\u003c/p\u003e\n\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch3 id=\"identifying-potential-contacts-2\"\u003eIdentifying Potential Contacts\u003c/h3\u003e\n\u003cp\u003eNow that we have the same set of $\\text{adj}$ and $\\text{same}$ variables as in the Dimension Encoding, we can count contacts through the same method.\u003c/p\u003e\n\u003ch3 id=\"counting-potential-contacts-2\"\u003eCounting Potential Contacts\u003c/h3\u003e\n\u003cp\u003eSimilar to the Dimension Encoding, counting potential contacts is accomplished through the same clauses, using the sequential encoding in [3].\u003c/p\u003e\n\u003ch1 id=\"references\"\u003e\u003ca href=\"#references\"\u003eReferences\u003c/a\u003e\u003c/h1\u003e\n\n\u003cp\u003e[1] Gusfield D. Brown H, Zuo L. Comparing integer linear programming to sat-solving for hard problems in computational and systems biology. Algorithms for Computational Biology., pages 63–76, 2020.\u003c/p\u003e\n\u003cp\u003e[2] Kendrew, J. C., Bodo, G., Dintzis, H. M., Parrish, R. G., Wyckoff, H., \u0026amp; Phillips, D. C. (1958). A three-dimensional model of the myoglobin molecule obtained by x-ray analysis. Nature, 181(4610), 662–666.\u003c/p\u003e\n\u003cp\u003e[3] Carsten Sinz. Towards an optimal cnf encoding of boolean cardinality constraints. In Peter van Beek, editor, Principles and Practice of Constraint Programming - CP 2005, pages 827–831, Berlin, Heidelberg, 2005. Springer Berlin Heidelberg.\u003c/p\u003e\n","metadata":{"title":"Protein Folding SAT Reduction","description":"A look into the HP model in protein folding","date":"2025-08-04","mathjax":true,"hljs":true},"toc":[{"id":"introduction","title":"Introduction"},{"id":"protein-folding-via-the-hp-model","title":"Protein Folding via the HP model"},{"id":"a-baseline-sat-encoding","title":"A Baseline SAT Encoding"},{"id":"potential-optimisations","title":"Potential Optimisations"},{"id":"references","title":"References"}]},"__N_SSG":true},"page":"/writings/[slug]","query":{"slug":"protein-folding-sat-reduction"},"buildId":"ILkuclJ7g-R-hn-4-ve6L","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

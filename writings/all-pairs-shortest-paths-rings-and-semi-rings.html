@@ -1,0 +1,285 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><title>All Pairs Shortest Paths, Rings and Semi Rings</title><meta name="next-head-count" content="3"/><link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"/><link rel="manifest" href="/favicon/site.webmanifest"/><link rel="shortcut icon" href="/favicon/favicon.ico"/><meta name="msapplication-TileColor" content="#da532c"/><meta name="msapplication-config" content="/favicon/browserconfig.xml"/><meta name="theme-color" content="#ffffff"/><link rel="preload" href="/_next/static/css/f553854d468f6c8c.css" as="style"/><link rel="stylesheet" href="/_next/static/css/f553854d468f6c8c.css" data-n-g=""/><link rel="preload" href="/_next/static/css/33bcc2031ebe3241.css" as="style"/><link rel="stylesheet" href="/_next/static/css/33bcc2031ebe3241.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-8fa1640cc84ba8fe.js" defer=""></script><script src="/_next/static/chunks/framework-2c79e2a64abdb08b.js" defer=""></script><script src="/_next/static/chunks/main-0ecb9ccfcb6c9b24.js" defer=""></script><script src="/_next/static/chunks/pages/_app-7db202e315b716c1.js" defer=""></script><script src="/_next/static/chunks/996-502a5e68cb1e9d91.js" defer=""></script><script src="/_next/static/chunks/207-81e7acd450235f3f.js" defer=""></script><script src="/_next/static/chunks/pages/writings/%5Bslug%5D-7e316cc9cfef0534.js" defer=""></script><script src="/_next/static/ILkuclJ7g-R-hn-4-ve6L/_buildManifest.js" defer=""></script><script src="/_next/static/ILkuclJ7g-R-hn-4-ve6L/_ssgManifest.js" defer=""></script></head><body><div id="__next"><script>!function(){try{var d=document.documentElement,n='data-theme',s='setAttribute';var e=localStorage.getItem('theme');if('system'===e||(!e&&true)){var t='(prefers-color-scheme: dark)',m=window.matchMedia(t);if(m.media!==t||m.matches){d.style.colorScheme = 'dark';d[s](n,'dark')}else{d.style.colorScheme = 'light';d[s](n,'light')}}else if(e){d[s](n,e|| '')}if(e==='light'||e==='dark')d.style.colorScheme=e}catch(e){}}()</script><div class="Writing_body__d5Mqz"><div class="Writing_layout__X8ptu"><aside class="Writing_toc__C4kbO" aria-label="Table of contents"><h2 class="Writing_tocTitle__8Z0ek">Contents</h2><ul class="Writing_tocList__2Nnoy"><li class="Writing_tocItem__rjAOC"><a href="#introduction" class="Writing_tocLinkActive__0kigr">Introduction</a></li><li class="Writing_tocItem__rjAOC"><a href="#usual-algorithms" class="Writing_tocLink__ztBHG">Usual algorithms</a></li><li class="Writing_tocItem__rjAOC"><a href="#floyd-warshall-and-matrix-multiplication" class="Writing_tocLink__ztBHG">Floyd-Warshall and Matrix Multiplication</a></li><li class="Writing_tocItem__rjAOC"><a href="#strassens-algorithm" class="Writing_tocLink__ztBHG">Strassen&#x27;s Algorithm</a></li><li class="Writing_tocItem__rjAOC"><a href="#rings-and-semi-rings" class="Writing_tocLink__ztBHG">Rings and Semi-Rings</a></li><li class="Writing_tocItem__rjAOC"><a href="#transitive-closure" class="Writing_tocLink__ztBHG">Transitive Closure</a></li><li class="Writing_tocItem__rjAOC"><a href="#conclusion" class="Writing_tocLink__ztBHG">Conclusion</a></li></ul></aside><aside class="Writing_balanceNav__vSGQh" aria-label="Site navigation"><a class="Writing_siteTitle__O17hB" href="/">Gary Sun // <span class="cn">孫健</span></a><ul class="Writing_siteNavList__zzxAq"><li class="Writing_siteNavItem__TeLqH"><a class="Writing_siteNavLink__EVB8A" href="/#about">About</a></li><li class="Writing_siteNavItem__TeLqH"><a class="Writing_siteNavLink__EVB8A" href="https://github.com/angary/">Projects</a></li><li class="Writing_siteNavItem__TeLqH"><a class="Writing_siteNavLink__EVB8A" href="/#writings">Writings</a></li></ul></aside><div class="Writing_articleHeader__rl9TS"><h1>All Pairs Shortest Paths, Rings and Semi Rings</h1><p class="Writing_description__Rk8wD">An application of algebraic structure to a common computer science problem</p><p class="Writing_date__BYvoK">2 September 2021</p></div><div class="Writing_articleBody__A1uFB"><span style="display:block"><article><h1 id="introduction"><a href="#introduction">Introduction</a></h1>
+
+<p>The Single Source Shortest Paths (SSSP) problem is to find the shortest distance from one node to every other node in a graph. The All Pairs Shortest Paths (APSP) problem, is to determine for every node in the graph, the shortest distance to every other node in a graph.
+APSP typically has applications in routing algorithms, i.e. finding the shortest path from one location to another.</p>
+<h1 id="usual-algorithms"><a href="#usual-algorithms">Usual algorithms</a></h1>
+
+<p>Depending on the type of graph, for both SSSP and APSP there are different algorithms to solve the relevant problems.
+The tables below provide the fastest well known algorithm to solve SSSP and APSP</p>
+<h2 id="single-source-shortest-path">Single Source Shortest Path</h2>
+<table>
+<thead>
+<tr>
+<th>Graph Type</th>
+<th>Algorithm</th>
+<th>Runtime</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Unweighted</td>
+<td>BFS</td>
+<td>$O(E)$</td>
+</tr>
+<tr>
+<td>Non Negative Edge Weights</td>
+<td>Dijkstra&#39;s</td>
+<td>$O(V \text{lg} V + E)$</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Bellman-Ford</td>
+<td>$O(VE)$</td>
+</tr>
+<tr>
+<td>Directed Acyclic Graph (DAG)</td>
+<td>Topological Sort + Bellman-Ford</td>
+<td>$O(V + E)$</td>
+</tr>
+</tbody></table>
+<h2 id="all-pairs-shortest-path">All Pairs Shortest Path</h2>
+<p>Ignoring DAGs, the first two algorithms for APSP are merely SSSP algorithms run from every vertex of the graph, whilst there are different algorithms for general graphs depending on the number of edges.
+It is also important to note that as the number of edges increases to $O(V^2)$ in a graph, Johnson&#39;s algorithm approaches $O(V^2 \text{lg} V + V^3)$, making it slower than Floyd-Warshall.</p>
+<table>
+<thead>
+<tr>
+<th>Graph Type</th>
+<th>Algorithm</th>
+<th>Runtime</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Unweighted</td>
+<td>$|V| \times$ BFS</td>
+<td>$O(VE)$</td>
+</tr>
+<tr>
+<td>Non Negative Edge Weights</td>
+<td>$|V| \times$ Dijkstra&#39;s</td>
+<td>$O(V^2 \text{lg} V + VE)$</td>
+</tr>
+<tr>
+<td>General (Dense)</td>
+<td>Floyd-Warshall</td>
+<td>$O(V^3)$</td>
+</tr>
+<tr>
+<td>General (Sparse)</td>
+<td>Johnson&#39;s</td>
+<td>$O(V^2 \text{lg} V + VE)$</td>
+</tr>
+</tbody></table>
+<h1 id="floyd-warshall-and-matrix-multiplication"><a href="#floyd-warshall-and-matrix-multiplication">Floyd-Warshall and Matrix Multiplication</a></h1>
+
+<p>That being said a special shout out goes to Floyd-Warshall for it&#39;s simplicity - elegantly composed of a few lines of code.</p>
+<pre><code class="language-py"># Implementation of the Floyd-Warshall algorithm in Python
+
+def floyd_warshall(graph: list[list[int]]):
+    n = len(graph)
+    for k in range(n):
+        for j in range(n):
+            for i in range(n):
+                graph[i][j] = min(graph[i][j], graph[i][k] + graph[k][j])
+</code></pre>
+<p>It shares a structure very similar to Matrix Multiplication (MM) if the two given matrices are square matrices (which is always the case for Floyd-Warshall as all adjacency matrices are square).</p>
+<pre><code class="language-py"># Implementation of matrix multiplication for square matrices
+
+def matrix_mul(A: list[list[int]], B: list[list[int]]) -&gt; list[list[int]]:
+    n = len(A)
+    C = [[0] * n for _ in range(n)]
+    for i in range(n):
+        for j in range(n):
+            for k in range(n):
+                C[i][j] = sum(C[i][j], A[i][k] * B[k][j])
+    return C
+</code></pre>
+<p>With the exception of creating result matrix and storing the calculations there, the algorithms both run in $O(V^3)$, except for two differences in operation</p>
+<ol>
+<li>Instead of taking the cumulative <code>sum</code>, Floyd-Warshall takes the cumulative <code>min</code></li>
+<li>Instead of applying <code>*</code> between two values, Floyd-Warshall applies <code>+</code></li>
+</ol>
+<h1 id="strassens-algorithm"><a href="#strassens-algorithm">Strassen's Algorithm</a></h1>
+
+<p>That being said there exists a sub $O(V^3)$ time for calculating the MM of two matrices, known as Strassen&#39;s algorithm.
+It is important to note that naive MM runs in $O(V^3)$, whilst matrix addition / subtraction runs in $O(V^2)$, and so Strassen&#39;s algorithm aims to reuse computations and lower runtime by using less multiplications, but more addition / subtraction.</p>
+<h2 id="explanation">Explanation</h2>
+<p>The naive method of MM is as follows</p>
+<p>Given the $n \times n$ matrices $A$ and $B$, to calculate their product, we can split each matrix into smaller block matrices in each quadrant (i.e. $A_{1, 1}$ is the smaller $\frac{n}{2} \times \frac{n}{2}$ matrix in the top left of A).</p>
+<p>$$
+A =
+\begin{bmatrix}
+A_{1, 1} A_{1, 2} \\
+A_{2, 1} A_{2, 2}
+\end{bmatrix}
+,
+B =
+\begin{bmatrix}
+B_{1, 1} B_{1, 2} \\
+B_{2, 1} B_{2, 2}
+\end{bmatrix}
+,
+C =
+\begin{bmatrix}
+C_{1, 1} C_{1, 2} \\
+C_{2, 1} C_{2, 2}
+\end{bmatrix}
+$$</p>
+<p>As a result the naive algorithm requires 8 multiplications (and 4 additions).</p>
+<ol>
+<li>$C_{1, 1} = A_{1, 1}B_{1, 1} + A_{1, 2}B_{2, 1}$</li>
+<li>$C_{1, 2} = A_{1, 1}B_{1, 2} + A_{1, 2}B_{2, 2}$</li>
+<li>$C_{2, 1} = A_{2, 1}B_{1, 1} + A_{2, 2}B_{2, 1}$</li>
+<li>$C_{2, 2} = A_{2, 1}B_{1, 2} + A_{2, 2}B_{2, 2}$</li>
+</ol>
+<p>In comparison, Strassen&#39;s algorithm requires 7 multiplications (and 18 additions / subtractions) by creating temporary matrices</p>
+<ol>
+<li>$M_1 = (A_{1, 1} + A_{2, 2})(B_{1 ,1} + B_{2, 2})$</li>
+<li>$M_2 = (A_{2, 1} + A_{2, 2})(B_{1, 1})$</li>
+<li>$M_3 = (A_{1 ,1})(B_{1, 2} - B_{2, 2})$</li>
+<li>$M_4 = (A_{2, 2})(B_{1, 2} - B_{2, 2})$</li>
+<li>$M_5 = (A_{1, 1} + A_{1, 2})(B_{2, 2})$</li>
+<li>$M_6 = (A_{2, 1} - A_{1, 1})(B_{1, 1} + B_{1, 2})$</li>
+<li>$M_7 = (A_{1, 2} - A_{2, 2})(B_{2, 1} + B_{2, 2})$</li>
+</ol>
+<p>which can then be added and subtracted with each other to produce the final result</p>
+<ol>
+<li>$C_{1, 1} = M_1 + M_4 - M_5 + M_7$</li>
+<li>$C_{1, 2} = M_3 + M_5$</li>
+<li>$C_{2, 1} = M_2 + M_4$</li>
+<li>$C_{2, 2} = M_1 - M_2 + M_3 + M_6$</li>
+</ol>
+<h2 id="time-complexity">Time Complexity</h2>
+<p>The final runtime of the aforementioned algorithms can be determined through the master&#39;s theorem
+$$T(n) = aT \left( \frac{n}{b} \right) + f(n)$$
+Where</p>
+<ul>
+<li>$a$ = Number of subproblems (no.# of smaller MMs required per subproblem)</li>
+<li>$b$ = Reduction in size per problem (2, as the smaller matrixes have size $\frac{n}{2}$)</li>
+<li>$f(n)$ = Cost of work per problem ($O(n^2)$, as we do matrix addition / subtraction)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Naive Solution</th>
+<th>Strassen&#39;s Algorithm</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Recurrence Relation</td>
+<td>$T(n) = 8T \left( \frac{n}{2} \right) + O(n^2)$</td>
+<td>$T(n) = 7T \left( \frac{n}{2} \right) + O(n^2)$</td>
+</tr>
+<tr>
+<td>Time Complexity</td>
+<td>$O(n^3)$</td>
+<td>$O(n^{\text{lg}7}) \approx O(n^{2.807})$</td>
+</tr>
+</tbody></table>
+<p>Not bad! We have managed to reduce the runtime to $O(n^{2.807})$, and there are algorithms that can achieve even lower asymptotic runtime (i.e. the Vassilevska Williams has a runtime of $O(n^{2.373}$), though their hidden constant times make them impractical.
+Now would it be possible to apply this to Floyd-Warshall?</p>
+<p>Note: $n = V$, as $V$ is the number of vertices, which is the number of rows and columns in an adjacency matrix.</p>
+<h1 id="rings-and-semi-rings"><a href="#rings-and-semi-rings">Rings and Semi-Rings</a></h1>
+
+<p>The issue is that fast matrix multiplication can only be applied to any ring.</p>
+<p>In mathematics, a ring is a set that</p>
+<ul>
+<li>has addition which must be commutative and associative</li>
+<li>has multiplication that must be associative</li>
+<li>has a zero (aka the identity element)</li>
+<li>has negatives (i.e. adding an element and it&#39;s negative produces the ring&#39;s zero element)</li>
+<li>has two distributive laws relating addition and multiplication</li>
+</ul>
+<p>However, for APSP, it is usually defined in a semi-ring. The definition of a semi-ring is the same as a ring, but <strong>without the requirement for a negative</strong>.</p>
+<p>This becomes relevant as the Strassen&#39;s reduces matrix multiplications by taking advantage of matrix subtractions as the <strong>negative</strong> of the <code>sum</code> to reuse calculations.
+Looking back at our comparison between Floyd-Warshall and MM, we must therefore need a negative to <code>min</code> in order to apply Strassen&#39;s to APSP, which unfortunately does not exist, so we cannot apply fast MMs to APSP.</p>
+<p>But what if we could define APSP in the domain of a ring?</p>
+<h1 id="transitive-closure"><a href="#transitive-closure">Transitive Closure</a></h1>
+
+<p>Don&#39;t worry, I didn&#39;t drag you through all that to learn 0 applications.
+The Transitive Closure for an adjacency matrix $G$ is an adjacency matrix $G&#39;$, where $G&#39;_{i, j} = 1$ if there is a path from $v_i$ to $v_j$ in $G$.</p>
+<p>Due to the simplicity of this problem, this can be implemented through an algorithm using boolean operations as shown below.</p>
+<h2 id="comparison-with-mm">Comparison with MM</h2>
+<pre><code class="language-py"># Implementation of a function to &quot;square&quot; a boolean matrix
+
+def boolean_matrix_squaring(graph: list[list[bool]]):
+    n = len(graph)
+    for k in range(n):
+        for j in range(n):
+            for i in range(n):
+                graph[i][j] = graph[i][j] or (graph[i][k] and graph[k][j])
+</code></pre>
+<p>We can compare this to our MM implementation and note two differences</p>
+<ol>
+<li>Instead of taking the cumulative <code>sum</code>, we take the cumulative <code>or</code></li>
+<li>Instead of applying <code>*</code> between two values, we apply <code>and</code></li>
+</ol>
+<p>The issue earlier was that fast MM is only defined for a ring, however TC is also <a href="http://math.mit.edu/~jerison/103/handouts/rings.pdf">defined under a ring with boolean operations</a>, and as a result we can apply Strassen&#39;s algorithm to the TC problem.</p>
+<h2 id="application">Application</h2>
+<p>Now we can attempt to apply Strassen&#39;s algorithm to quickly find the TC of a graph.</p>
+<h3 id="applying-with-strassens">Applying with Strassen&#39;s</h3>
+<p>To find the TC, we can more or less represent <code>true</code> with <code>1</code>, <code>false</code> with <code>0</code>, and then apply Strassen&#39;s algorithm to multiply the adjacency matrix with itself, always taking <code>mod 2</code> of the results in $O(V^{2.807})$.</p>
+<p>The result of adjacency matrix multiplication produces the a matrix where $A_{i, j}$ represents if there is a path of length 2 from $v_i$ to $v_j$.</p>
+<h3 id="reduction-from-tc-to-mm">Reduction from TC to MM</h3>
+<p>Now it is possible to reduce (apply an algorithm to convert from one problem to another) the TC problem to MM by following the following steps.</p>
+<ol>
+<li><p>Replace all strongly connected components with a single vertex in $O(V^2)$.</p>
+</li>
+<li><p>Topological sort the graph so edges move from lowered numbered vertices go to higher numbered ones in $O(V + E)$.</p>
+</li>
+<li><p>As a result, the adjacency matrix is an upper triangular matrix (as vertices only have a path to higher numbered vertices) $G$, which is can be composed of 4 quadrants:</p>
+<p>$$
+G =
+\left[ \begin{array}{c | c}
+A &amp; C \\
+\hline
+0 &amp; B \\
+\end{array} \right],
+$$</p>
+<p>where $A$ is the adjacency matrix for vertices $v_1, ... v_{n/2}$, and $B$ for $v_{(n/2) + 1}, ..., v_{n - 1}$.
+Meanwhile C represents the edges from the vertices in $A$ to $B$.</p>
+</li>
+</ol>
+<p>Now, we claim that the TC of $G$:</p>
+<p>$$
+G&#39; =
+\left[ \begin{array}{c | c}
+A&#39; &amp; A&#39; C B&#39; \\
+\hline
+0 &amp; B&#39; \\
+\end{array} \right].
+$$</p>
+<p>This is because the TC of $A$ is solely dependent on connections in $A$, and the same applies for $B$.</p>
+<p>As for the upper right matrix, $C_{i, j}$ will be <code>true</code> if there is a path from $v_i$ to $v_j$, which is true if there is a path from $v_i$ to some vertex in $A&#39;$, which has a path to some other vertex in $B&#39;$ which is connected to $v_j$.</p>
+<p>This path can be determined by taking the multiplication $A&#39; \times C \times B&#39;$ as $A&#39;$, hence $C&#39; = A&#39; C B&#39;$.</p>
+<p>Since $G&#39;$ can be calculated recursively by finding the TC of 2 half sized graphs ($A&#39;$, $B&#39;$) and 2 MMs ($A&#39; C B&#39;$), the final time complexity is represented by the recurrence relation</p>
+<p>$$
+T(n) = 2T \left( \frac{n}{2} \right) + O \left( n^{2.807} \right)
+$$</p>
+<p>which can be calculated to be $O(n^{2.803})$, the same runtime as the MM algorithm used! In fact, <a href="https://www.cs.bgu.ac.il/~dinitz/Course/SS-12/transitiveClosure.pdf">TC is reducible to boolean MM</a>.</p>
+<h2 id="repeated-dfs">Repeated DFS</h2>
+<p>That being said, it is possible to apply DFS on every vertex of the graph to find the TC.
+However a single DFS of a graph has a runtime of $O(V + E)$ (which can be $O(V)$ for sparse graphs and $O(V^2)$ for dense graphs), and so the total runtime would be $O(V^2)$ for sparse graphs and $O(V^3)$ for dense graphs.</p>
+<p>As a result the suitable algos for finding the Transitive Closure of a graph is listed below.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Dense Graphs</th>
+<th>Sparse Graphs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Algorithm</td>
+<td>Strassen&#39;s</td>
+<td>Repeated DFS</td>
+</tr>
+<tr>
+<td>Runtime</td>
+<td>$O(V^{2.807})$</td>
+<td>$O(V^2)$</td>
+</tr>
+</tbody></table>
+<h1 id="conclusion"><a href="#conclusion">Conclusion</a></h1>
+
+<p>In conclusion, we&#39;ve now learn that we can apply fast MMs to other problems defined in a ring, one of which was allowing us to find the TC of a dense graph quickly by reducing the problem to MM.</p>
+</article></span></div></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"contents":"\u003ch1 id=\"introduction\"\u003e\u003ca href=\"#introduction\"\u003eIntroduction\u003c/a\u003e\u003c/h1\u003e\n\n\u003cp\u003eThe Single Source Shortest Paths (SSSP) problem is to find the shortest distance from one node to every other node in a graph. The All Pairs Shortest Paths (APSP) problem, is to determine for every node in the graph, the shortest distance to every other node in a graph.\nAPSP typically has applications in routing algorithms, i.e. finding the shortest path from one location to another.\u003c/p\u003e\n\u003ch1 id=\"usual-algorithms\"\u003e\u003ca href=\"#usual-algorithms\"\u003eUsual algorithms\u003c/a\u003e\u003c/h1\u003e\n\n\u003cp\u003eDepending on the type of graph, for both SSSP and APSP there are different algorithms to solve the relevant problems.\nThe tables below provide the fastest well known algorithm to solve SSSP and APSP\u003c/p\u003e\n\u003ch2 id=\"single-source-shortest-path\"\u003eSingle Source Shortest Path\u003c/h2\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003eGraph Type\u003c/th\u003e\n\u003cth\u003eAlgorithm\u003c/th\u003e\n\u003cth\u003eRuntime\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eUnweighted\u003c/td\u003e\n\u003ctd\u003eBFS\u003c/td\u003e\n\u003ctd\u003e$O(E)$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eNon Negative Edge Weights\u003c/td\u003e\n\u003ctd\u003eDijkstra\u0026#39;s\u003c/td\u003e\n\u003ctd\u003e$O(V \\text{lg} V + E)$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGeneral\u003c/td\u003e\n\u003ctd\u003eBellman-Ford\u003c/td\u003e\n\u003ctd\u003e$O(VE)$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eDirected Acyclic Graph (DAG)\u003c/td\u003e\n\u003ctd\u003eTopological Sort + Bellman-Ford\u003c/td\u003e\n\u003ctd\u003e$O(V + E)$\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch2 id=\"all-pairs-shortest-path\"\u003eAll Pairs Shortest Path\u003c/h2\u003e\n\u003cp\u003eIgnoring DAGs, the first two algorithms for APSP are merely SSSP algorithms run from every vertex of the graph, whilst there are different algorithms for general graphs depending on the number of edges.\nIt is also important to note that as the number of edges increases to $O(V^2)$ in a graph, Johnson\u0026#39;s algorithm approaches $O(V^2 \\text{lg} V + V^3)$, making it slower than Floyd-Warshall.\u003c/p\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003eGraph Type\u003c/th\u003e\n\u003cth\u003eAlgorithm\u003c/th\u003e\n\u003cth\u003eRuntime\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eUnweighted\u003c/td\u003e\n\u003ctd\u003e$|V| \\times$ BFS\u003c/td\u003e\n\u003ctd\u003e$O(VE)$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eNon Negative Edge Weights\u003c/td\u003e\n\u003ctd\u003e$|V| \\times$ Dijkstra\u0026#39;s\u003c/td\u003e\n\u003ctd\u003e$O(V^2 \\text{lg} V + VE)$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGeneral (Dense)\u003c/td\u003e\n\u003ctd\u003eFloyd-Warshall\u003c/td\u003e\n\u003ctd\u003e$O(V^3)$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eGeneral (Sparse)\u003c/td\u003e\n\u003ctd\u003eJohnson\u0026#39;s\u003c/td\u003e\n\u003ctd\u003e$O(V^2 \\text{lg} V + VE)$\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch1 id=\"floyd-warshall-and-matrix-multiplication\"\u003e\u003ca href=\"#floyd-warshall-and-matrix-multiplication\"\u003eFloyd-Warshall and Matrix Multiplication\u003c/a\u003e\u003c/h1\u003e\n\n\u003cp\u003eThat being said a special shout out goes to Floyd-Warshall for it\u0026#39;s simplicity - elegantly composed of a few lines of code.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-py\"\u003e# Implementation of the Floyd-Warshall algorithm in Python\n\ndef floyd_warshall(graph: list[list[int]]):\n    n = len(graph)\n    for k in range(n):\n        for j in range(n):\n            for i in range(n):\n                graph[i][j] = min(graph[i][j], graph[i][k] + graph[k][j])\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eIt shares a structure very similar to Matrix Multiplication (MM) if the two given matrices are square matrices (which is always the case for Floyd-Warshall as all adjacency matrices are square).\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-py\"\u003e# Implementation of matrix multiplication for square matrices\n\ndef matrix_mul(A: list[list[int]], B: list[list[int]]) -\u0026gt; list[list[int]]:\n    n = len(A)\n    C = [[0] * n for _ in range(n)]\n    for i in range(n):\n        for j in range(n):\n            for k in range(n):\n                C[i][j] = sum(C[i][j], A[i][k] * B[k][j])\n    return C\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eWith the exception of creating result matrix and storing the calculations there, the algorithms both run in $O(V^3)$, except for two differences in operation\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eInstead of taking the cumulative \u003ccode\u003esum\u003c/code\u003e, Floyd-Warshall takes the cumulative \u003ccode\u003emin\u003c/code\u003e\u003c/li\u003e\n\u003cli\u003eInstead of applying \u003ccode\u003e*\u003c/code\u003e between two values, Floyd-Warshall applies \u003ccode\u003e+\u003c/code\u003e\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch1 id=\"strassens-algorithm\"\u003e\u003ca href=\"#strassens-algorithm\"\u003eStrassen's Algorithm\u003c/a\u003e\u003c/h1\u003e\n\n\u003cp\u003eThat being said there exists a sub $O(V^3)$ time for calculating the MM of two matrices, known as Strassen\u0026#39;s algorithm.\nIt is important to note that naive MM runs in $O(V^3)$, whilst matrix addition / subtraction runs in $O(V^2)$, and so Strassen\u0026#39;s algorithm aims to reuse computations and lower runtime by using less multiplications, but more addition / subtraction.\u003c/p\u003e\n\u003ch2 id=\"explanation\"\u003eExplanation\u003c/h2\u003e\n\u003cp\u003eThe naive method of MM is as follows\u003c/p\u003e\n\u003cp\u003eGiven the $n \\times n$ matrices $A$ and $B$, to calculate their product, we can split each matrix into smaller block matrices in each quadrant (i.e. $A_{1, 1}$ is the smaller $\\frac{n}{2} \\times \\frac{n}{2}$ matrix in the top left of A).\u003c/p\u003e\n\u003cp\u003e$$\nA =\n\\begin{bmatrix}\nA_{1, 1} A_{1, 2} \\\\\nA_{2, 1} A_{2, 2}\n\\end{bmatrix}\n,\nB =\n\\begin{bmatrix}\nB_{1, 1} B_{1, 2} \\\\\nB_{2, 1} B_{2, 2}\n\\end{bmatrix}\n,\nC =\n\\begin{bmatrix}\nC_{1, 1} C_{1, 2} \\\\\nC_{2, 1} C_{2, 2}\n\\end{bmatrix}\n$$\u003c/p\u003e\n\u003cp\u003eAs a result the naive algorithm requires 8 multiplications (and 4 additions).\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e$C_{1, 1} = A_{1, 1}B_{1, 1} + A_{1, 2}B_{2, 1}$\u003c/li\u003e\n\u003cli\u003e$C_{1, 2} = A_{1, 1}B_{1, 2} + A_{1, 2}B_{2, 2}$\u003c/li\u003e\n\u003cli\u003e$C_{2, 1} = A_{2, 1}B_{1, 1} + A_{2, 2}B_{2, 1}$\u003c/li\u003e\n\u003cli\u003e$C_{2, 2} = A_{2, 1}B_{1, 2} + A_{2, 2}B_{2, 2}$\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003eIn comparison, Strassen\u0026#39;s algorithm requires 7 multiplications (and 18 additions / subtractions) by creating temporary matrices\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e$M_1 = (A_{1, 1} + A_{2, 2})(B_{1 ,1} + B_{2, 2})$\u003c/li\u003e\n\u003cli\u003e$M_2 = (A_{2, 1} + A_{2, 2})(B_{1, 1})$\u003c/li\u003e\n\u003cli\u003e$M_3 = (A_{1 ,1})(B_{1, 2} - B_{2, 2})$\u003c/li\u003e\n\u003cli\u003e$M_4 = (A_{2, 2})(B_{1, 2} - B_{2, 2})$\u003c/li\u003e\n\u003cli\u003e$M_5 = (A_{1, 1} + A_{1, 2})(B_{2, 2})$\u003c/li\u003e\n\u003cli\u003e$M_6 = (A_{2, 1} - A_{1, 1})(B_{1, 1} + B_{1, 2})$\u003c/li\u003e\n\u003cli\u003e$M_7 = (A_{1, 2} - A_{2, 2})(B_{2, 1} + B_{2, 2})$\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003ewhich can then be added and subtracted with each other to produce the final result\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e$C_{1, 1} = M_1 + M_4 - M_5 + M_7$\u003c/li\u003e\n\u003cli\u003e$C_{1, 2} = M_3 + M_5$\u003c/li\u003e\n\u003cli\u003e$C_{2, 1} = M_2 + M_4$\u003c/li\u003e\n\u003cli\u003e$C_{2, 2} = M_1 - M_2 + M_3 + M_6$\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch2 id=\"time-complexity\"\u003eTime Complexity\u003c/h2\u003e\n\u003cp\u003eThe final runtime of the aforementioned algorithms can be determined through the master\u0026#39;s theorem\n$$T(n) = aT \\left( \\frac{n}{b} \\right) + f(n)$$\nWhere\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e$a$ = Number of subproblems (no.# of smaller MMs required per subproblem)\u003c/li\u003e\n\u003cli\u003e$b$ = Reduction in size per problem (2, as the smaller matrixes have size $\\frac{n}{2}$)\u003c/li\u003e\n\u003cli\u003e$f(n)$ = Cost of work per problem ($O(n^2)$, as we do matrix addition / subtraction)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e\u003c/th\u003e\n\u003cth\u003eNaive Solution\u003c/th\u003e\n\u003cth\u003eStrassen\u0026#39;s Algorithm\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eRecurrence Relation\u003c/td\u003e\n\u003ctd\u003e$T(n) = 8T \\left( \\frac{n}{2} \\right) + O(n^2)$\u003c/td\u003e\n\u003ctd\u003e$T(n) = 7T \\left( \\frac{n}{2} \\right) + O(n^2)$\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eTime Complexity\u003c/td\u003e\n\u003ctd\u003e$O(n^3)$\u003c/td\u003e\n\u003ctd\u003e$O(n^{\\text{lg}7}) \\approx O(n^{2.807})$\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eNot bad! We have managed to reduce the runtime to $O(n^{2.807})$, and there are algorithms that can achieve even lower asymptotic runtime (i.e. the Vassilevska Williams has a runtime of $O(n^{2.373}$), though their hidden constant times make them impractical.\nNow would it be possible to apply this to Floyd-Warshall?\u003c/p\u003e\n\u003cp\u003eNote: $n = V$, as $V$ is the number of vertices, which is the number of rows and columns in an adjacency matrix.\u003c/p\u003e\n\u003ch1 id=\"rings-and-semi-rings\"\u003e\u003ca href=\"#rings-and-semi-rings\"\u003eRings and Semi-Rings\u003c/a\u003e\u003c/h1\u003e\n\n\u003cp\u003eThe issue is that fast matrix multiplication can only be applied to any ring.\u003c/p\u003e\n\u003cp\u003eIn mathematics, a ring is a set that\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003ehas addition which must be commutative and associative\u003c/li\u003e\n\u003cli\u003ehas multiplication that must be associative\u003c/li\u003e\n\u003cli\u003ehas a zero (aka the identity element)\u003c/li\u003e\n\u003cli\u003ehas negatives (i.e. adding an element and it\u0026#39;s negative produces the ring\u0026#39;s zero element)\u003c/li\u003e\n\u003cli\u003ehas two distributive laws relating addition and multiplication\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eHowever, for APSP, it is usually defined in a semi-ring. The definition of a semi-ring is the same as a ring, but \u003cstrong\u003ewithout the requirement for a negative\u003c/strong\u003e.\u003c/p\u003e\n\u003cp\u003eThis becomes relevant as the Strassen\u0026#39;s reduces matrix multiplications by taking advantage of matrix subtractions as the \u003cstrong\u003enegative\u003c/strong\u003e of the \u003ccode\u003esum\u003c/code\u003e to reuse calculations.\nLooking back at our comparison between Floyd-Warshall and MM, we must therefore need a negative to \u003ccode\u003emin\u003c/code\u003e in order to apply Strassen\u0026#39;s to APSP, which unfortunately does not exist, so we cannot apply fast MMs to APSP.\u003c/p\u003e\n\u003cp\u003eBut what if we could define APSP in the domain of a ring?\u003c/p\u003e\n\u003ch1 id=\"transitive-closure\"\u003e\u003ca href=\"#transitive-closure\"\u003eTransitive Closure\u003c/a\u003e\u003c/h1\u003e\n\n\u003cp\u003eDon\u0026#39;t worry, I didn\u0026#39;t drag you through all that to learn 0 applications.\nThe Transitive Closure for an adjacency matrix $G$ is an adjacency matrix $G\u0026#39;$, where $G\u0026#39;_{i, j} = 1$ if there is a path from $v_i$ to $v_j$ in $G$.\u003c/p\u003e\n\u003cp\u003eDue to the simplicity of this problem, this can be implemented through an algorithm using boolean operations as shown below.\u003c/p\u003e\n\u003ch2 id=\"comparison-with-mm\"\u003eComparison with MM\u003c/h2\u003e\n\u003cpre\u003e\u003ccode class=\"language-py\"\u003e# Implementation of a function to \u0026quot;square\u0026quot; a boolean matrix\n\ndef boolean_matrix_squaring(graph: list[list[bool]]):\n    n = len(graph)\n    for k in range(n):\n        for j in range(n):\n            for i in range(n):\n                graph[i][j] = graph[i][j] or (graph[i][k] and graph[k][j])\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eWe can compare this to our MM implementation and note two differences\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eInstead of taking the cumulative \u003ccode\u003esum\u003c/code\u003e, we take the cumulative \u003ccode\u003eor\u003c/code\u003e\u003c/li\u003e\n\u003cli\u003eInstead of applying \u003ccode\u003e*\u003c/code\u003e between two values, we apply \u003ccode\u003eand\u003c/code\u003e\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003eThe issue earlier was that fast MM is only defined for a ring, however TC is also \u003ca href=\"http://math.mit.edu/~jerison/103/handouts/rings.pdf\"\u003edefined under a ring with boolean operations\u003c/a\u003e, and as a result we can apply Strassen\u0026#39;s algorithm to the TC problem.\u003c/p\u003e\n\u003ch2 id=\"application\"\u003eApplication\u003c/h2\u003e\n\u003cp\u003eNow we can attempt to apply Strassen\u0026#39;s algorithm to quickly find the TC of a graph.\u003c/p\u003e\n\u003ch3 id=\"applying-with-strassens\"\u003eApplying with Strassen\u0026#39;s\u003c/h3\u003e\n\u003cp\u003eTo find the TC, we can more or less represent \u003ccode\u003etrue\u003c/code\u003e with \u003ccode\u003e1\u003c/code\u003e, \u003ccode\u003efalse\u003c/code\u003e with \u003ccode\u003e0\u003c/code\u003e, and then apply Strassen\u0026#39;s algorithm to multiply the adjacency matrix with itself, always taking \u003ccode\u003emod 2\u003c/code\u003e of the results in $O(V^{2.807})$.\u003c/p\u003e\n\u003cp\u003eThe result of adjacency matrix multiplication produces the a matrix where $A_{i, j}$ represents if there is a path of length 2 from $v_i$ to $v_j$.\u003c/p\u003e\n\u003ch3 id=\"reduction-from-tc-to-mm\"\u003eReduction from TC to MM\u003c/h3\u003e\n\u003cp\u003eNow it is possible to reduce (apply an algorithm to convert from one problem to another) the TC problem to MM by following the following steps.\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003cp\u003eReplace all strongly connected components with a single vertex in $O(V^2)$.\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cp\u003eTopological sort the graph so edges move from lowered numbered vertices go to higher numbered ones in $O(V + E)$.\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cp\u003eAs a result, the adjacency matrix is an upper triangular matrix (as vertices only have a path to higher numbered vertices) $G$, which is can be composed of 4 quadrants:\u003c/p\u003e\n\u003cp\u003e$$\nG =\n\\left[ \\begin{array}{c | c}\nA \u0026amp; C \\\\\n\\hline\n0 \u0026amp; B \\\\\n\\end{array} \\right],\n$$\u003c/p\u003e\n\u003cp\u003ewhere $A$ is the adjacency matrix for vertices $v_1, ... v_{n/2}$, and $B$ for $v_{(n/2) + 1}, ..., v_{n - 1}$.\nMeanwhile C represents the edges from the vertices in $A$ to $B$.\u003c/p\u003e\n\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003eNow, we claim that the TC of $G$:\u003c/p\u003e\n\u003cp\u003e$$\nG\u0026#39; =\n\\left[ \\begin{array}{c | c}\nA\u0026#39; \u0026amp; A\u0026#39; C B\u0026#39; \\\\\n\\hline\n0 \u0026amp; B\u0026#39; \\\\\n\\end{array} \\right].\n$$\u003c/p\u003e\n\u003cp\u003eThis is because the TC of $A$ is solely dependent on connections in $A$, and the same applies for $B$.\u003c/p\u003e\n\u003cp\u003eAs for the upper right matrix, $C_{i, j}$ will be \u003ccode\u003etrue\u003c/code\u003e if there is a path from $v_i$ to $v_j$, which is true if there is a path from $v_i$ to some vertex in $A\u0026#39;$, which has a path to some other vertex in $B\u0026#39;$ which is connected to $v_j$.\u003c/p\u003e\n\u003cp\u003eThis path can be determined by taking the multiplication $A\u0026#39; \\times C \\times B\u0026#39;$ as $A\u0026#39;$, hence $C\u0026#39; = A\u0026#39; C B\u0026#39;$.\u003c/p\u003e\n\u003cp\u003eSince $G\u0026#39;$ can be calculated recursively by finding the TC of 2 half sized graphs ($A\u0026#39;$, $B\u0026#39;$) and 2 MMs ($A\u0026#39; C B\u0026#39;$), the final time complexity is represented by the recurrence relation\u003c/p\u003e\n\u003cp\u003e$$\nT(n) = 2T \\left( \\frac{n}{2} \\right) + O \\left( n^{2.807} \\right)\n$$\u003c/p\u003e\n\u003cp\u003ewhich can be calculated to be $O(n^{2.803})$, the same runtime as the MM algorithm used! In fact, \u003ca href=\"https://www.cs.bgu.ac.il/~dinitz/Course/SS-12/transitiveClosure.pdf\"\u003eTC is reducible to boolean MM\u003c/a\u003e.\u003c/p\u003e\n\u003ch2 id=\"repeated-dfs\"\u003eRepeated DFS\u003c/h2\u003e\n\u003cp\u003eThat being said, it is possible to apply DFS on every vertex of the graph to find the TC.\nHowever a single DFS of a graph has a runtime of $O(V + E)$ (which can be $O(V)$ for sparse graphs and $O(V^2)$ for dense graphs), and so the total runtime would be $O(V^2)$ for sparse graphs and $O(V^3)$ for dense graphs.\u003c/p\u003e\n\u003cp\u003eAs a result the suitable algos for finding the Transitive Closure of a graph is listed below.\u003c/p\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003e\u003c/th\u003e\n\u003cth\u003eDense Graphs\u003c/th\u003e\n\u003cth\u003eSparse Graphs\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eAlgorithm\u003c/td\u003e\n\u003ctd\u003eStrassen\u0026#39;s\u003c/td\u003e\n\u003ctd\u003eRepeated DFS\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eRuntime\u003c/td\u003e\n\u003ctd\u003e$O(V^{2.807})$\u003c/td\u003e\n\u003ctd\u003e$O(V^2)$\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003ch1 id=\"conclusion\"\u003e\u003ca href=\"#conclusion\"\u003eConclusion\u003c/a\u003e\u003c/h1\u003e\n\n\u003cp\u003eIn conclusion, we\u0026#39;ve now learn that we can apply fast MMs to other problems defined in a ring, one of which was allowing us to find the TC of a dense graph quickly by reducing the problem to MM.\u003c/p\u003e\n","metadata":{"title":"All Pairs Shortest Paths, Rings and Semi Rings","description":"An application of algebraic structure to a common computer science problem","date":"2021-09-02","mathjax":true,"hljs":true},"toc":[{"id":"introduction","title":"Introduction"},{"id":"usual-algorithms","title":"Usual algorithms"},{"id":"floyd-warshall-and-matrix-multiplication","title":"Floyd-Warshall and Matrix Multiplication"},{"id":"strassens-algorithm","title":"Strassen's Algorithm"},{"id":"rings-and-semi-rings","title":"Rings and Semi-Rings"},{"id":"transitive-closure","title":"Transitive Closure"},{"id":"conclusion","title":"Conclusion"}]},"__N_SSG":true},"page":"/writings/[slug]","query":{"slug":"all-pairs-shortest-paths-rings-and-semi-rings"},"buildId":"ILkuclJ7g-R-hn-4-ve6L","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
