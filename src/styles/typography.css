@@ -1,0 +1,48 @@
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-variant: small-caps;
+  font-weight: normal;
+  color: var(--primary-foreground);
+  line-height: var(--line-height-heading);
+}
+
+h1 {
+  text-align: center;
+  font-size: var(--font-size-h1);
+  margin: var(--space-h1) 0px;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  margin: var(--space-h2) 0px;
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  margin: var(--space-h3) 0px;
+}
+
+h4 {
+  font-size: var(--font-size-h4);
+  margin: var(--space-h4) 0px;
+}
+
+h5 {
+  font-size: var(--font-size-h5);
+  margin: var(--space-h5) 0px;
+}
+
+.title {
+  font-variant: small-caps;
+  font-size: 2.2rem;
+  color: var(--primary-foreground);
+  margin: 0.5rem;
+}
+
+.cn {
+  font-size: 2rem;
+  vertical-align: bottom;
+}

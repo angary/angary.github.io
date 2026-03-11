@@ -17,17 +17,23 @@ type Props = {
 export default function Home({ writings }: Props) {
   const { theme, setTheme } = useTheme();
   const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
-  
+
   const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-    window.history.pushState(null, '', `#${id}`);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    window.history.replaceState(window.history.state, "", `#${id}`);
   };
 
   useEffect(() => {
     const hash = window.location.hash.substring(1);
+    let timer: ReturnType<typeof setTimeout> | null = null;
     if (hash) {
-      setTimeout(() => scrollToSection(hash), 100);
+      timer = setTimeout(() => scrollToSection(hash), 100);
     }
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
   }, []);
 
   return (
@@ -53,10 +59,10 @@ export default function Home({ writings }: Props) {
           </div>
         </section>
         <section id="about" className={styles.section}>
-          <About id="about" />
+          <About sectionId="about" contentId="about-content" />
         </section>
         <section id="writings" className={styles.section}>
-          <Writings id="writings" writings={writings} />
+          <Writings sectionId="writings" contentId="writings-content" writings={writings} />
         </section>
       </main>
     </>
