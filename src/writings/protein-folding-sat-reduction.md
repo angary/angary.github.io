@@ -1,7 +1,8 @@
 ---
 title: "Protein Folding SAT Reduction"
-description: "A look into the HP model in protein folding"
+description: "Novel SAT encodings for the HP lattice model"
 date: "2025-08-04"
+type: "Research"
 mathjax: true
 ---
 

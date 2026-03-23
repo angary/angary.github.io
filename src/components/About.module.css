@@ -1,6 +1,6 @@
 .about {
   display: block;
-  margin: 30px 0px;
+  margin: 0;
   max-width: min(90vw, 400px);
   text-align: center;
 }
@@ -15,4 +15,10 @@
 
 .clickableHeading {
   cursor: pointer;
+}
+
+.link {
+  font-variant: small-caps;
+  font-size: 1rem;
+  color: var(--tertiary-foreground);
 }

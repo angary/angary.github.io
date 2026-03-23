@@ -8,6 +8,7 @@ export interface WritingMetadata {
   description: string;
   date: string;
   mathjax: boolean;
+  type: string;
 }
 
 export interface Writing extends WritingMetadata {

@@ -40,7 +40,7 @@ a:hover {
 }
 
 p {
-  padding: 0.15rem 0rem;
+  padding: 0.4rem 0rem;
 }
 
 table {
@@ -103,19 +103,3 @@ mjx-math {
   vertical-align: middle;
 }
 
-::-webkit-scrollbar {
-  width: 2px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background-clip: content-box;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--tertiary-foreground);
-}

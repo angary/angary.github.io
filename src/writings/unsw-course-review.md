@@ -1,7 +1,8 @@
 ---
 title: "UNSW Course Review"
-description: "Review on courses I've taken at UNSW"
+description: "Opinionated notes on courses I've taken"
 date: "2023-04-20"
+type: "Thoughts"
 mathjax: false
 ---
 

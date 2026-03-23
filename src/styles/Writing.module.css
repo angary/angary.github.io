@@ -3,11 +3,22 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 8rem 0rem;
+  padding: 6rem 0rem 8rem;
 }
 
 .article {
   width: clamp(min(90vw, 480px), 60%, 700px);
+}
+
+
+.title {
+  text-align: center;
+  transition: color var(--transition-duration);
+}
+
+.title:hover {
+  color: var(--accent-color);
+  cursor: pointer;
 }
 
 .description {
@@ -18,11 +29,26 @@
 
 .date {
   text-align: center;
-  color: var(--tertiary-foreground);
-  padding-bottom: 4rem;
+  color: var(--quaternary-foreground);
+  font-size: 0.9rem;
+  font-variant: small-caps;
+  padding-bottom: 2rem;
 }
 
-.nav {
-  text-align: center;
+
+.sep {
+  margin: 0 2px;
+}
+
+.type {
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--quaternary-foreground);
+  width: 60px;
+  margin: 0 auto 3rem;
 }
 

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Writing } from "../global";
-import SectionHeading from "./SectionHeading";
 import styles from "./Writings.module.css";
 
 type Props = {
@@ -31,19 +30,20 @@ export default function WritingBlock({ sectionId, contentId, writings }: Props) 
     path: string,
     date: Date,
     title: string,
-    description: string
+    description: string,
+    type: string,
   ) => {
     const dateString = date.toLocaleDateString(undefined, dateOptions);
     return (
       <Link href={`/writings/${path}`} key={path}>
         <div className={styles.writing}>
-          <div className={styles.date}>
+          <div className={styles.meta}>
             {dateString}
+            <span className={styles.sep}>{" // "}</span>
+            <span className={styles.type}>{type}</span>
           </div>
-          <div className={styles.content}>
-            <div className={styles.title}>{title}</div>
-            <div className={styles.description}>{description}</div>
-          </div>
+          <div className={styles.title}>{title}</div>
+          <div className={styles.description}>{description}</div>
         </div>
       </Link>
     );
@@ -51,9 +51,8 @@ export default function WritingBlock({ sectionId, contentId, writings }: Props) 
 
   return (
     <div id={contentId ?? sectionId} className={styles.writings}>
-      <SectionHeading title="Writings" onClick={handleTitleClick} className={styles.clickableHeading} />
-      {sortedWritings.map(({ path, date, title, description }) =>
-        toDiv(path, date, title, description)
+      {sortedWritings.map(({ path, date, title, description, type }) =>
+        toDiv(path, date, title, description, type)
       )}
     </div>
   );

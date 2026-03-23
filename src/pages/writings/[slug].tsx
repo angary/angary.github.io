@@ -1,16 +1,25 @@
 import { MathJax } from "better-react-mathjax";
+import Link from "next/link";
 import fs from "fs";
 import matter from "gray-matter";
 import { marked } from "marked";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import path from "path";
 import { createCssVariablesTheme, createHighlighter, type Highlighter } from "shiki";
 import { WRITINGS_DIR } from "../../constants";
 import type { WritingMetadata } from "../../global";
 import styles from "../../styles/Writing.module.css";
 import { processTikzInMarkdown } from "../../util/tikzBuildTimeLocal";
+
+const MISSED_KEYWORDS = new Set(["lambda", "class", "pass", "raise", "with", "as", "assert", "yield", "async", "await"]);
+const BUILTIN_TYPES = new Set([
+  "list", "dict", "set", "tuple", "frozenset",
+  "int", "float", "str", "bool", "bytes", "complex",
+  "type", "None", "Any", "Optional", "Union",
+  "Callable", "Iterator", "Generator", "Sequence",
+  "Mapping", "Iterable",
+]);
 
 const shikiTheme = createCssVariablesTheme({
   name: "css-variables",
@@ -46,18 +55,7 @@ export default function Writing({ contents, metadata }: WritingPageProps) {
       </Head>
       <div className={styles.body}>
         <div className={styles.article}>
-          <div className={styles.nav}>
-            <h1>
-              <Link href="/" legacyBehavior>
-                <a>Gary Sun</a>
-              </Link>
-              {" // "}
-              <Link href="/#writings" legacyBehavior>
-                <a>Writings</a>
-              </Link>
-            </h1>
-          </div>
-          <h1>{metadata.title}</h1>
+          <Link href="/"><h1 className={styles.title}>{metadata.title}</h1></Link>
           <p className={styles.description}>{metadata.description}</p>
           <p className={styles.date}>
             {new Date(metadata.date).toLocaleString("en-gb", {
@@ -65,7 +63,10 @@ export default function Writing({ contents, metadata }: WritingPageProps) {
               month: "long",
               year: "numeric",
             })}
+            <span className={styles.sep}>{" // "}</span>
+            <span className={styles.type}>{metadata.type}</span>
           </p>
+          <hr className={styles.divider} />
           {htmlContent}
         </div>
       </div>
@@ -96,11 +97,16 @@ function renderMarkdown(src: string, highlighter: Highlighter) {
         transformers: [{
           span(node) {
             const style = node.properties?.style;
+            const text = (node.children?.[0] as any)?.value?.trim();
+            if (!text) return;
             if (typeof style === "string" && style.includes("--shiki-token-keyword")) {
-              const text = (node.children?.[0] as any)?.value?.trim();
-              if (text && /^[a-zA-Z_]/.test(text)) {
+              if (/^[a-zA-Z_]/.test(text)) {
                 node.properties.style = "color:var(--accent-color);font-weight:bold";
               }
+            } else if (MISSED_KEYWORDS.has(text)) {
+              node.properties.style = "color:var(--accent-color);font-weight:bold";
+            } else if (BUILTIN_TYPES.has(text)) {
+              node.properties.style = "color:var(--secondary-accent-color)";
             }
           },
         }],
