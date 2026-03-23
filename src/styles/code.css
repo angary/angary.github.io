@@ -1,0 +1,29 @@
+/* Handle code block theme (Shiki with CSS variables) */
+pre.shiki {
+  display: block;
+  overflow-x: auto;
+  padding: 1.2rem;
+  background: var(--secondary-background);
+}
+
+pre.shiki span[style*="--shiki-token-comment"] {
+  font-style: italic;
+}
+
+pre.shiki span[style*="--shiki-token-parameter"] {
+  font-style: italic;
+}
+
+:root {
+  --shiki-foreground: var(--primary-foreground);
+  --shiki-background: var(--secondary-background);
+  --shiki-token-keyword: var(--primary-foreground);
+  --shiki-token-function: var(--accent-color);
+  --shiki-token-string: var(--secondary-accent-color);
+  --shiki-token-comment: var(--tertiary-foreground);
+  --shiki-token-constant: var(--secondary-accent-color);
+  --shiki-token-parameter: var(--primary-foreground);
+  --shiki-token-punctuation: var(--primary-foreground);
+  --shiki-token-string-expression: var(--secondary-accent-color);
+  --shiki-token-link: var(--accent-color);
+}

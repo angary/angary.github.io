@@ -3,7 +3,6 @@ title: "Protein Folding SAT Reduction"
 description: "A look into the HP model in protein folding"
 date: "2025-08-04"
 mathjax: true
-hljs: true
 ---
 
 ## Introduction
