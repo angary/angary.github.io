@@ -7,7 +7,6 @@ if [ ! -d out ]; then
   echo "Error: export output directory 'out' was not created."
   exit 1
 fi && \
-cat CNAME > out/CNAME && \
 cd out && touch .nojekyll &&
 git init && git add . && \
 git commit -m "Initial commit" && \
