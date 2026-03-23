@@ -44,22 +44,14 @@ export default function Home({ writings }: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main className={styles.main}>
-        <section id="hero" className={styles.section}>
+        <section id="hero" className={styles.heroSection}>
           <button className="title" onClick={toggleTheme}>
             Gary Sun // <span className="cn">孫健</span>
           </button>
-          <div className={styles.body}>
-            <div className={styles.buttons}>
-              <button onClick={() => scrollToSection('about')}>about</button>
-              {"//"}
-              <a href="https://github.com/angary/" className={styles.navLink}>projects</a>
-              {"//"}
-              <button onClick={() => scrollToSection('writings')}>writings</button>
-            </div>
-          </div>
         </section>
         <section id="about" className={styles.section}>
           <About sectionId="about" contentId="about-content" />
+          <hr className={styles.divider} />
         </section>
         <section id="writings" className={styles.section}>
           <Writings sectionId="writings" contentId="writings-content" writings={writings} />

@@ -12,11 +12,12 @@
   --primary-foreground: #000000;
   --secondary-foreground: #333333;
   --tertiary-foreground: #5F5F5F;
+  --quaternary-foreground: #8F8F8F;
   --accent-color: #007BFF;
   --secondary-accent-color: #66B2FF;
 
   --font-size-body: large;
-  --line-height-body: 1.3rem;
+  --line-height-body: 1.4rem;
   --line-height-heading: 2rem;
 
   --font-size-h1: 2rem;
@@ -41,6 +42,7 @@
   --primary-foreground: #FFFFFF;
   --secondary-foreground: #E0E0E0;
   --tertiary-foreground: #A0A0A0;
+  --quaternary-foreground: #6A6A6A;
   --accent-color: #63B3ED;
   --secondary-accent-color: #9AC8F5;
 }

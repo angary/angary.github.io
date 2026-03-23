@@ -20,7 +20,7 @@ pre.shiki span[style*="--shiki-token-parameter"] {
   --shiki-token-keyword: var(--primary-foreground);
   --shiki-token-function: var(--accent-color);
   --shiki-token-string: var(--secondary-accent-color);
-  --shiki-token-comment: var(--tertiary-foreground);
+  --shiki-token-comment: var(--quaternary-foreground);
   --shiki-token-constant: var(--secondary-accent-color);
   --shiki-token-parameter: var(--primary-foreground);
   --shiki-token-punctuation: var(--primary-foreground);
