@@ -7,8 +7,9 @@ import type { GetStaticProps } from "next";
 import Head from "next/head";
 import path from "path";
 import { createCssVariablesTheme, createHighlighter, type Highlighter } from "shiki";
+import TableOfContents from "../../components/TableOfContents";
 import { WRITINGS_DIR } from "../../constants";
-import type { WritingMetadata } from "../../global";
+import type { HeadingInfo, WritingMetadata } from "../../global";
 import styles from "../../styles/Writing.module.css";
 import { processTikzInMarkdown } from "../../util/tikzBuildTimeLocal";
 
@@ -41,9 +42,10 @@ function getHighlighter() {
 type WritingPageProps = {
   contents: string;
   metadata: WritingMetadata;
+  headings: HeadingInfo[];
 };
 
-export default function Writing({ contents, metadata }: WritingPageProps) {
+export default function Writing({ contents, metadata, headings }: WritingPageProps) {
   let htmlContent = <div dangerouslySetInnerHTML={{ __html: contents }} />;
   if (metadata.mathjax) {
     htmlContent = <MathJax>{htmlContent}</MathJax>;
@@ -53,6 +55,7 @@ export default function Writing({ contents, metadata }: WritingPageProps) {
       <Head>
         <title>{metadata.title}</title>
       </Head>
+      <TableOfContents headings={headings} />
       <div className={styles.body}>
         <div className={styles.article}>
           <Link href="/"><h1 className={styles.title}>{metadata.title}</h1></Link>
@@ -84,7 +87,13 @@ export const getStaticPaths = async () => {
   };
 };
 
-function renderMarkdown(src: string, highlighter: Highlighter) {
+function topLevelHeadings(headings: HeadingInfo[]): HeadingInfo[] {
+  if (headings.length === 0) return [];
+  const minLevel = Math.min(...headings.map((h) => h.level));
+  return headings.filter((h) => h.level === minLevel);
+}
+
+function renderMarkdown(src: string, highlighter: Highlighter): { html: string; headings: HeadingInfo[] } {
   const codeBlocks: Record<string, string> = {};
   let blockIndex = 0;
 
@@ -117,14 +126,20 @@ function renderMarkdown(src: string, highlighter: Highlighter) {
     return _;
   });
 
-  let html = marked(processed);
+  const headings: HeadingInfo[] = [];
+
+  let html = marked(processed) as string;
+
+  for (const m of Array.from(html.matchAll(/<h([1-6])[^>]*id="([^"]*)"[^>]*>(.*?)<\/h\1>/g))) {
+    headings.push({ id: m[2], text: m[3].replace(/<[^>]+>/g, ""), level: Number(m[1]) });
+  }
 
   for (const [placeholder, highlighted] of Object.entries(codeBlocks)) {
     html = html.replace(`<p>${placeholder}</p>`, highlighted);
     html = html.replace(placeholder, highlighted);
   }
 
-  return html;
+  return { html, headings };
 }
 
 export const getStaticProps: GetStaticProps<WritingPageProps, { slug: string }> = async ({
@@ -140,10 +155,12 @@ export const getStaticProps: GetStaticProps<WritingPageProps, { slug: string }> 
 
   try {
     const processedContent = await processTikzInMarkdown(content);
+    const { html, headings } = renderMarkdown(processedContent, highlighter);
     return {
       props: {
-        contents: renderMarkdown(processedContent, highlighter),
+        contents: html,
         metadata: data as WritingMetadata,
+        headings: topLevelHeadings(headings),
       },
     };
   } catch (error) {
@@ -151,10 +168,12 @@ export const getStaticProps: GetStaticProps<WritingPageProps, { slug: string }> 
       "Local TikZ compilation failed, using regular markdown:",
       error instanceof Error ? error.message : String(error)
     );
+    const { html, headings } = renderMarkdown(content, highlighter);
     return {
       props: {
-        contents: renderMarkdown(content, highlighter),
+        contents: html,
         metadata: data as WritingMetadata,
+        headings: topLevelHeadings(headings),
       },
     };
   }

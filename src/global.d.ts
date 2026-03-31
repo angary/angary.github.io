@@ -14,3 +14,9 @@ export interface WritingMetadata {
 export interface Writing extends WritingMetadata {
   path: string;
 }
+
+export type HeadingInfo = {
+  id: string;
+  text: string;
+  level: number;
+};
