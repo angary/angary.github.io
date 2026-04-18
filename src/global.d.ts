@@ -9,6 +9,7 @@ export interface WritingMetadata {
   date: string;
   mathjax: boolean;
   type: string;
+  readingTimeMinutes?: number;
 }
 
 export interface Writing extends WritingMetadata {

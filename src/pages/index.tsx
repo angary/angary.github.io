@@ -4,6 +4,7 @@ import { useTheme } from "next-themes";
 import Head from "next/head";
 import path from "path";
 import { useEffect } from "react";
+import readingTime from "reading-time";
 import About from "../components/About";
 import Writings from "../components/Writings";
 import { WRITINGS_DIR } from "../constants";
@@ -65,8 +66,12 @@ export const getStaticProps = async () => {
   const writings = fs.readdirSync(WRITINGS_DIR)
     .filter((name) => name.endsWith(".md"))
     .map((name) => {
-    const { data } = matter.read(path.join(WRITINGS_DIR, name));
-    return { path: name.replace(".md", ""), ...data };
+      const { content, data } = matter.read(path.join(WRITINGS_DIR, name));
+      return {
+        path: name.replace(".md", ""),
+        ...data,
+        readingTimeMinutes: Math.max(1, Math.ceil(readingTime(content, { wordsPerMinute: 200 }).minutes)),
+      };
   });
   return { props: { writings } };
 };

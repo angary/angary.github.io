@@ -2,23 +2,15 @@
   display: block;
   z-index: 1;
   margin-top: 0;
-  padding-bottom: 30px;
+  padding-bottom: 36px;
   width: min(90vw, 480px);
-}
-
-.writings h1 {
-  transition: color var(--transition-duration);
-  margin-bottom: 1rem;
-}
-
-.writings h1:hover {
-  color: var(--secondary-accent-color);
 }
 
 .writing {
   display: flex;
   flex-direction: column;
-  padding: 1rem 0;
+  padding-top: 1rem;
+  padding-bottom: 1.2rem;
 }
 
 .writing:hover .title {
@@ -29,16 +21,28 @@
   color: var(--quaternary-foreground);
   transition: color var(--transition-duration);
   font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.35rem;
   margin-bottom: 0;
 }
 
 .sep {
-  margin: 0 4px;
+  margin: 0 1px;
+  font-size: 0.62em;
+  line-height: 1;
 }
 
 .type {
-  text-transform: uppercase;
   font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+.smallCaps {
+  font-variant: small-caps;
 }
 
 .title {

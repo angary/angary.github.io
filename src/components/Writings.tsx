@@ -32,18 +32,21 @@ export default function WritingBlock({ sectionId, contentId, writings }: Props) 
     title: string,
     description: string,
     type: string,
+    readingTimeMinutes?: number,
   ) => {
     const dateString = date.toLocaleDateString(undefined, dateOptions);
     return (
       <Link href={`/writings/${path}`} key={path}>
         <div className={styles.writing}>
-          <div className={styles.meta}>
-            {dateString}
-            <span className={styles.sep}>{" // "}</span>
-            <span className={styles.type}>{type}</span>
-          </div>
           <div className={styles.title}>{title}</div>
           <div className={styles.description}>{description}</div>
+          <div className={styles.meta}>
+            <span className={styles.smallCaps}>{dateString}</span>
+            <span className={styles.sep}>•</span>
+            <span className={styles.type}>{type}</span>
+            <span className={styles.sep}>•</span>
+            <span className={styles.smallCaps}>{readingTimeMinutes ?? 1} min</span>
+          </div>
         </div>
       </Link>
     );
@@ -51,8 +54,8 @@ export default function WritingBlock({ sectionId, contentId, writings }: Props) 
 
   return (
     <div id={contentId ?? sectionId} className={styles.writings}>
-      {sortedWritings.map(({ path, date, title, description, type }) =>
-        toDiv(path, date, title, description, type)
+      {sortedWritings.map(({ path, date, title, description, type, readingTimeMinutes }) =>
+        toDiv(path, date, title, description, type, readingTimeMinutes)
       )}
     </div>
   );
