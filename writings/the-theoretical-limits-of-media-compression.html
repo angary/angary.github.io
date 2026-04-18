@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><title>The Theoretical Limits of Media Compression</title><meta name="next-head-count" content="3"/><link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"/><link rel="manifest" href="/favicon/site.webmanifest"/><link rel="shortcut icon" href="/favicon/favicon.ico"/><meta name="msapplication-TileColor" content="#da532c"/><meta name="msapplication-config" content="/favicon/browserconfig.xml"/><meta name="theme-color" content="#ffffff"/><link rel="preload" href="/_next/static/css/ac6bac36295e1b57.css" as="style"/><link rel="stylesheet" href="/_next/static/css/ac6bac36295e1b57.css" data-n-g=""/><link rel="preload" href="/_next/static/css/e4ba9ac56e9656ac.css" as="style"/><link rel="stylesheet" href="/_next/static/css/e4ba9ac56e9656ac.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-8fa1640cc84ba8fe.js" defer=""></script><script src="/_next/static/chunks/framework-2c79e2a64abdb08b.js" defer=""></script><script src="/_next/static/chunks/main-0ecb9ccfcb6c9b24.js" defer=""></script><script src="/_next/static/chunks/pages/_app-7db202e315b716c1.js" defer=""></script><script src="/_next/static/chunks/996-502a5e68cb1e9d91.js" defer=""></script><script src="/_next/static/chunks/pages/writings/%5Bslug%5D-086dfce49cbe2e7c.js" defer=""></script><script src="/_next/static/xpnZucvkFW_UlpEB-zzzv/_buildManifest.js" defer=""></script><script src="/_next/static/xpnZucvkFW_UlpEB-zzzv/_ssgManifest.js" defer=""></script></head><body><div id="__next"><script>!function(){try{var d=document.documentElement,n='data-theme',s='setAttribute';var e=localStorage.getItem('theme');if('system'===e||(!e&&true)){var t='(prefers-color-scheme: dark)',m=window.matchMedia(t);if(m.media!==t||m.matches){d.style.colorScheme = 'dark';d[s](n,'dark')}else{d.style.colorScheme = 'light';d[s](n,'light')}}else if(e){d[s](n,e|| '')}if(e==='light'||e==='dark')d.style.colorScheme=e}catch(e){}}()</script><nav class="TableOfContents_toc__RNflg  "><div class="TableOfContents_entry__kqoVv "><div class="TableOfContents_bar__HLXMt"></div></div><div class="TableOfContents_entry__kqoVv "><div class="TableOfContents_bar__HLXMt"></div></div><div class="TableOfContents_entry__kqoVv "><div class="TableOfContents_bar__HLXMt"></div></div><div class="TableOfContents_entry__kqoVv "><div class="TableOfContents_bar__HLXMt"></div></div><div class="TableOfContents_entry__kqoVv "><div class="TableOfContents_bar__HLXMt"></div></div><div class="TableOfContents_entry__kqoVv "><div class="TableOfContents_bar__HLXMt"></div></div><div class="TableOfContents_entry__kqoVv "><div class="TableOfContents_bar__HLXMt"></div></div></nav><div class="Writing_body__d5Mqz"><div class="Writing_article__jffUg"><a href="/"><h1 class="Writing_title__q_i_E">The Theoretical Limits of Media Compression</h1></a><p class="Writing_description__Rk8wD">How thermodynamics explains codec tuning</p><p class="Writing_date__BYvoK">18 April 2026<span class="Writing_sep__mgo2K"> // </span><span class="Writing_type__Pa0iR">Essay</span></p><hr class="Writing_divider__t_Z7l"/><span style="display:block"><div><h2 id="introduction">Introduction</h2>
+<p>Working in the media group (i.e. handling with user uploaded audio / images / video) at tech company, we often apply an encoding on uploaded user files. An important decision we make when choosing the encoding options is the tradeoff between &quot;file size&quot; and &quot;file quality&quot;.</p>
+<div class="tikz-diagram">
+  <img src="/tikz-cache/tikz-50551dc086319178dbc79b52cc8f4b77.svg" alt="TikZ Diagram" class="tikz-svg" />
+</div>
+
+<p>The more we can compress our files, the more we can save on storage / network costs.
+With millions of users and files in the MBs to GBs range, a small % in savings can result in relatively huge absolute numbers.</p>
+<p>Of course this comes with downsides, compressing the file can decrease the file quality (and customer satisfaction *<em>ahem</em>* looking at you Facebook Messenger for compressing all my videos from my highschool days).</p>
+<p>But file size and quality are two separate dimensions.
+If we view quality as a function of file size, what function describes the theoretical best quality we can get for a specified file size?</p>
+<div class="tikz-diagram">
+  <img src="/tikz-cache/tikz-1edbc4e1499f3766ed84f5614a4beb8e.svg" alt="TikZ Diagram" class="tikz-svg" />
+</div>
+
+<h2 id="lossless-compression">Lossless Compression</h2>
+<p>First, I&#39;ll do a quick refresher on lossless compression since it&#39;ll contain some important concepts usually introduced (and usually forgotten) in CS undergrad.</p>
+<p>The hard limit on lossless compression (where the original is perfectly recoverable) is the <strong>entropy</strong> of the source:</p>
+<p>$$
+H(X) = -\sum_x p(x) \log_2 p(x)
+$$</p>
+<p>where $p(x)$ is the probability of a symbol $x$.
+Entropy measures the &quot;average surprise&quot; - a predictable source has low entropy (few bits needed), while an unpredictable source has high entropy (can&#39;t compress at all).</p>
+<p>For a coin flip with probability $p$ of heads, the entropy $H = -p\log_2 p - (1-p)\log_2(1-p)$ looks like:</p>
+<div class="tikz-diagram">
+  <img src="/tikz-cache/tikz-3e7b8a7cae727b459fb55bed686ba2ec.svg" alt="TikZ Diagram" class="tikz-svg" />
+</div>
+
+<p>The outcomes of a biased coin ($p \approx 0$ or $p \approx 1$) is predictable and compresses well.
+A helpful way to think about this is how Huffman encoding more efficiently compresses long strings of H or T the more frequent they are.
+Long strings of H or T would appear more frequently the more biased the coin is.</p>
+<h2 id="lossy-compression">Lossy Compression</h2>
+<p>But media codecs go far beyond the entropy limit every day - a raw 1080p frame at 24fps is about 1.5 Gbps, yet streaming services deliver it at around 5 Mbps, a 300x reduction.</p>
+<div class="tikz-diagram">
+  <img src="/tikz-cache/tikz-af775cf9c5b735fc1461f9f587bd2cf3.svg" alt="TikZ Diagram" class="tikz-svg" />
+</div>
+
+<p>This is because they use <strong>lossy</strong> compression - the decoder&#39;s output isn&#39;t identical to the original, just close enough that it&#39;s not perceivable by humans, i.e. </p>
+<ul>
+<li>We&#39;re far more sensitive to brightness than colour - colour can be stored at lower resolution without anyone noticing</li>
+<li>Loud sounds mask quieter sounds at nearby frequencies - the encoder can skip the masked parts entirely</li>
+<li>Adjacent video frames are almost identical - the encoder only stores what changed between frames</li>
+</ul>
+<p>The question becomes: if we tolerate some distortion, how few bits do we actually need?</p>
+<h2 id="rate-distortion-theory">Rate-Distortion Theory</h2>
+<p>Suppose you have a source of data drawn from distribution $p(x)$ - audio samples, video frames, whatever.
+You want to compress each sample $x$ into a reconstruction $\hat{x}$.</p>
+<p>The encoder is a conditional distribution $q(\hat{x} | x)$ - for a given input $x$, it gives the probability of producing each possible reconstruction $\hat{x}$.</p>
+<p>The reconstruction won&#39;t be perfect, so we need a way to measure how far off it is.
+This is the <strong>distortion function</strong> $d(x, \hat{x})$ - it takes the original and the reconstruction and returns a number representing how different they are.</p>
+<p>There are multiple types of distortion functions, i.e.</p>
+<ol>
+<li><strong>signal</strong> level i.e. <strong>squared error</strong> $d(x, \hat{x}) = (x - \hat{x})^2$</li>
+<li><strong>human perceptual</strong> level i.e. <strong>VMAF</strong> (Video Multimethod Assessment Fusion) - Netflix&#39;s machine-learned metric that combines multiple features to predict human quality scores</li>
+</ol>
+<p>But we&#39;ll soon see that rate-distortion theory works regardless of what distortion function we choose.</p>
+<p>We want to find the encoder that uses the fewest bits while keeping distortion acceptable. This is a tradeoff between two things - rate $R$ (bits used) and distortion $D$ (quality lost) - and we can express it directly as a single objective using a Lagrange multiplier $\lambda$:</p>
+<p>$$
+\begin{align*}
+\mathcal{L}
+  &amp;= R + \lambda D \\
+  &amp;= I(X; \hat{X}) + \lambda  \mathbb{E}[d(x, \hat{x})]
+\end{align*}
+$$</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$R = I(X; \hat{X})$</td>
+<td>Rate</td>
+<td>mutual information between source $X$ and reconstruction $\hat{X}$ or bitrate</td>
+</tr>
+<tr>
+<td>$D = \mathbb{E}[d(x, \hat{x})]$</td>
+<td>Distortion</td>
+<td>the expected distortion, averaged over all inputs</td>
+</tr>
+<tr>
+<td>$\lambda$</td>
+<td>Lagrange multiplier</td>
+<td>controls weighting between rate and distortion</td>
+</tr>
+</tbody></table>
+<p>Sweeping $\lambda$ from $0$ to $\infty$ and solving for the optimal encoder at each value traces out the <strong>rate-distortion curve</strong> $R(D)$ - the theoretical best rate at every distortion level:</p>
+<div class="tikz-diagram">
+  <img src="/tikz-cache/tikz-558d01967f683a83a81711c4670b2dee.svg" alt="TikZ Diagram" class="tikz-svg" />
+</div>
+
+<p>Any point on the curve is the best possible, but our encoders exist above the curve, with each improvement bringing it closer to the curve.</p>
+<h2 id="thermodynamics">Thermodynamics</h2>
+<p>Short primer if you haven&#39;t seen statistical mechanics before - it studies systems with many possible states, each with some energy $E$.
+Heat constantly moves the system between states, so rather than sitting in one state, it spends time in many (lower-energy states more often whilst higher-energy states less often).</p>
+<p>The <strong>Boltzmann distribution</strong> describes exactly how much time is spent in each state:</p>
+<p>$$
+p(\text{state}) = \frac{1}{Z} e^{-\beta E(\text{state})}
+$$</p>
+<p>where $\beta$ is the <strong>inverse temperature</strong> (large $\beta$ = cold, small $\beta$ = hot) and $Z = \sum_{\text{states}} e^{-\beta E}$ is a normalising constant called the partition function.</p>
+<p>The system is minimising the <strong>free energy</strong> $F$ where</p>
+<p>$$
+F = E - \frac{1}{\beta}S
+$$</p>
+<p>This is a tradeoff - minimise energy (settle into low-energy states) vs maximise entropy $S$ (spread out across many states).
+The parameter $\beta$ controls how much you care about each.</p>
+<div class="tikz-diagram">
+  <img src="/tikz-cache/tikz-b4e3534d907ed0023a255a79058a04e7.svg" alt="TikZ Diagram" class="tikz-svg" />
+</div>
+
+<p>Comparing this with our rate-distortion Lagrangian:</p>
+<p>$$
+\mathcal{L} = R + \lambda D
+$$</p>
+<p>It&#39;s the same structure - we&#39;re trying to minimise distortion (energy) vs minimise rate (negative entropy).
+The parameter $\lambda$ controls how much you care about each.</p>
+<h2 id="the-equivalence">The Equivalence</h2>
+<h3 id="intuition">Intuition</h3>
+<p>TLDR: information entropy ($-\sum p \log p$) and thermodynamic entropy ($S = k \log W$) are both counts of configurations - bit sequences vs physical microstates.
+We take the $\log$ so independent systems add ($\log W_1 + \log W_2$) instead of multiply ($W_1 \cdot W_2$), which matches how every other physical quantity combines.</p>
+<p>When minimising a $\log$ cost function, setting the derivative to zero and isolating $\log q$ gives $\log q = \text{stuff}$, and exponentiating both sides gives $q = e^{\text{stuff}}$.
+That&#39;s the Boltzmann distribution.</p>
+<h3 id="formal-proof">Formal proof</h3>
+<p>Expanding mutual information gives you a double sum with a $\log$, and the Lagrangian collapses into:</p>
+<p>$$
+\mathcal{L}[q] = \sum_{x, \hat{x}} p(x) q(\hat{x} | x) \left[ \log \frac{q(\hat{x} | x)}{q(\hat{x})} + \lambda d(x, \hat{x}) \right]
+$$</p>
+<p>where $q(\hat{x}) = \sum_x p(x) q(\hat{x}|x)$ is the marginal over reconstructions.
+Holding $q(\hat{x})$ fixed and minimising over $q(\hat{x}|x)$ (subject to probabilities summing to 1), the $\log$ in the objective pops out an exponential in the solution:</p>
+<p>$$
+q^*(\hat{x} | x) = \frac{q(\hat{x})}{Z(x)} e^{-\lambda d(x, \hat{x})}
+$$</p>
+<p>And there&#39;s the Boltzmann distribution, with the same partition function from before.</p>
+<p>$$
+Z(x) = \sum_{\hat{x}} q(\hat{x}) e^{-\lambda d(x, \hat{x})}
+$$</p>
+<p>Notice that $d(x, \hat{x})$ enters the Lagrangian linearly (as a coefficient multiplied by $q(\hat{x} | x)$) so the derivative treats it as a constant.
+Hence if we change $d$ the &quot;energy landscape&quot; changes, but the Boltzmann form stays the same.</p>
+<h2 id="encoding-implications">Encoding Implications</h2>
+<p>Now we can use this knowledge to gain intuition on what tweaking certain parameters are doing.
+I&#39;ll use FFmpeg parameters here, but we can essentially map from a video to a physical system (note this is not an exhaustive list).</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Role</th>
+<th>Physics Analogy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bitrate</td>
+<td>resource limits</td>
+<td>energy</td>
+</tr>
+<tr>
+<td>QP</td>
+<td>quality vs bitrate tradeoff</td>
+<td>temperature</td>
+</tr>
+<tr>
+<td>preset</td>
+<td>solve quality</td>
+<td>equilibrium time</td>
+</tr>
+<tr>
+<td>partitions</td>
+<td>block split size</td>
+<td>degrees of freedom</td>
+</tr>
+<tr>
+<td>deblock</td>
+<td>smooth block boundaries</td>
+<td>heat diffusion</td>
+</tr>
+</tbody></table>
+<p>Using this model we can view the encoder and its parameters as defining a free-energy functional and the encoding process is the system &quot;relaxing&quot; towards a minimum free-energy state.</p>
+<p>There are also some other parameters for &quot;rate-control&quot; </p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Implication</th>
+<th>Physics Analogy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CRF (Constant Rate Factor)</td>
+<td>bit rate varies, quality constant with time</td>
+<td>canonical ensemble (heat bath to maintain temperature)</td>
+</tr>
+<tr>
+<td>CBR (Constant Bitrate)</td>
+<td>bit rate constant, quality varies with time</td>
+<td>microcanonical ensemble (fixed energy which redistributes itself locally)</td>
+</tr>
+<tr>
+<td>Two-pass encoding</td>
+<td>understanding complexity on first pass then optimising rate control settings before encoding</td>
+<td>measuring the energy landscape to set optimal conditions for relaxation</td>
+</tr>
+</tbody></table>
+</div></span></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"contents":"\u003ch2 id=\"introduction\"\u003eIntroduction\u003c/h2\u003e\n\u003cp\u003eWorking in the media group (i.e. handling with user uploaded audio / images / video) at tech company, we often apply an encoding on uploaded user files. An important decision we make when choosing the encoding options is the tradeoff between \u0026quot;file size\u0026quot; and \u0026quot;file quality\u0026quot;.\u003c/p\u003e\n\u003cdiv class=\"tikz-diagram\"\u003e\n  \u003cimg src=\"/tikz-cache/tikz-50551dc086319178dbc79b52cc8f4b77.svg\" alt=\"TikZ Diagram\" class=\"tikz-svg\" /\u003e\n\u003c/div\u003e\n\n\u003cp\u003eThe more we can compress our files, the more we can save on storage / network costs.\nWith millions of users and files in the MBs to GBs range, a small % in savings can result in relatively huge absolute numbers.\u003c/p\u003e\n\u003cp\u003eOf course this comes with downsides, compressing the file can decrease the file quality (and customer satisfaction *\u003cem\u003eahem\u003c/em\u003e* looking at you Facebook Messenger for compressing all my videos from my highschool days).\u003c/p\u003e\n\u003cp\u003eBut file size and quality are two separate dimensions.\nIf we view quality as a function of file size, what function describes the theoretical best quality we can get for a specified file size?\u003c/p\u003e\n\u003cdiv class=\"tikz-diagram\"\u003e\n  \u003cimg src=\"/tikz-cache/tikz-1edbc4e1499f3766ed84f5614a4beb8e.svg\" alt=\"TikZ Diagram\" class=\"tikz-svg\" /\u003e\n\u003c/div\u003e\n\n\u003ch2 id=\"lossless-compression\"\u003eLossless Compression\u003c/h2\u003e\n\u003cp\u003eFirst, I\u0026#39;ll do a quick refresher on lossless compression since it\u0026#39;ll contain some important concepts usually introduced (and usually forgotten) in CS undergrad.\u003c/p\u003e\n\u003cp\u003eThe hard limit on lossless compression (where the original is perfectly recoverable) is the \u003cstrong\u003eentropy\u003c/strong\u003e of the source:\u003c/p\u003e\n\u003cp\u003e$$\nH(X) = -\\sum_x p(x) \\log_2 p(x)\n$$\u003c/p\u003e\n\u003cp\u003ewhere $p(x)$ is the probability of a symbol $x$.\nEntropy measures the \u0026quot;average surprise\u0026quot; - a predictable source has low entropy (few bits needed), while an unpredictable source has high entropy (can\u0026#39;t compress at all).\u003c/p\u003e\n\u003cp\u003eFor a coin flip with probability $p$ of heads, the entropy $H = -p\\log_2 p - (1-p)\\log_2(1-p)$ looks like:\u003c/p\u003e\n\u003cdiv class=\"tikz-diagram\"\u003e\n  \u003cimg src=\"/tikz-cache/tikz-3e7b8a7cae727b459fb55bed686ba2ec.svg\" alt=\"TikZ Diagram\" class=\"tikz-svg\" /\u003e\n\u003c/div\u003e\n\n\u003cp\u003eThe outcomes of a biased coin ($p \\approx 0$ or $p \\approx 1$) is predictable and compresses well.\nA helpful way to think about this is how Huffman encoding more efficiently compresses long strings of H or T the more frequent they are.\nLong strings of H or T would appear more frequently the more biased the coin is.\u003c/p\u003e\n\u003ch2 id=\"lossy-compression\"\u003eLossy Compression\u003c/h2\u003e\n\u003cp\u003eBut media codecs go far beyond the entropy limit every day - a raw 1080p frame at 24fps is about 1.5 Gbps, yet streaming services deliver it at around 5 Mbps, a 300x reduction.\u003c/p\u003e\n\u003cdiv class=\"tikz-diagram\"\u003e\n  \u003cimg src=\"/tikz-cache/tikz-af775cf9c5b735fc1461f9f587bd2cf3.svg\" alt=\"TikZ Diagram\" class=\"tikz-svg\" /\u003e\n\u003c/div\u003e\n\n\u003cp\u003eThis is because they use \u003cstrong\u003elossy\u003c/strong\u003e compression - the decoder\u0026#39;s output isn\u0026#39;t identical to the original, just close enough that it\u0026#39;s not perceivable by humans, i.e. \u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eWe\u0026#39;re far more sensitive to brightness than colour - colour can be stored at lower resolution without anyone noticing\u003c/li\u003e\n\u003cli\u003eLoud sounds mask quieter sounds at nearby frequencies - the encoder can skip the masked parts entirely\u003c/li\u003e\n\u003cli\u003eAdjacent video frames are almost identical - the encoder only stores what changed between frames\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eThe question becomes: if we tolerate some distortion, how few bits do we actually need?\u003c/p\u003e\n\u003ch2 id=\"rate-distortion-theory\"\u003eRate-Distortion Theory\u003c/h2\u003e\n\u003cp\u003eSuppose you have a source of data drawn from distribution $p(x)$ - audio samples, video frames, whatever.\nYou want to compress each sample $x$ into a reconstruction $\\hat{x}$.\u003c/p\u003e\n\u003cp\u003eThe encoder is a conditional distribution $q(\\hat{x} | x)$ - for a given input $x$, it gives the probability of producing each possible reconstruction $\\hat{x}$.\u003c/p\u003e\n\u003cp\u003eThe reconstruction won\u0026#39;t be perfect, so we need a way to measure how far off it is.\nThis is the \u003cstrong\u003edistortion function\u003c/strong\u003e $d(x, \\hat{x})$ - it takes the original and the reconstruction and returns a number representing how different they are.\u003c/p\u003e\n\u003cp\u003eThere are multiple types of distortion functions, i.e.\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003cstrong\u003esignal\u003c/strong\u003e level i.e. \u003cstrong\u003esquared error\u003c/strong\u003e $d(x, \\hat{x}) = (x - \\hat{x})^2$\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003ehuman perceptual\u003c/strong\u003e level i.e. \u003cstrong\u003eVMAF\u003c/strong\u003e (Video Multimethod Assessment Fusion) - Netflix\u0026#39;s machine-learned metric that combines multiple features to predict human quality scores\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003eBut we\u0026#39;ll soon see that rate-distortion theory works regardless of what distortion function we choose.\u003c/p\u003e\n\u003cp\u003eWe want to find the encoder that uses the fewest bits while keeping distortion acceptable. This is a tradeoff between two things - rate $R$ (bits used) and distortion $D$ (quality lost) - and we can express it directly as a single objective using a Lagrange multiplier $\\lambda$:\u003c/p\u003e\n\u003cp\u003e$$\n\\begin{align*}\n\\mathcal{L}\n  \u0026amp;= R + \\lambda D \\\\\n  \u0026amp;= I(X; \\hat{X}) + \\lambda  \\mathbb{E}[d(x, \\hat{x})]\n\\end{align*}\n$$\u003c/p\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003eSymbol\u003c/th\u003e\n\u003cth\u003eName\u003c/th\u003e\n\u003cth\u003eDescription\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003e$R = I(X; \\hat{X})$\u003c/td\u003e\n\u003ctd\u003eRate\u003c/td\u003e\n\u003ctd\u003emutual information between source $X$ and reconstruction $\\hat{X}$ or bitrate\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e$D = \\mathbb{E}[d(x, \\hat{x})]$\u003c/td\u003e\n\u003ctd\u003eDistortion\u003c/td\u003e\n\u003ctd\u003ethe expected distortion, averaged over all inputs\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e$\\lambda$\u003c/td\u003e\n\u003ctd\u003eLagrange multiplier\u003c/td\u003e\n\u003ctd\u003econtrols weighting between rate and distortion\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eSweeping $\\lambda$ from $0$ to $\\infty$ and solving for the optimal encoder at each value traces out the \u003cstrong\u003erate-distortion curve\u003c/strong\u003e $R(D)$ - the theoretical best rate at every distortion level:\u003c/p\u003e\n\u003cdiv class=\"tikz-diagram\"\u003e\n  \u003cimg src=\"/tikz-cache/tikz-558d01967f683a83a81711c4670b2dee.svg\" alt=\"TikZ Diagram\" class=\"tikz-svg\" /\u003e\n\u003c/div\u003e\n\n\u003cp\u003eAny point on the curve is the best possible, but our encoders exist above the curve, with each improvement bringing it closer to the curve.\u003c/p\u003e\n\u003ch2 id=\"thermodynamics\"\u003eThermodynamics\u003c/h2\u003e\n\u003cp\u003eShort primer if you haven\u0026#39;t seen statistical mechanics before - it studies systems with many possible states, each with some energy $E$.\nHeat constantly moves the system between states, so rather than sitting in one state, it spends time in many (lower-energy states more often whilst higher-energy states less often).\u003c/p\u003e\n\u003cp\u003eThe \u003cstrong\u003eBoltzmann distribution\u003c/strong\u003e describes exactly how much time is spent in each state:\u003c/p\u003e\n\u003cp\u003e$$\np(\\text{state}) = \\frac{1}{Z} e^{-\\beta E(\\text{state})}\n$$\u003c/p\u003e\n\u003cp\u003ewhere $\\beta$ is the \u003cstrong\u003einverse temperature\u003c/strong\u003e (large $\\beta$ = cold, small $\\beta$ = hot) and $Z = \\sum_{\\text{states}} e^{-\\beta E}$ is a normalising constant called the partition function.\u003c/p\u003e\n\u003cp\u003eThe system is minimising the \u003cstrong\u003efree energy\u003c/strong\u003e $F$ where\u003c/p\u003e\n\u003cp\u003e$$\nF = E - \\frac{1}{\\beta}S\n$$\u003c/p\u003e\n\u003cp\u003eThis is a tradeoff - minimise energy (settle into low-energy states) vs maximise entropy $S$ (spread out across many states).\nThe parameter $\\beta$ controls how much you care about each.\u003c/p\u003e\n\u003cdiv class=\"tikz-diagram\"\u003e\n  \u003cimg src=\"/tikz-cache/tikz-b4e3534d907ed0023a255a79058a04e7.svg\" alt=\"TikZ Diagram\" class=\"tikz-svg\" /\u003e\n\u003c/div\u003e\n\n\u003cp\u003eComparing this with our rate-distortion Lagrangian:\u003c/p\u003e\n\u003cp\u003e$$\n\\mathcal{L} = R + \\lambda D\n$$\u003c/p\u003e\n\u003cp\u003eIt\u0026#39;s the same structure - we\u0026#39;re trying to minimise distortion (energy) vs minimise rate (negative entropy).\nThe parameter $\\lambda$ controls how much you care about each.\u003c/p\u003e\n\u003ch2 id=\"the-equivalence\"\u003eThe Equivalence\u003c/h2\u003e\n\u003ch3 id=\"intuition\"\u003eIntuition\u003c/h3\u003e\n\u003cp\u003eTLDR: information entropy ($-\\sum p \\log p$) and thermodynamic entropy ($S = k \\log W$) are both counts of configurations - bit sequences vs physical microstates.\nWe take the $\\log$ so independent systems add ($\\log W_1 + \\log W_2$) instead of multiply ($W_1 \\cdot W_2$), which matches how every other physical quantity combines.\u003c/p\u003e\n\u003cp\u003eWhen minimising a $\\log$ cost function, setting the derivative to zero and isolating $\\log q$ gives $\\log q = \\text{stuff}$, and exponentiating both sides gives $q = e^{\\text{stuff}}$.\nThat\u0026#39;s the Boltzmann distribution.\u003c/p\u003e\n\u003ch3 id=\"formal-proof\"\u003eFormal proof\u003c/h3\u003e\n\u003cp\u003eExpanding mutual information gives you a double sum with a $\\log$, and the Lagrangian collapses into:\u003c/p\u003e\n\u003cp\u003e$$\n\\mathcal{L}[q] = \\sum_{x, \\hat{x}} p(x) q(\\hat{x} | x) \\left[ \\log \\frac{q(\\hat{x} | x)}{q(\\hat{x})} + \\lambda d(x, \\hat{x}) \\right]\n$$\u003c/p\u003e\n\u003cp\u003ewhere $q(\\hat{x}) = \\sum_x p(x) q(\\hat{x}|x)$ is the marginal over reconstructions.\nHolding $q(\\hat{x})$ fixed and minimising over $q(\\hat{x}|x)$ (subject to probabilities summing to 1), the $\\log$ in the objective pops out an exponential in the solution:\u003c/p\u003e\n\u003cp\u003e$$\nq^*(\\hat{x} | x) = \\frac{q(\\hat{x})}{Z(x)} e^{-\\lambda d(x, \\hat{x})}\n$$\u003c/p\u003e\n\u003cp\u003eAnd there\u0026#39;s the Boltzmann distribution, with the same partition function from before.\u003c/p\u003e\n\u003cp\u003e$$\nZ(x) = \\sum_{\\hat{x}} q(\\hat{x}) e^{-\\lambda d(x, \\hat{x})}\n$$\u003c/p\u003e\n\u003cp\u003eNotice that $d(x, \\hat{x})$ enters the Lagrangian linearly (as a coefficient multiplied by $q(\\hat{x} | x)$) so the derivative treats it as a constant.\nHence if we change $d$ the \u0026quot;energy landscape\u0026quot; changes, but the Boltzmann form stays the same.\u003c/p\u003e\n\u003ch2 id=\"encoding-implications\"\u003eEncoding Implications\u003c/h2\u003e\n\u003cp\u003eNow we can use this knowledge to gain intuition on what tweaking certain parameters are doing.\nI\u0026#39;ll use FFmpeg parameters here, but we can essentially map from a video to a physical system (note this is not an exhaustive list).\u003c/p\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003eParameter\u003c/th\u003e\n\u003cth\u003eRole\u003c/th\u003e\n\u003cth\u003ePhysics Analogy\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003ebitrate\u003c/td\u003e\n\u003ctd\u003eresource limits\u003c/td\u003e\n\u003ctd\u003eenergy\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eQP\u003c/td\u003e\n\u003ctd\u003equality vs bitrate tradeoff\u003c/td\u003e\n\u003ctd\u003etemperature\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003epreset\u003c/td\u003e\n\u003ctd\u003esolve quality\u003c/td\u003e\n\u003ctd\u003eequilibrium time\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003epartitions\u003c/td\u003e\n\u003ctd\u003eblock split size\u003c/td\u003e\n\u003ctd\u003edegrees of freedom\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003edeblock\u003c/td\u003e\n\u003ctd\u003esmooth block boundaries\u003c/td\u003e\n\u003ctd\u003eheat diffusion\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eUsing this model we can view the encoder and its parameters as defining a free-energy functional and the encoding process is the system \u0026quot;relaxing\u0026quot; towards a minimum free-energy state.\u003c/p\u003e\n\u003cp\u003eThere are also some other parameters for \u0026quot;rate-control\u0026quot; \u003c/p\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003eSetting\u003c/th\u003e\n\u003cth\u003eImplication\u003c/th\u003e\n\u003cth\u003ePhysics Analogy\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\u003ctr\u003e\n\u003ctd\u003eCRF (Constant Rate Factor)\u003c/td\u003e\n\u003ctd\u003ebit rate varies, quality constant with time\u003c/td\u003e\n\u003ctd\u003ecanonical ensemble (heat bath to maintain temperature)\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eCBR (Constant Bitrate)\u003c/td\u003e\n\u003ctd\u003ebit rate constant, quality varies with time\u003c/td\u003e\n\u003ctd\u003emicrocanonical ensemble (fixed energy which redistributes itself locally)\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eTwo-pass encoding\u003c/td\u003e\n\u003ctd\u003eunderstanding complexity on first pass then optimising rate control settings before encoding\u003c/td\u003e\n\u003ctd\u003emeasuring the energy landscape to set optimal conditions for relaxation\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\u003c/table\u003e\n","metadata":{"title":"The Theoretical Limits of Media Compression","description":"How thermodynamics explains codec tuning","date":"2026-04-18","type":"Essay","mathjax":true},"headings":[{"id":"introduction","text":"Introduction","level":2},{"id":"lossless-compression","text":"Lossless Compression","level":2},{"id":"lossy-compression","text":"Lossy Compression","level":2},{"id":"rate-distortion-theory","text":"Rate-Distortion Theory","level":2},{"id":"thermodynamics","text":"Thermodynamics","level":2},{"id":"the-equivalence","text":"The Equivalence","level":2},{"id":"encoding-implications","text":"Encoding Implications","level":2}]},"__N_SSG":true},"page":"/writings/[slug]","query":{"slug":"the-theoretical-limits-of-media-compression"},"buildId":"xpnZucvkFW_UlpEB-zzzv","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
