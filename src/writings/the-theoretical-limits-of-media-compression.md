@@ -1,8 +1,8 @@
 ---
 title: "The Theoretical Limits of Media Compression"
-description: "How thermodynamics explains codec tuning"
+description: "How thermodynamic systems explains codec tuning"
 date: "2026-04-18"
-type: "Essay"
+type: "Technical"
 mathjax: true
 ---
 
@@ -94,8 +94,12 @@ For a coin flip with probability $p$ of heads, the entropy $H = -p\log_2 p - (1-
 ```
 
 The outcomes of a biased coin ($p \approx 0$ or $p \approx 1$) is predictable and compresses well.
-A helpful way to think about this is how Huffman encoding more efficiently compresses long strings of H or T the more frequent they are.
-Long strings of H or T would appear more frequently the more biased the coin is.
+
+> As an example:
+> 
+> Say we had a long string of 100 H's in the outcome of our coin tosses, we could represent this with an idea like `"H"*100` instead of the raw value.
+> This compresses things, and if the longer the repeated string was the more it'd be compressed, and the more frequently this long string happened, the more we could apply this compression strategy.
+> Hence the more biased the coin is (these "compressable" patterns become longer and appear more frequently), and thus the better compression we can achieve.
 
 ## Lossy Compression
 
@@ -121,13 +125,13 @@ But media codecs go far beyond the entropy limit every day - a raw 1080p frame a
 \node[right, font=\large] at (0.35, -0.4) {5 Mbps};
 ```
 
-This is because they use **lossy** compression - the decoder's output isn't identical to the original, just close enough that it's not perceivable by humans, i.e. 
+This is because they use **lossy** compression - unlike text there are limits to human perception, consequently the decoder can drop information that is less likely to be noticed, i.e.
 
 - We're far more sensitive to brightness than colour - colour can be stored at lower resolution without anyone noticing
 - Loud sounds mask quieter sounds at nearby frequencies - the encoder can skip the masked parts entirely
 - Adjacent video frames are almost identical - the encoder only stores what changed between frames
 
-The question becomes: if we tolerate some distortion, how few bits do we actually need?
+So now if we can tolerate some distortion, how few bits do we actually need?
 
 ## Rate-Distortion Theory
 
@@ -146,7 +150,8 @@ There are multiple types of distortion functions, i.e.
 
 But we'll soon see that rate-distortion theory works regardless of what distortion function we choose.
 
-We want to find the encoder that uses the fewest bits while keeping distortion acceptable. This is a tradeoff between two things - rate $R$ (bits used) and distortion $D$ (quality lost) - and we can express it directly as a single objective using a Lagrange multiplier $\lambda$:
+We want to find the encoder that uses the fewest bits while keeping distortion acceptable.
+This is a tradeoff between two things - rate $R$ (bits used) and distortion $D$ (quality lost) - and we can express it directly as a single objective using a Lagrange multiplier $\lambda$:
 
 $$
 \begin{align*}
@@ -213,8 +218,8 @@ $$
 F = E - \frac{1}{\beta}S
 $$
 
-This is a tradeoff - minimise energy (settle into low-energy states) vs maximise entropy $S$ (spread out across many states).
-The parameter $\beta$ controls how much you care about each.
+This equation shows our tradeoff: minimise energy (settle into low-energy states) vs maximise entropy $S$ (spread out across many states).
+The parameter $\beta$ (temperature) controls how nature balances the tradeoff between the two.
 
 ```tikz
 % Title
@@ -245,48 +250,76 @@ $$
 \mathcal{L} = R + \lambda D
 $$
 
-It's the same structure - we're trying to minimise distortion (energy) vs minimise rate (negative entropy).
-The parameter $\lambda$ controls how much you care about each.
+It follows the same structure - we're trying to minimise distortion (energy) vs minimise rate (negative entropy).
+Similarly, the parameter $\lambda$ controls how much you care about each.
 
 ## The Equivalence
 
 ### Intuition
 
-TLDR: information entropy ($-\sum p \log p$) and thermodynamic entropy ($S = k \log W$) are both counts of configurations - bit sequences vs physical microstates.
-We take the $\log$ so independent systems add ($\log W_1 + \log W_2$) instead of multiply ($W_1 \cdot W_2$), which matches how every other physical quantity combines.
+TLDR: information entropy ($H = -\sum p \log p$) and thermodynamic entropy ($S = k \log W$) are both counts of configurations - bit sequences vs physical microstates.
+We take the $\log$ because total uncertainty in independent systems add ($\log W_1 + \log W_2$) whilst independent probabilities and state counts multiply ($W_1 \cdot W_2$). 
 
-When minimising a $\log$ cost function, setting the derivative to zero and isolating $\log q$ gives $\log q = \text{stuff}$, and exponentiating both sides gives $q = e^{\text{stuff}}$.
-That's the Boltzmann distribution.
+Since the Lagrangian has a $q \log q$ (from mutual information) and a linear $q \cdot d$ term (from distortion), setting the derivative to zero and isolating $\log q$ gives $\log q = \text{stuff}$, and exponentiating both sides gives $q = e^{\text{stuff}}$.
+Hence we see the Boltzmann distribution.
 
 ### Formal proof
 
-Expanding mutual information gives you a double sum with a $\log$, and the Lagrangian collapses into:
+Not-the-TLDR:
+
+The Lagrangian is defined as
 
 $$
-\mathcal{L}[q] = \sum_{x, \hat{x}} p(x) q(\hat{x} | x) \left[ \log \frac{q(\hat{x} | x)}{q(\hat{x})} + \lambda d(x, \hat{x}) \right]
+\begin{align*}
+\mathcal{L} 
+  &= R + \lambda D \\\\
+  &= I(X;\hat{X}) + \lambda \mathbb{E}[d(x, \hat{x})] \\\\
+  &= \sum_{x,\hat{x}} p(x) q(\hat{x} \mid x)\log\frac{q(\hat{x} \mid x)}{q(\hat{x})} + \lambda \sum_{x,\hat{x}} p(x) q(\hat{x} \mid x) d(x,\hat{x}) \\\\
+  &= \sum_{x, \hat{x}} p(x) q(\hat{x} | x) \left[ \log \frac{q(\hat{x} | x)}{q(\hat{x})} + \lambda d(x, \hat{x}) \right]
+\end{align*}
 $$
 
 where $q(\hat{x}) = \sum_x p(x) q(\hat{x}|x)$ is the marginal over reconstructions.
-Holding $q(\hat{x})$ fixed and minimising over $q(\hat{x}|x)$ (subject to probabilities summing to 1), the $\log$ in the objective pops out an exponential in the solution:
+
+Solving for the optimal conditional distribution means minimising $\mathcal{L}[q]$ over all valid $q(\hat{x} \mid x)$:
 
 $$
-q^*(\hat{x} | x) = \frac{q(\hat{x})}{Z(x)} e^{-\lambda d(x, \hat{x})}
+\begin{align*}
+q^*(\hat{x} \mid x)
+  &= \arg\min_{q(\hat{x} \mid x)} \mathcal{L}[q] \\\\
+\text{subject to } \sum_{\hat{x}} q(\hat{x} \mid x)
+  &= 1 \quad \text{for each } x
+\end{align*}
 $$
 
-And there's the Boltzmann distribution, with the same partition function from before.
+Enforcing that constraint and setting the derivative equal to 0 gives:
+
+$$
+\log \frac{q^*(\hat{x} \mid x)}{q(\hat{x})} = -\lambda d(x, \hat{x}) - \log Z(x)
+$$
+
+Exponentiating both sides and rearranging gives:
+
+$$
+q^*(\hat{x} \mid x) = \frac{q(\hat{x})}{Z(x)} e^{-\lambda d(x, \hat{x})}
+$$
+
+That's the Boltzmann distribution, with the same partition function
 
 $$
 Z(x) = \sum_{\hat{x}} q(\hat{x}) e^{-\lambda d(x, \hat{x})}
 $$
 
+that enforces $\sum_{\hat{x}} q^*(\hat{x}|x) = 1$.
+
+
 Notice that $d(x, \hat{x})$ enters the Lagrangian linearly (as a coefficient multiplied by $q(\hat{x} | x)$) so the derivative treats it as a constant.
 Hence if we change $d$ the "energy landscape" changes, but the Boltzmann form stays the same.
-
 
 ## Encoding Implications
 
 Now we can use this knowledge to gain intuition on what tweaking certain parameters are doing.
-I'll use FFmpeg parameters here, but we can essentially map from a video to a physical system (note this is not an exhaustive list).
+I'll use FFmpeg parameters here, but the ideas apply more broadly (note this is not an exhaustive list):
 
 | Parameter        | Role                     | Physics Analogy |
 | ---------------- | ------------------------ | --------------- |
@@ -298,10 +331,14 @@ I'll use FFmpeg parameters here, but we can essentially map from a video to a ph
 
 Using this model we can view the encoder and its parameters as defining a free-energy functional and the encoding process is the system "relaxing" towards a minimum free-energy state.
 
-There are also some other parameters for "rate-control" 
+You can push the analogy a bit further with rate control parameters as well:
 
 | Setting | Implication | Physics Analogy |
 | ------- | ----------- | --------------- |
 | CRF (Constant Rate Factor) | bit rate varies, quality constant with time | canonical ensemble (heat bath to maintain temperature) |
 | CBR (Constant Bitrate) | bit rate constant, quality varies with time  | microcanonical ensemble (fixed energy which redistributes itself locally) |
 | Two-pass encoding | understanding complexity on first pass then optimising rate control settings before encoding | measuring the energy landscape to set optimal conditions for relaxation |
+
+## Conclusion
+
+This concludes my article but the fun doesn't stop there (nerdy, I know) - understanding that entropy is represented the same in thermodynamics and information theory gives us a way to gain intuition for how encoding options look more like properties of a thermodynamic system.

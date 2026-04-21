@@ -9,10 +9,6 @@ type Props = {
 };
 
 export default function WritingBlock({ sectionId, contentId, writings }: Props) {
-  const handleTitleClick = () => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
-    window.history.replaceState(window.history.state, "", `#${sectionId}`);
-  };
 
   const dateOptions: Intl.DateTimeFormatOptions = {
     year: "numeric",
@@ -34,7 +30,7 @@ export default function WritingBlock({ sectionId, contentId, writings }: Props) 
     type: string,
     readingTimeMinutes?: number,
   ) => {
-    const dateString = date.toLocaleDateString(undefined, dateOptions);
+    const dateString = date.toLocaleDateString("en-GB", dateOptions);
     return (
       <Link href={`/writings/${path}`} key={path}>
         <div className={styles.writing}>

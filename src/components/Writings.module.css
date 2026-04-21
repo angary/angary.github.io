@@ -17,6 +17,26 @@
   color: var(--accent-color);
 }
 
+.writing:hover .description {
+  color: color-mix(in srgb, var(--accent-color) 70%, transparent);
+}
+
+.writing:hover .meta {
+  color: color-mix(in srgb, var(--accent-color) 50%, transparent);
+}
+
+:global([data-theme="dark"]) .writing:hover .title {
+  color: oklch(from var(--accent-color) calc(l + 0.1) calc(c * 1.2) h);
+}
+
+:global([data-theme="dark"]) .writing:hover .description {
+  color: oklch(from var(--accent-color) calc(l) calc(c * 0.5) h);
+}
+
+:global([data-theme="dark"]) .writing:hover .meta {
+  color: oklch(from var(--accent-color) calc(l - 0.18) calc(c * 0.3) h);
+}
+
 .meta {
   color: var(--quaternary-foreground);
   transition: color var(--transition-duration);
