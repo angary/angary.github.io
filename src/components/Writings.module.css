@@ -17,6 +17,27 @@
   color: var(--accent-color);
 }
 
+.writing:hover .description {
+  color: var(--secondary-accent-color);
+}
+
+.writing:hover .meta {
+  color: #99CAFF;
+}
+
+/* Dark mode: lighter = more prominent */
+:global([data-theme="dark"]) .writing:hover .title {
+  color: #7CC4FF;
+}
+
+:global([data-theme="dark"]) .writing:hover .description {
+  color: #6E9BC2;
+}
+
+:global([data-theme="dark"]) .writing:hover .meta {
+  color: #4A6780;
+}
+
 .meta {
   color: var(--quaternary-foreground);
   transition: color var(--transition-duration);
