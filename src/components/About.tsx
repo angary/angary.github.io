@@ -10,9 +10,9 @@ export default function About({ sectionId, contentId }: AboutProps) {
     <div id={contentId ?? sectionId} className={styles.about}>
       Software engineer from Sydney, Australia
       <br />
-      <a href="https://github.com/angary/" className={styles.link}>Github</a>
+      <a href="https://github.com/angary/" className={styles.link}>GITHUB</a>
       <span className={styles.link}>{" // "}</span>
-      <a href="https://www.linkedin.com/in/gary-sun/" className={styles.link}>Linkedin</a>
+      <a href="https://www.linkedin.com/in/gary-sun/" className={styles.link}>LINKEDIN</a>
     </div>
   );
 }

@@ -9,7 +9,7 @@ import About from "../components/About";
 import Writings from "../components/Writings";
 import { WRITINGS_DIR } from "../constants";
 import { Writing } from "../global";
-import styles from "../styles/Home.module.css";
+import styles from "./index.module.css";
 
 type Props = {
   writings: Writing[];

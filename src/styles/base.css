@@ -39,6 +39,14 @@ a:hover {
   color: var(--accent-color);
 }
 
+.heading-anchor {
+  color: inherit;
+}
+
+.heading-anchor:hover {
+  color: var(--accent-color);
+}
+
 p {
   padding: 0.4rem 0rem;
 }

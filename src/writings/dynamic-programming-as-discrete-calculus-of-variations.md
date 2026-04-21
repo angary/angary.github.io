@@ -2,7 +2,7 @@
 title: "Dynamic Programming as Discrete Calculus of Variations"
 description: "Computer science meets classical mechanics"
 date: "2026-03-21"
-type: "Essay"
+type: "Technical"
 mathjax: true
 ---
 

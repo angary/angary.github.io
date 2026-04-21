@@ -2,15 +2,17 @@ import { MathJax } from "better-react-mathjax";
 import Link from "next/link";
 import fs from "fs";
 import matter from "gray-matter";
+import he from "he";
 import { marked } from "marked";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
 import path from "path";
+import readingTime from "reading-time";
 import { createCssVariablesTheme, createHighlighter, type Highlighter } from "shiki";
 import TableOfContents from "../../components/TableOfContents";
 import { WRITINGS_DIR } from "../../constants";
 import type { HeadingInfo, WritingMetadata } from "../../global";
-import styles from "../../styles/Writing.module.css";
+import styles from "./writing.module.css";
 import { processTikzInMarkdown } from "../../util/tikzBuildTimeLocal";
 
 const MISSED_KEYWORDS = new Set(["lambda", "class", "pass", "raise", "with", "as", "assert", "yield", "async", "await"]);
@@ -50,6 +52,11 @@ export default function Writing({ contents, metadata, headings }: WritingPagePro
   if (metadata.mathjax) {
     htmlContent = <MathJax>{htmlContent}</MathJax>;
   }
+  const dateString = new Date(metadata.date).toLocaleDateString("en-GB", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+  });
   return (
     <>
       <Head>
@@ -58,16 +65,17 @@ export default function Writing({ contents, metadata, headings }: WritingPagePro
       <TableOfContents headings={headings} />
       <div className={styles.body}>
         <div className={styles.article}>
-          <Link href="/"><h1 className={styles.title}>{metadata.title}</h1></Link>
+          <Link href="/" className={styles.wordmark}>
+            Gary Sun <span className={styles.sep}>{"//"}</span> <span className={styles.cn}>孫健</span>
+          </Link>
+          <h1 className={styles.title}>{metadata.title}</h1>
           <p className={styles.description}>{metadata.description}</p>
-          <p className={styles.date}>
-            {new Date(metadata.date).toLocaleString("en-gb", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
-            <span className={styles.sep}>{" // "}</span>
+          <p className={styles.meta}>
+            <span className={styles.smallCaps}>{dateString}</span>
+            <span className={styles.dot}>•</span>
             <span className={styles.type}>{metadata.type}</span>
+            <span className={styles.dot}>•</span>
+            <span className={styles.smallCaps}>{metadata.readingTimeMinutes ?? 1} min</span>
           </p>
           <hr className={styles.divider} />
           {htmlContent}
@@ -131,8 +139,18 @@ function renderMarkdown(src: string, highlighter: Highlighter): { html: string; 
   let html = marked(processed) as string;
 
   for (const m of Array.from(html.matchAll(/<h([1-6])[^>]*id="([^"]*)"[^>]*>(.*?)<\/h\1>/g))) {
-    headings.push({ id: m[2], text: m[3].replace(/<[^>]+>/g, ""), level: Number(m[1]) });
+    headings.push({
+      id: m[2],
+      text: he.decode(m[3].replace(/<[^>]+>/g, "")),
+      level: Number(m[1]),
+    });
   }
+
+  html = html.replace(
+    /<h([1-6])([^>]*?)id="([^"]*)"([^>]*)>([\s\S]*?)<\/h\1>/g,
+    (_match, level, before, id, after, content) =>
+      `<h${level}${before}id="${id}"${after}><a class="heading-anchor" href="#${id}">${content}</a></h${level}>`
+  );
 
   for (const [placeholder, highlighted] of Object.entries(codeBlocks)) {
     html = html.replace(`<p>${placeholder}</p>`, highlighted);
@@ -152,6 +170,8 @@ export const getStaticProps: GetStaticProps<WritingPageProps, { slug: string }> 
 
   const { content, data } = matter.read(path.join(WRITINGS_DIR, slug + ".md"));
   const highlighter = await getHighlighter();
+  const readingTimeMinutes = Math.max(1, Math.ceil(readingTime(content, { wordsPerMinute: 200 }).minutes));
+  const metadata = { ...(data as WritingMetadata), readingTimeMinutes };
 
   try {
     const processedContent = await processTikzInMarkdown(content);
@@ -159,7 +179,7 @@ export const getStaticProps: GetStaticProps<WritingPageProps, { slug: string }> 
     return {
       props: {
         contents: html,
-        metadata: data as WritingMetadata,
+        metadata,
         headings: topLevelHeadings(headings),
       },
     };
@@ -172,7 +192,7 @@ export const getStaticProps: GetStaticProps<WritingPageProps, { slug: string }> 
     return {
       props: {
         contents: html,
-        metadata: data as WritingMetadata,
+        metadata,
         headings: topLevelHeadings(headings),
       },
     };
